@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
+  <link rel="icon" type="image/png" sizes="400x400" href="./assets/calculmabi-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#16333e">
+  <meta name="description" content="瑪奇小算盤 CalculMabi：依考試目標計算打鐵、衣物製作、稀原工學與魔法製造的升段備料。">
+  <meta name="application-name" content="瑪奇小算盤 CalculMabi">
+  <meta property="og:site_name" content="瑪奇小算盤 CalculMabi">
+  <meta property="og:title" content="升段材料｜瑪奇小算盤 CalculMabi">
+  <meta property="og:description" content="瑪奇小算盤 CalculMabi：依考試目標計算打鐵、衣物製作、稀原工學與魔法製造的升段備料。">
+  <title>升段材料｜瑪奇小算盤 CalculMabi</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./dan.css">
+  <link rel="stylesheet" href="./category-nav.css">
+  <link rel="stylesheet" href="./theme.css">
+  <link rel="stylesheet" href="./density.css">
+  <link rel="stylesheet" href="./dan-planner.css">
+  <script src="./theme.js"></script>
+  <script src="./navigation.js" defer></script>
+  <script type="module" src="./dan-app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到升段材料</a>
+  <nav class="category-nav" aria-label="大分類"><a href="./" aria-current="true">技能 <small>SKILLS</small></a><a href="./erg.html">聚能 <small>ERG</small></a><a href="./stardust.html">星塵 <small>STARDUST</small></a><a href="./reading.html">讀書型技能 <small>READING</small></a><button id="theme-toggle" class="theme-toggle" type="button" aria-label="黑暗模式" aria-pressed="false" title="切換為黑暗模式"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><span>黑暗模式</span></button></nav>
+
+<nav id="skill-nav" class="subcategory-nav" aria-label="選擇升段技能"></nav>
+  <nav class="mode-nav skill-mode-nav" aria-label="技能模式"><a id="training-mode" href="./">一般修練</a><a id="dan-mode" href="./dan.html" aria-current="page">升段</a></nav>
+<div class="workspace dan-workspace">
+  <main id="main" class="dan-page" tabindex="-1">
+
+    <div class="page-heading dan-heading"><button id="reset-materials" class="text-button" type="button">清除選擇</button></div>
+    <div id="error-message" class="error-message" role="alert" hidden></div>
+    <div id="npc-exam" class="npc-exam" hidden></div>
+    <section id="round-exam" class="round-exam" aria-label="分階段製作" hidden>
+      <div id="round-choices" class="round-choices"></div>
+      <p class="round-footer">每階段單選，材料分階段顯示；固定用量不含製作失敗追加耗材。</p>
+    </section>
+    <section class="dan-shopping" aria-labelledby="shopping-title">
+      <div class="shopping-heading"><h2 id="shopping-title">預估材料・含結尾</h2><span id="selection-count" aria-live="polite"></span></div>
+      <div id="shopping-list" class="shopping-grid" role="table" aria-label="材料與用量"></div>
+      <div id="round-production" class="round-production" hidden></div>
+      <div id="patterns" class="shopping-patterns"></div>
+    </section>
+  </main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" hidden><span aria-hidden="true">↑</span> 回到頂端</button>
+</body></html>

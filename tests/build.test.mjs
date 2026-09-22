@@ -1,0 +1,72 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp, mkdir, readFile, writeFile, rm, unlink} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {buildSite} from '../scripts/build.mjs';
+
+test('聚能程式直接引用的欄位都存在於目前頁面', async () => {
+  const html = await readFile(new URL('../dist/erg.html', import.meta.url), 'utf8');
+  const app = await readFile(new URL('../dist/erg-app.js', import.meta.url), 'utf8');
+  const ids = new Set([...app.matchAll(/\$\('([^']+)'\)/g)].map(match => match[1]));
+  for (const id of ids) assert.ok(html.includes(`id="${id}"`), `Missing DOM element: ${id}`);
+});
+
+test('發布時 HTML、巢狀模組與資料採同一版本，內容修改會更新所有引用', async t => {
+  const root = await mkdtemp(path.join(tmpdir(), 'mabi-build-'));
+  t.after(() => rm(root, {recursive:true, force:true}));
+  const source = path.join(root, 'source'), output = path.join(root, 'output');
+  await mkdir(path.join(source, 'data'), {recursive:true});
+  await writeFile(path.join(source, 'erg.html'), '<script src="./erg-app.js"></script><link href="./density.css?v=old"><a href="./dan.html">升段</a><a href="./?skill=tailoring&amp;v=old#main">一般修練</a><script src="https://example.com/external.js"></script>');
+  await writeFile(path.join(source, 'erg-app.js'), "import './calculator.js'; fetch('./data/erg.json');");
+  await writeFile(path.join(source, 'calculator.js'), 'export const value = 1;');
+  await writeFile(path.join(source, 'density.css'), 'body { color: teal; }');
+  await writeFile(path.join(source, 'data/erg.json'), '{"value":1}');
+  const revision = await buildSite(source, output);
+  const html = await readFile(path.join(output, 'erg.html'), 'utf8');
+  assert.ok(html.includes(`./erg-app.js?v=${revision}`));
+  assert.ok(html.includes(`./density.css?v=${revision}`));
+  assert.ok(html.includes(`href="./dan.html?v=${revision}"`));
+  assert.ok(html.includes(`href="./?skill=tailoring&amp;v=${revision}#main"`));
+  assert.ok(html.includes('src="https://example.com/external.js"'));
+  const app = await readFile(path.join(output, 'erg-app.js'), 'utf8');
+  assert.ok(app.includes(`./calculator.js?v=${revision}`));
+  assert.ok(app.includes(`./data/erg.json?v=${revision}`));
+  assert.equal(await readFile(path.join(output, 'data/erg.json'), 'utf8'), '{"value":1}');
+  assert.equal(await buildSite(source, output), revision);
+  await writeFile(path.join(source, 'calculator.js'), 'export const value = 2;');
+  const nextRevision = await buildSite(source, output);
+  assert.notEqual(nextRevision, revision);
+  assert.ok((await readFile(path.join(output, 'erg.html'), 'utf8')).includes(`./erg-app.js?v=${nextRevision}`));
+  assert.ok((await readFile(path.join(output, 'erg-app.js'), 'utf8')).includes(`./calculator.js?v=${nextRevision}`));
+  await writeFile(path.join(source, 'unused.png'), 'old image');
+  await buildSite(source, output);
+  await unlink(path.join(source, 'unused.png'));
+  await buildSite(source, output);
+  await assert.rejects(readFile(path.join(output, 'unused.png')), {code:'ENOENT'});
+  await assert.rejects(buildSite(source, source), /must not overlap/);
+  await assert.rejects(buildSite(source, path.join(source,'output')), /must not overlap/);
+  await assert.rejects(buildSite(source, root), /must not overlap/);
+});
+
+test('發布頁預載完整模組鏈與資料、先輸出技能列，JSON 精簡後資料不變', async t => {
+  const root = await mkdtemp(path.join(tmpdir(), 'mabi-preload-'));
+  t.after(() => rm(root, {recursive:true, force:true}));
+  const source = path.join(root,'source'), output = path.join(root,'output');
+  await mkdir(path.join(source,'data'), {recursive:true});
+  await writeFile(path.join(source,'index.html'), '<head><script type="module" src="./app.js"></script></head><nav id="skill-nav"></nav>');
+  await writeFile(path.join(source,'app.js'), "import {value} from './calculator.js'; fetch('./data/skills.json');");
+  await writeFile(path.join(source,'calculator.js'), "export {value} from './shared.js';");
+  await writeFile(path.join(source,'shared.js'), 'export const value=1;');
+  const data = {name:'測試技能',quantity:30,enabled:false,empty:null,rows:[1,2,3]};
+  await writeFile(path.join(source,'data/skills.json'),JSON.stringify(data,null,2));
+  const revision = await buildSite(source,output);
+  const html = await readFile(path.join(output,'index.html'),'utf8');
+  for (const file of ['app.js','calculator.js','shared.js']) assert.ok(html.includes(`rel="modulepreload" href="./${file}?v=${revision}"`));
+  assert.ok(html.includes(`rel="preload" as="fetch" crossorigin="anonymous" href="./data/skills.json?v=${revision}"`));
+  assert.equal([...html.matchAll(/data-skill=/g)].length,9);
+  assert.ok(html.includes('data-skill="tailoring"'));
+  const packed = await readFile(path.join(output,'data/skills.json'),'utf8');
+  assert.deepEqual(JSON.parse(packed),data);
+  assert.ok(packed.length<JSON.stringify(data,null,2).length);
+});

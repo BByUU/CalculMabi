@@ -1,0 +1,78 @@
+{
+  "note": "Mabinogi skill artwork, copyright NEXON/devCAT. Downloaded unchanged from mabi.gg skill pages.",
+  "retrieved": "2026-09-22",
+  "items": [
+    {
+      "id": "tailoring",
+      "name": "Tailoring",
+      "pageUrl": "https://mabi.gg/talents/tailoring/tailoring",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/46/4641b2543b97d4422bc3cedf71afcbc8ba79d23a0932f3a873b4cf58269e0412.webp",
+      "file": "tailoring.webp",
+      "bytes": 5950
+    },
+    {
+      "id": "blacksmith",
+      "name": "Blacksmithing",
+      "pageUrl": "https://mabi.gg/talents/smithing/blacksmithing",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/4b/4b7801c8b02011ef0eb0fd50ad1a1728e4cc4b5724164bf41bd9dae352d3d00d.webp",
+      "file": "blacksmith.webp",
+      "bytes": 6048
+    },
+    {
+      "id": "magic-craft",
+      "name": "Magic Craft",
+      "pageUrl": "https://mabi.gg/talents/pet_training/magic_craft",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/b8/b87d42d7a307041e60e07a9f75421e0cdbb014178b1cb0665e71f7b5eaf33cae.webp",
+      "file": "magic-craft.webp",
+      "bytes": 5726
+    },
+    {
+      "id": "hillwen-engineering",
+      "name": "Hillwen Engineering",
+      "pageUrl": "https://mabi.gg/talents/pet_training/hillwen_engineering",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/f3/f3c5ce44ecef2a01202dbc0e507612244886538dcf51f41f38231aab3c9c6b6f.webp",
+      "file": "hillwen-engineering.webp",
+      "bytes": 7766
+    },
+    {
+      "id": "fynn-craft",
+      "name": "Fynn Crafting",
+      "pageUrl": "https://mabi.gg/talents/pet_training/fynn_crafting",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/b2/b27f5642aa5601c61e18596821b3f11f8a36e4f2335f6ae20e605db6dd07a54f.webp",
+      "file": "fynn-craft.webp",
+      "bytes": 8000
+    },
+    {
+      "id": "fynn-bead-burnishing",
+      "name": "Fynn Bead Burnishing",
+      "pageUrl": "https://mabi.gg/talents/pet_training/fynn_bead_burnishing",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/57/57c32321ba15e88095ed247cdc558b428290e38df2ea175d3400ff0de64e85e8.webp",
+      "file": "fynn-bead-burnishing.webp",
+      "bytes": 6868
+    },
+    {
+      "id": "handicraft",
+      "name": "Handicraft",
+      "pageUrl": "https://mabi.gg/talents/carpentry/handicraft",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/3a/3a6be150e290e4b8db16999cee39dfce6f5d75966ab48d192f586ad3d9a2d174.webp",
+      "file": "handicraft.webp",
+      "bytes": 5634
+    },
+    {
+      "id": "stationery-craft",
+      "name": "Stationery Crafting",
+      "pageUrl": "https://mabi.gg/talents/glyphwrighting/stationery_crafting",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/e0/e01582cd85f000d3d93d00ecec425451214368b108ef9f4d1b73c412cb3c9e14.webp",
+      "file": "stationery-craft.webp",
+      "bytes": 5892
+    },
+    {
+      "id": "enchant",
+      "name": "Enchant",
+      "pageUrl": "https://mabi.gg/talents/magic/enchant",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/skill-icons/b9/b9b418f699e17658c88c59061218e6c303327a49e0985475a547c4eadc33adc9.webp",
+      "file": "enchant.webp",
+      "bytes": 5770
+    }
+  ]
+}

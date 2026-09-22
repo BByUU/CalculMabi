@@ -1,0 +1,818 @@
+{
+  "recipes": {
+    "giant-armor": {
+      "id": "giant-armor",
+      "name": "巴倫西亞十字型盔甲(巨人專用)",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 105
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 37.5
+        },
+        {
+          "name": "繩結線",
+          "quantity": 37.5
+        },
+        {
+          "name": "高級布料",
+          "quantity": 4
+        },
+        {
+          "name": "魔女 翅膀面具",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字型盔甲(巨人專用)"
+    },
+    "giant-gloves": {
+      "id": "giant-gloves",
+      "name": "巴倫西亞十字金屬手套(巨人專用)",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 37.5
+        },
+        {
+          "name": "普通皮繩",
+          "quantity": 15
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 15
+        },
+        {
+          "name": "普通布料",
+          "quantity": 1
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字金屬手套(巨人專用)"
+    },
+    "giant-boots": {
+      "id": "giant-boots",
+      "name": "巴倫西亞十字金屬長靴",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 60
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 36
+        },
+        {
+          "name": "高級布料",
+          "quantity": 1
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字金屬長靴"
+    },
+    "dustin-armor": {
+      "id": "dustin-armor",
+      "name": "迪歐斯 鎧甲(男性用)",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 40.5
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 22.5
+        },
+        {
+          "name": "普通布料",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 迪歐斯 鎧甲(男性用)"
+    },
+    "dustin-gloves": {
+      "id": "dustin-gloves",
+      "name": "迪歐斯 長手套",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 30
+        },
+        {
+          "name": "普通皮繩",
+          "quantity": 12
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 迪歐斯 長手套"
+    },
+    "dustin-boots": {
+      "id": "dustin-boots",
+      "name": "迪歐斯 靴子",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 36
+        },
+        {
+          "name": "普通皮繩",
+          "quantity": 12
+        },
+        {
+          "name": "普通絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 迪歐斯 靴子"
+    },
+    "human-armor": {
+      "id": "human-armor",
+      "name": "巴倫西亞十字型盔甲(男性專用)",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 135
+        },
+        {
+          "name": "優質皮繩",
+          "quantity": 40.5
+        },
+        {
+          "name": "繩結線",
+          "quantity": 40.5
+        },
+        {
+          "name": "高級布料",
+          "quantity": 3
+        },
+        {
+          "name": "魔女 翅膀面具",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字型盔甲(男性專用)"
+    },
+    "human-gloves": {
+      "id": "human-gloves",
+      "name": "巴倫西亞十字金屬手套",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 42
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 31.5
+        },
+        {
+          "name": "普通布料",
+          "quantity": 1
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字金屬手套"
+    },
+    "human-boots": {
+      "id": "human-boots",
+      "name": "巴倫西亞十字金屬長靴",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 60
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 36
+        },
+        {
+          "name": "高級布料",
+          "quantity": 1
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 巴倫西亞十字金屬長靴"
+    },
+    "claymore": {
+      "id": "claymore",
+      "name": "闊刃雙手劍",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 22.5
+        },
+        {
+          "name": "銀塊",
+          "quantity": 22.5
+        },
+        {
+          "name": "銅塊",
+          "quantity": 22.5
+        },
+        {
+          "name": "優質皮革",
+          "quantity": 1
+        },
+        {
+          "name": "粗繩",
+          "quantity": 2
+        }
+      ],
+      "pattern": "設計圖 - 闊刃雙手劍"
+    },
+    "champion": {
+      "id": "champion",
+      "name": "冠軍拳套",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 63
+        },
+        {
+          "name": "銀塊",
+          "quantity": 42
+        },
+        {
+          "name": "秘銀塊",
+          "quantity": 31.5
+        },
+        {
+          "name": "優質皮革",
+          "quantity": 2
+        },
+        {
+          "name": "鐵釘",
+          "quantity": 5
+        }
+      ],
+      "pattern": "設計圖 - 冠軍拳套"
+    },
+    "celtic-hammer": {
+      "id": "celtic-hammer",
+      "name": "凱爾特鬥錘",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 36
+        },
+        {
+          "name": "銀塊",
+          "quantity": 27
+        },
+        {
+          "name": "秘銀塊",
+          "quantity": 54
+        },
+        {
+          "name": "繩結線",
+          "quantity": 2
+        },
+        {
+          "name": "鐵釘",
+          "quantity": 6
+        },
+        {
+          "name": "毀損的徽章",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 凱爾特鬥錘"
+    },
+    "celtic-warhammer": {
+      "id": "celtic-warhammer",
+      "name": "凱爾特戰錘",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 63
+        },
+        {
+          "name": "銀塊",
+          "quantity": 36
+        },
+        {
+          "name": "秘銀塊",
+          "quantity": 81
+        },
+        {
+          "name": "繩結線",
+          "quantity": 3
+        },
+        {
+          "name": "鐵釘",
+          "quantity": 8
+        },
+        {
+          "name": "毀損的巨大徽章",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 凱爾特戰錘"
+    },
+    "celtic-axe": {
+      "id": "celtic-axe",
+      "name": "凱爾特鬥斧",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 36
+        },
+        {
+          "name": "銀塊",
+          "quantity": 27
+        },
+        {
+          "name": "秘銀塊",
+          "quantity": 54
+        },
+        {
+          "name": "高級皮革",
+          "quantity": 18
+        },
+        {
+          "name": "繩結線",
+          "quantity": 1
+        },
+        {
+          "name": "鐵釘",
+          "quantity": 2
+        },
+        {
+          "name": "毀損的徽章",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 凱爾特鬥斧"
+    },
+    "celtic-waraxe": {
+      "id": "celtic-waraxe",
+      "name": "凱爾特戰斧",
+      "materials": [
+        {
+          "name": "鐵塊",
+          "quantity": 63
+        },
+        {
+          "name": "銀塊",
+          "quantity": 36
+        },
+        {
+          "name": "秘銀塊",
+          "quantity": 81
+        },
+        {
+          "name": "高級皮革",
+          "quantity": 36
+        },
+        {
+          "name": "繩結線",
+          "quantity": 2
+        },
+        {
+          "name": "鐵釘",
+          "quantity": 2
+        },
+        {
+          "name": "毀損的巨大徽章",
+          "quantity": 1
+        }
+      ],
+      "pattern": "設計圖 - 凱爾特戰斧"
+    },
+    "healer-suit": {
+      "id": "healer-suit",
+      "name": "柯列斯治癒師正裝",
+      "materials": [
+        {
+          "name": "廉價布料",
+          "quantity": 3
+        },
+        {
+          "name": "普通布料",
+          "quantity": 3
+        },
+        {
+          "name": "廉價皮繩",
+          "quantity": 3
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 柯列斯治癒師正裝"
+    },
+    "healer-gloves": {
+      "id": "healer-gloves",
+      "name": "柯列斯治癒師手套",
+      "materials": [
+        {
+          "name": "普通布料",
+          "quantity": 3
+        },
+        {
+          "name": "普通絲綢",
+          "quantity": 3
+        },
+        {
+          "name": "繩結線",
+          "quantity": 3
+        },
+        {
+          "name": "高級結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 柯列斯治癒師手套"
+    },
+    "bandana": {
+      "id": "bandana",
+      "name": "皮頭巾",
+      "materials": [
+        {
+          "name": "廉價布料",
+          "quantity": 1.5
+        },
+        {
+          "name": "普通皮革",
+          "quantity": 1.5
+        },
+        {
+          "name": "普通結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 皮頭巾"
+    },
+    "healer-dress": {
+      "id": "healer-dress",
+      "name": "柯列斯治癒師連衣裙",
+      "materials": [
+        {
+          "name": "廉價布料",
+          "quantity": 3
+        },
+        {
+          "name": "廉價絲綢",
+          "quantity": 3
+        },
+        {
+          "name": "普通結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 柯列斯治癒師連衣裙"
+    },
+    "mongo-hat": {
+      "id": "mongo-hat",
+      "name": "蒙果遮陽帽",
+      "materials": [
+        {
+          "name": "優質布料",
+          "quantity": 3
+        },
+        {
+          "name": "普通絲綢",
+          "quantity": 3
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 蒙果遮陽帽"
+    },
+    "debbie-male-clothes": {
+      "id": "debbie-male-clothes",
+      "name": "黛比蘇格蘭格子花呢服(男性用)",
+      "materials": [
+        {
+          "name": "優質布料",
+          "quantity": 45
+        },
+        {
+          "name": "高級布料",
+          "quantity": 30
+        },
+        {
+          "name": "優質絲綢",
+          "quantity": 45
+        },
+        {
+          "name": "粗線",
+          "quantity": 45
+        },
+        {
+          "name": "魔法金線",
+          "quantity": 1
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        },
+        {
+          "name": "紅藥水／成人用紅色香水",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 黛比蘇格蘭格子花呢服(男性用)"
+    },
+    "debbie-male-shoes": {
+      "id": "debbie-male-shoes",
+      "name": "黛比蘇格蘭格子花呢鞋(男性用)",
+      "materials": [
+        {
+          "name": "高級布料",
+          "quantity": 4.5
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 4.5
+        },
+        {
+          "name": "繩結線",
+          "quantity": 9
+        },
+        {
+          "name": "粗繩",
+          "quantity": 1
+        },
+        {
+          "name": "高級結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 黛比蘇格蘭格子花呢鞋(男性用)"
+    },
+    "debbie-female-clothes": {
+      "id": "debbie-female-clothes",
+      "name": "黛比蘇格蘭格子花呢服(女性用)",
+      "materials": [
+        {
+          "name": "優質布料",
+          "quantity": 45
+        },
+        {
+          "name": "高級布料",
+          "quantity": 30
+        },
+        {
+          "name": "優質絲綢",
+          "quantity": 45
+        },
+        {
+          "name": "粗線",
+          "quantity": 45
+        },
+        {
+          "name": "魔法銀線",
+          "quantity": 1
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        },
+        {
+          "name": "青少年用黑藥水",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 黛比蘇格蘭格子花呢服(女性用)"
+    },
+    "debbie-female-shoes": {
+      "id": "debbie-female-shoes",
+      "name": "黛比蘇格蘭格子花呢鞋(女性用)",
+      "materials": [
+        {
+          "name": "高級布料",
+          "quantity": 4.5
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 9
+        },
+        {
+          "name": "繩結線",
+          "quantity": 4.5
+        },
+        {
+          "name": "粗繩",
+          "quantity": 1
+        },
+        {
+          "name": "高級結尾用絲線",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 黛比蘇格蘭格子花呢鞋(女性用)"
+    },
+    "panda": {
+      "id": "panda",
+      "name": "可可 貓熊長袍",
+      "materials": [
+        {
+          "name": "優質絲綢",
+          "quantity": 12
+        },
+        {
+          "name": "高級絲綢",
+          "quantity": 6
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 18
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        },
+        {
+          "name": "嬰孩用綠藥水",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 可可 貓熊長袍"
+    },
+    "feather-hat": {
+      "id": "feather-hat",
+      "name": "羽毛法師帽",
+      "materials": [
+        {
+          "name": "高級布料",
+          "quantity": 6
+        },
+        {
+          "name": "廉價絲綢",
+          "quantity": 6
+        },
+        {
+          "name": "優質皮革",
+          "quantity": 6
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        },
+        {
+          "name": "高級皮繩",
+          "quantity": 2
+        }
+      ],
+      "pattern": "衣服樣本 - 羽毛法師帽"
+    },
+    "ella": {
+      "id": "ella",
+      "name": "愛拉背心短裙",
+      "materials": [
+        {
+          "name": "高級布料",
+          "quantity": 15
+        },
+        {
+          "name": "廉價絲綢",
+          "quantity": 7.5
+        },
+        {
+          "name": "優質皮繩",
+          "quantity": 7.5
+        },
+        {
+          "name": "普通結尾用絲線",
+          "quantity": 2
+        }
+      ],
+      "pattern": "衣服樣本 - 愛拉背心短裙"
+    },
+    "celina": {
+      "id": "celina",
+      "name": "塞麗娜性感服飾",
+      "materials": [
+        {
+          "name": "優質布料",
+          "quantity": 12
+        },
+        {
+          "name": "優質絲綢",
+          "quantity": 12
+        },
+        {
+          "name": "繩結線",
+          "quantity": 18
+        },
+        {
+          "name": "優質結尾用絲線",
+          "quantity": 1
+        },
+        {
+          "name": "紅藥水／成人用紅色香水",
+          "quantity": 1
+        },
+        {
+          "name": "魔法金線",
+          "quantity": 1
+        },
+        {
+          "name": "水霧絲綢",
+          "quantity": 1
+        }
+      ],
+      "pattern": "衣服樣本 - 塞麗娜性感服飾"
+    }
+  },
+  "skills": {
+    "blacksmith": {
+      "left": [
+        {
+          "label": "巴倫西亞・巨人",
+          "ids": [
+            "giant-armor",
+            "giant-gloves",
+            "giant-boots"
+          ]
+        }
+      ],
+      "middle": [
+        "claymore",
+        "champion",
+        "celtic-hammer",
+        "celtic-warhammer",
+        "celtic-axe",
+        "celtic-waraxe"
+      ],
+      "right": [
+        {
+          "label": "迪歐斯",
+          "ids": [
+            "dustin-armor",
+            "dustin-gloves",
+            "dustin-boots"
+          ]
+        },
+        {
+          "label": "巴倫西亞",
+          "ids": [
+            "human-armor",
+            "human-gloves",
+            "human-boots"
+          ]
+        }
+      ]
+    },
+    "tailoring": {
+      "left": [
+        {
+          "label": "治癒師・男性",
+          "ids": [
+            "healer-suit",
+            "healer-gloves",
+            "bandana"
+          ]
+        },
+        {
+          "label": "黛比・男性",
+          "ids": [
+            "debbie-male-clothes",
+            "debbie-male-shoes"
+          ]
+        }
+      ],
+      "middle": [
+        "panda",
+        "feather-hat",
+        "ella",
+        "celina"
+      ],
+      "right": [
+        {
+          "label": "治癒師・女性",
+          "ids": [
+            "healer-dress",
+            "healer-gloves",
+            "mongo-hat"
+          ]
+        },
+        {
+          "label": "黛比・女性",
+          "ids": [
+            "debbie-female-clothes",
+            "debbie-female-shoes"
+          ]
+        }
+      ]
+    }
+  }
+}

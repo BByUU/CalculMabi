@@ -1,0 +1,1135 @@
+{
+  "checkedAt": "2026-09-22",
+  "region": "Mabinogi World Wiki / NA",
+  "note": "General inventory stack sizes; excludes material bags and shop bundles. Nonstackable item classes are identified separately from explicit Stack fields.",
+  "items": {
+    "鐵塊": {
+      "stackSize": 100,
+      "wikiTitle": "Iron Ingot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataIron%20Ingot&oldid=944983",
+      "basis": "explicit-stack"
+    },
+    "鐵板": {
+      "stackSize": 100,
+      "wikiTitle": "Iron Plate",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataIron%20Plate&oldid=945002",
+      "basis": "explicit-stack"
+    },
+    "神聖礦物碎片": {
+      "stackSize": 100,
+      "wikiTitle": "Divine Mineral Fragment",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Divine%20Mineral%20Fragment&oldid=1035169",
+      "basis": "explicit-stack"
+    },
+    "古代怪物的核心": {
+      "stackSize": 100,
+      "wikiTitle": "Ancient Monster Core",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Ancient%20Monster%20Core&oldid=926286",
+      "basis": "explicit-stack"
+    },
+    "樂譜卷軸（100）": {
+      "stackSize": 1,
+      "wikiTitle": "Score Scroll",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Score%20Scroll&oldid=994995",
+      "basis": "nonstackable-score"
+    },
+    "弓": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataScytheErgRankB&oldid=979817",
+      "basis": "nonstackable-weapon-category"
+    },
+    "金塊": {
+      "stackSize": 100,
+      "wikiTitle": "Gold Ingot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataGold%20Ingot&oldid=945034",
+      "basis": "explicit-stack"
+    },
+    "金板": {
+      "stackSize": 100,
+      "wikiTitle": "Gold Plate",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataGold%20Plate&oldid=945068",
+      "basis": "explicit-stack"
+    },
+    "生命之符": {
+      "stackSize": 1,
+      "wikiTitle": "Ankh",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAnkh&oldid=685206",
+      "basis": "nonstackable-equipment"
+    },
+    "單手魔杖": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataScytheErgRankB&oldid=979817",
+      "basis": "nonstackable-weapon-category"
+    },
+    "秘銀塊": {
+      "stackSize": 100,
+      "wikiTitle": "Mythril Ingot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMythril%20Ingot&oldid=945070",
+      "basis": "explicit-stack"
+    },
+    "秘銀板": {
+      "stackSize": 100,
+      "wikiTitle": "Mythril Plate",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMythril%20Plate&oldid=944957",
+      "basis": "explicit-stack"
+    },
+    "書桌": {
+      "stackSize": 1,
+      "wikiTitle": "Stationery Table",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Stationery%20Table&oldid=981571",
+      "basis": "explicit-stack"
+    },
+    "集魔杖": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataScytheErgRankB&oldid=979817",
+      "basis": "nonstackable-weapon-category"
+    },
+    "優質絲綢": {
+      "stackSize": 10,
+      "wikiTitle": "Finest Silk",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFinest%20Silk&oldid=897386",
+      "basis": "explicit-stack"
+    },
+    "優質布料": {
+      "stackSize": 10,
+      "wikiTitle": "Finest Fabric",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFinest%20Fabric&oldid=882095",
+      "basis": "explicit-stack"
+    },
+    "損壞的聖物殘骸": {
+      "stackSize": 100,
+      "wikiTitle": "Desecrated Charm Chunk",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Desecrated%20Charm%20Chunk&oldid=1019779",
+      "basis": "explicit-stack"
+    },
+    "銀河口哨": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Whistle",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Whistle&oldid=1011082",
+      "basis": "nonstackable-equipment"
+    },
+    "鋼瓶": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataScytheErgRankB&oldid=979817",
+      "basis": "nonstackable-weapon-category"
+    },
+    "稀原合金": {
+      "stackSize": 100,
+      "wikiTitle": "Hillwen Alloy",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHillwen%20Alloy&oldid=1033576",
+      "basis": "explicit-stack"
+    },
+    "幸運的兔子腳": {
+      "stackSize": 1,
+      "wikiTitle": "Lucky Rabbit Foot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataLucky%20Rabbit%20Foot&oldid=970812",
+      "basis": "nonstackable-equipment"
+    },
+    "鯖魚魚排": {
+      "stackSize": 1,
+      "wikiTitle": "Mackerel Steak",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMackerel%20Steak&oldid=597559",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "高級木柴": {
+      "stackSize": 100,
+      "wikiTitle": "Fine Firewood",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFine%20Firewood&oldid=944683",
+      "basis": "explicit-stack"
+    },
+    "優質木柴": {
+      "stackSize": 100,
+      "wikiTitle": "Finest Firewood",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFinest%20Firewood&oldid=944840",
+      "basis": "explicit-stack"
+    },
+    "破碎的巨大甲殼": {
+      "stackSize": 100,
+      "wikiTitle": "Massive Turtle Shell Chip",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Massive%20Turtle%20Shell%20Chip&oldid=1019781",
+      "basis": "explicit-stack"
+    },
+    "波利樂舞裙": {
+      "stackSize": 1,
+      "wikiTitle": "Bolero and Jumper Skirt",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBolero%20and%20Jumper%20Skirt&oldid=1010203",
+      "basis": "nonstackable-equipment"
+    },
+    "惡魔深淵鋼瓶": {
+      "stackSize": 1,
+      "wikiTitle": "Demonic Abyss Cylinder",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDemonic%20Abyss%20Cylinder&oldid=955718",
+      "basis": "nonstackable-equipment"
+    },
+    "粗線": {
+      "stackSize": 100,
+      "wikiTitle": "Tough Thread",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataTough%20Thread&oldid=1034809",
+      "basis": "explicit-stack"
+    },
+    "優質皮繩": {
+      "stackSize": 100,
+      "wikiTitle": "Finest Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFinest%20Leather%20Strap&oldid=944825",
+      "basis": "explicit-stack"
+    },
+    "腐敗的使徒皮革": {
+      "stackSize": 100,
+      "wikiTitle": "Corrupted Apostle Leather",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Corrupted%20Apostle%20Leather&oldid=1019775",
+      "basis": "explicit-stack"
+    },
+    "伯納姆平板手套": {
+      "stackSize": 1,
+      "wikiTitle": "Birnam Plate Gauntlets",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBirnam%20Plate%20Gauntlets&oldid=1027830",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特三矛魔杖": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Tribolt Wand",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Tribolt%20Wand&oldid=1025256",
+      "basis": "nonstackable-equipment"
+    },
+    "木板": {
+      "stackSize": 100,
+      "wikiTitle": "Wood Board",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataWood%20Board&oldid=945195",
+      "basis": "explicit-stack"
+    },
+    "優質手製繃帶": {
+      "stackSize": 100,
+      "wikiTitle": "Finest Handmade Bandages",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFinest%20Handmade%20Bandages&oldid=944478",
+      "basis": "explicit-stack"
+    },
+    "守護的啟示錄": {
+      "stackSize": 100,
+      "wikiTitle": "Revelation of the Guardian",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataRevelation%20of%20the%20Guardian&oldid=866191",
+      "basis": "explicit-stack"
+    },
+    "巨人貴族盔甲(女)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Armor (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Armor%20(F)&oldid=1025447",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特守護魔杖": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Guardian Staff",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Guardian%20Staff&oldid=1025258",
+      "basis": "nonstackable-equipment"
+    },
+    "解毒藥水": {
+      "stackSize": 5,
+      "wikiTitle": "Antidote Potion",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAntidote%20Potion&oldid=995481",
+      "basis": "explicit-stack"
+    },
+    "中型生命與耐力藥水(效果50)": {
+      "stackSize": 20,
+      "wikiTitle": "HP & Stamina 50 Potion",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHP%20%26%20Stamina%2050%20Potion&oldid=691492",
+      "basis": "explicit-stack"
+    },
+    "被淨化的使徒精髓": {
+      "stackSize": 100,
+      "wikiTitle": "Purified Apostle Essence",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPurified%20Apostle%20Essence&oldid=866185",
+      "basis": "explicit-stack"
+    },
+    "拉克里斯追逐者鎧甲（男性用）": {
+      "stackSize": 1,
+      "wikiTitle": "Languhiris Chaser Armor (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataLanguhiris%20Chaser%20Armor%20(M)&oldid=1025461",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特四屬性鋼瓶": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Tetra Cylinder",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Tetra%20Cylinder&oldid=1025260",
+      "basis": "nonstackable-equipment"
+    },
+    "高級皮繩": {
+      "stackSize": 100,
+      "wikiTitle": "Fine Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFine%20Leather%20Strap&oldid=944663",
+      "basis": "explicit-stack"
+    },
+    "祝福藥水": {
+      "stackSize": 20,
+      "wikiTitle": "Holy Water of Lymilark",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Holy%20Water%20of%20Lymilark&oldid=1035163",
+      "basis": "explicit-stack"
+    },
+    "銀色小珠子": {
+      "stackSize": 100,
+      "wikiTitle": "Small Silver Gem",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Small%20Silver%20Gem&oldid=1015923",
+      "basis": "explicit-stack"
+    },
+    "銅塊": {
+      "stackSize": 100,
+      "wikiTitle": "Copper Ingot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCopper%20Ingot&oldid=944699",
+      "basis": "explicit-stack"
+    },
+    "銅板": {
+      "stackSize": 100,
+      "wikiTitle": "Copper Plate",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCopper%20Plate&oldid=944740",
+      "basis": "explicit-stack"
+    },
+    "抱枕用棉花": {
+      "stackSize": 100,
+      "wikiTitle": "Cotton Cushion Stuffing",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCotton%20Cushion%20Stuffing&oldid=995097",
+      "basis": "explicit-stack"
+    },
+    "中級皮革盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "Middle-Class Leather Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMiddle-Class%20Leather%20Armor&oldid=1010250",
+      "basis": "nonstackable-equipment"
+    },
+    "銀塊": {
+      "stackSize": 100,
+      "wikiTitle": "Silver Ingot",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSilver%20Ingot&oldid=945110",
+      "basis": "explicit-stack"
+    },
+    "銀板": {
+      "stackSize": 100,
+      "wikiTitle": "Silver Plate",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSilver%20Plate&oldid=945050",
+      "basis": "explicit-stack"
+    },
+    "豬排": {
+      "stackSize": 1,
+      "wikiTitle": "Pork Cutlet",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPork%20Cutlet&oldid=654611",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "火花皮甲": {
+      "stackSize": 1,
+      "wikiTitle": "Spark Leather Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSpark%20Leather%20Armor&oldid=1010392",
+      "basis": "nonstackable-equipment"
+    },
+    "普通絲綢": {
+      "stackSize": 10,
+      "wikiTitle": "Common Silk",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCommon%20Silk&oldid=882069",
+      "basis": "explicit-stack"
+    },
+    "普通布料": {
+      "stackSize": 10,
+      "wikiTitle": "Common Fabric",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCommon%20Fabric&oldid=882089",
+      "basis": "explicit-stack"
+    },
+    "再生粉末": {
+      "stackSize": 100,
+      "wikiTitle": "Restorative Powder",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Restorative%20Powder&oldid=1035150",
+      "basis": "explicit-stack"
+    },
+    "能量轉換器": {
+      "stackSize": 100,
+      "wikiTitle": "Energy Converter",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataEnergy%20Converter&oldid=913593",
+      "basis": "explicit-stack"
+    },
+    "完整的希里原": {
+      "stackSize": 100,
+      "wikiTitle": "Intact Shyllien",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataIntact%20Shyllien&oldid=885357",
+      "basis": "explicit-stack"
+    },
+    "乾草堆": {
+      "stackSize": 100,
+      "wikiTitle": "Hay Bale",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHay%20Bale&oldid=945094",
+      "basis": "explicit-stack"
+    },
+    "魚骨盔甲(男性用)": {
+      "stackSize": 1,
+      "wikiTitle": "Bone Marine Armor (Menswear)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBone%20Marine%20Armor%20(Menswear)&oldid=1010269",
+      "basis": "nonstackable-equipment"
+    },
+    "中級木柴": {
+      "stackSize": 100,
+      "wikiTitle": "Average Firewood",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAverage%20Firewood&oldid=944671",
+      "basis": "explicit-stack"
+    },
+    "鬥魂的金屬碎片": {
+      "stackSize": 100,
+      "wikiTitle": "Valiance Metal Shard",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Valiance%20Metal%20Shard&oldid=1034445",
+      "basis": "explicit-stack"
+    },
+    "雞蛋壽司": {
+      "stackSize": 1,
+      "wikiTitle": "Tamago Sushi",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataTamago%20Sushi&oldid=723041",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "普通皮革盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "Basic Leather Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBasic%20Leather%20Armor&oldid=1010150",
+      "basis": "nonstackable-equipment"
+    },
+    "細線團": {
+      "stackSize": 5,
+      "wikiTitle": "Thin Thread Ball",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThin%20Thread%20Ball&oldid=945151",
+      "basis": "explicit-stack"
+    },
+    "普通皮繩": {
+      "stackSize": 100,
+      "wikiTitle": "Common Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCommon%20Leather%20Strap&oldid=944780",
+      "basis": "explicit-stack"
+    },
+    "封印的黑色金屬": {
+      "stackSize": 100,
+      "wikiTitle": "Black Sealing Metal",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Black%20Sealing%20Metal&oldid=1033539",
+      "basis": "explicit-stack"
+    },
+    "紙鶴": {
+      "stackSize": 1000,
+      "wikiTitle": "Paper Crane",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPaper%20Crane&oldid=944447",
+      "basis": "explicit-stack"
+    },
+    "高級手製繃帶": {
+      "stackSize": 100,
+      "wikiTitle": "Fine Handmade Bandages",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFine%20Handmade%20Bandages&oldid=944538",
+      "basis": "explicit-stack"
+    },
+    "燉蛋": {
+      "stackSize": 1,
+      "wikiTitle": "Steamed Egg Casserole",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSteamed%20Egg%20Casserole&oldid=995470",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "中型魔法藥水(效果50)": {
+      "stackSize": 20,
+      "wikiTitle": "MP 50 Potion",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMP%2050%20Potion&oldid=691500",
+      "basis": "explicit-stack"
+    },
+    "鐵棒": {
+      "stackSize": 1,
+      "wikiTitle": "Iron Bar",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataIron%20Bar&oldid=1016359",
+      "basis": "explicit-stack"
+    },
+    "融合的稀原合金": {
+      "stackSize": 100,
+      "wikiTitle": "Fused Hillwen Alloy",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFused%20Hillwen%20Alloy&oldid=913635",
+      "basis": "explicit-stack"
+    },
+    "短弓": {
+      "stackSize": 1,
+      "wikiTitle": "Short Bow",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataShort%20Bow&oldid=1010863",
+      "basis": "nonstackable-equipment"
+    },
+    "紅色小珠子": {
+      "stackSize": 100,
+      "wikiTitle": "Small Red Gem",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Small%20Red%20Gem&oldid=1011840",
+      "basis": "explicit-stack"
+    },
+    "釣竿": {
+      "stackSize": 1,
+      "wikiTitle": "Fishing Rod",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFishing%20Rod&oldid=1011574",
+      "basis": "nonstackable-equipment"
+    },
+    "皮頭巾": {
+      "stackSize": 1,
+      "wikiTitle": "Leather Bandana",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataLeather%20Bandana&oldid=1010118",
+      "basis": "nonstackable-equipment"
+    },
+    "水果拼盤": {
+      "stackSize": 1,
+      "wikiTitle": "Assorted Fruits",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAssorted%20Fruits&oldid=990923",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "廉價絲綢": {
+      "stackSize": 10,
+      "wikiTitle": "Cheap Silk",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCheap%20Silk&oldid=882067",
+      "basis": "explicit-stack"
+    },
+    "廉價布料": {
+      "stackSize": 10,
+      "wikiTitle": "Cheap Fabric",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCheap%20Fabric&oldid=882081",
+      "basis": "explicit-stack"
+    },
+    "精製的白色粉末": {
+      "stackSize": 100,
+      "wikiTitle": "Pure White Dust",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Pure%20White%20Dust&oldid=1034375",
+      "basis": "explicit-stack"
+    },
+    "六角螺絲": {
+      "stackSize": 100,
+      "wikiTitle": "Hexagonal Bolt",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHexagonal%20Bolt&oldid=913638",
+      "basis": "explicit-stack"
+    },
+    "神秘的香草粉": {
+      "stackSize": 100,
+      "wikiTitle": "Mysterious Herb Powder",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMysterious%20Herb%20Powder&oldid=866176",
+      "basis": "explicit-stack"
+    },
+    "輕便桌子": {
+      "stackSize": 1,
+      "wikiTitle": "Cooking Table",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCooking%20Table&oldid=1032103",
+      "basis": "nonstackable-equipment"
+    },
+    "舞蹈褲": {
+      "stackSize": 1,
+      "wikiTitle": "Sleeveless and Bell-Bottoms",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSleeveless%20and%20Bell-Bottoms&oldid=1010461",
+      "basis": "nonstackable-equipment"
+    },
+    "木柴": {
+      "stackSize": 100,
+      "wikiTitle": "Firewood",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Firewood&oldid=1035084",
+      "basis": "explicit-stack"
+    },
+    "失去光澤的金屬碎片": {
+      "stackSize": 100,
+      "wikiTitle": "Lightless Metal Fragment",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Lightless%20Metal%20Fragment&oldid=1034659",
+      "basis": "explicit-stack"
+    },
+    "蒸的玉米": {
+      "stackSize": 1,
+      "wikiTitle": "Steamed Corn",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSteamed%20Corn&oldid=995385",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "粗線團": {
+      "stackSize": 5,
+      "wikiTitle": "Thick Thread Ball",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThick%20Thread%20Ball&oldid=945154",
+      "basis": "explicit-stack"
+    },
+    "廉價皮繩": {
+      "stackSize": 100,
+      "wikiTitle": "Cheap Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCheap%20Leather%20Strap&oldid=944625",
+      "basis": "explicit-stack"
+    },
+    "壞掉的環狀構造體": {
+      "stackSize": 100,
+      "wikiTitle": "Broken Ring Frame",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Broken%20Ring%20Frame&oldid=1034657",
+      "basis": "explicit-stack"
+    },
+    "手製繃帶": {
+      "stackSize": 100,
+      "wikiTitle": "Handmade Bandage",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHandmade%20Bandage&oldid=944499",
+      "basis": "explicit-stack"
+    },
+    "起司醬": {
+      "stackSize": 1,
+      "wikiTitle": "Cheese Fondue",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCheese%20Fondue&oldid=727123",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "黏黏膠水": {
+      "stackSize": 100,
+      "wikiTitle": "Sundew",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSundew&oldid=885359",
+      "basis": "explicit-stack"
+    },
+    "訓練棍子": {
+      "stackSize": 1,
+      "wikiTitle": "Pet Instructor Stick",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPet%20Instructor%20Stick&oldid=714670",
+      "basis": "nonstackable-equipment"
+    },
+    "環型飾品": {
+      "stackSize": 1,
+      "wikiTitle": "Ring Torque",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataRing%20Torque&oldid=713443",
+      "basis": "nonstackable-equipment"
+    },
+    "立燈": {
+      "stackSize": 1,
+      "wikiTitle": "Standing Lamp",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataStanding%20Lamp&oldid=944422",
+      "basis": "nonstackable-furniture"
+    },
+    "銀河鈸": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Cymbals",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Cymbals&oldid=1011173",
+      "basis": "nonstackable-equipment"
+    },
+    "奶油烤龍蝦": {
+      "stackSize": 1,
+      "wikiTitle": "Butter Grilled Reef Lobster",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataButter%20Grilled%20Reef%20Lobster&oldid=830520",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "女性用劍士學校制服短型": {
+      "stackSize": 1,
+      "wikiTitle": "Short Swordsmanship School Uniform (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataShort%20Swordsmanship%20School%20Uniform%20(F)&oldid=1010441",
+      "basis": "nonstackable-equipment"
+    },
+    "伯納姆平板盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "Birnam Plate Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBirnam%20Plate%20Armor&oldid=1027828",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族盔甲(男)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Armor (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Armor%20(M)&oldid=1025446",
+      "basis": "nonstackable-equipment"
+    },
+    "骰子": {
+      "stackSize": 1,
+      "wikiTitle": "Six-sided Die",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSix-sided%20Die&oldid=714676",
+      "basis": "nonstackable-equipment"
+    },
+    "單手劍": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataKnuckleTwoHandOneHandErgRankB&oldid=980678",
+      "basis": "nonstackable-weapon-category"
+    },
+    "凱爾特十字架": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Cross",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Cross&oldid=685214",
+      "basis": "nonstackable-equipment"
+    },
+    "單手斧": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataKnuckleTwoHandOneHandErgRankB&oldid=980678",
+      "basis": "nonstackable-weapon-category"
+    },
+    "岩石扮裝工具": {
+      "stackSize": 1,
+      "wikiTitle": "Rock Costume Kit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataRock%20Costume%20Kit&oldid=960647",
+      "basis": "nonstackable-equipment"
+    },
+    "單手鈍器": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataKnuckleTwoHandOneHandErgRankB&oldid=980678",
+      "basis": "nonstackable-weapon-category"
+    },
+    "銀河大鼓": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Bass Drum",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Bass%20Drum&oldid=1011356",
+      "basis": "nonstackable-equipment"
+    },
+    "雙手斧": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataKnuckleTwoHandOneHandErgRankB&oldid=980678",
+      "basis": "nonstackable-weapon-category"
+    },
+    "燉南瓜豬排": {
+      "stackSize": 1,
+      "wikiTitle": "Pumpkin Galbi Stew",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPumpkin%20Galbi%20Stew&oldid=654568",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "拳套": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataKnuckleErg&oldid=1026900",
+      "basis": "nonstackable-weapon-category"
+    },
+    "藍色尖刺枷鎖": {
+      "stackSize": 100,
+      "wikiTitle": "Thorny Blue Shackle",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Thorny%20Blue%20Shackle&oldid=1019780",
+      "basis": "explicit-stack"
+    },
+    "歐風淑女服長版型": {
+      "stackSize": 1,
+      "wikiTitle": "Elegant Gothic Dress Long Type",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataElegant%20Gothic%20Dress%20Long%20Type&oldid=1010252",
+      "basis": "nonstackable-equipment"
+    },
+    "惡魔孤寂拳套": {
+      "stackSize": 1,
+      "wikiTitle": "Demonic Solitude Knuckle",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDemonic%20Solitude%20Knuckle&oldid=1010958",
+      "basis": "nonstackable-equipment"
+    },
+    "德斯丁銀騎士手套": {
+      "stackSize": 1,
+      "wikiTitle": "Dustin Silver Knight Vambraces",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDustin%20Silver%20Knight%20Vambraces&oldid=1023425",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特皇家鬥斧": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Royal Battle Axe",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Royal%20Battle%20Axe&oldid=1025198",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族靴子(女)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Greaves (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Greaves%20(F)&oldid=1025452",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特皇家戰錘": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Royal Warrior Hammer",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Royal%20Warrior%20Hammer&oldid=1025218",
+      "basis": "nonstackable-equipment"
+    },
+    "巴貝斯巴勒殺手鎧甲（男性用）": {
+      "stackSize": 1,
+      "wikiTitle": "Bhafel Slayer Guard (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBhafel%20Slayer%20Guard%20(M)&oldid=1025419",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特利刃拳套": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Edged Knuckles",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Edged%20Knuckles&oldid=1026492",
+      "basis": "nonstackable-equipment"
+    },
+    "極光的結晶": {
+      "stackSize": 100,
+      "wikiTitle": "Frosted Borealis Crystal",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Frosted%20Borealis%20Crystal&oldid=1033448",
+      "basis": "explicit-stack"
+    },
+    "闊劍": {
+      "stackSize": 1,
+      "wikiTitle": "Broadsword",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBroadsword&oldid=1016841",
+      "basis": "nonstackable-equipment"
+    },
+    "精製的催化劑": {
+      "stackSize": 100,
+      "wikiTitle": "Refined Catalyst",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Refined%20Catalyst&oldid=1035170",
+      "basis": "explicit-stack"
+    },
+    "白色貓頭鷹胸針": {
+      "stackSize": 1,
+      "wikiTitle": "White Owl Brooch",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataWhite%20Owl%20Brooch&oldid=993800",
+      "basis": "nonstackable-equipment"
+    },
+    "灌木扮裝工具": {
+      "stackSize": 1,
+      "wikiTitle": "Thicket Costume Kit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThicket%20Costume%20Kit&oldid=960351",
+      "basis": "nonstackable-equipment"
+    },
+    "銀河電子吉他": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Electric Guitar",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Electric%20Guitar&oldid=1011091",
+      "basis": "nonstackable-equipment"
+    },
+    "橘子果醬": {
+      "stackSize": 1,
+      "wikiTitle": "Orange Marmalade",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Orange%20Marmalade&oldid=951291",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "休閒套裝": {
+      "stackSize": 1,
+      "wikiTitle": "Vivid Casual Suit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataVivid%20Casual%20Suit&oldid=1010454",
+      "basis": "nonstackable-equipment"
+    },
+    "德斯丁銀騎士盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "Dustin Silver Knight Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDustin%20Silver%20Knight%20Armor&oldid=1023426",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族頭冠(男)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Circlet (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Circlet%20(M)&oldid=1025448",
+      "basis": "nonstackable-equipment"
+    },
+    "巴貝斯巴勒殺手鎧甲（女性用）": {
+      "stackSize": 1,
+      "wikiTitle": "Bhafel Slayer Guard (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBhafel%20Slayer%20Guard%20(F)&oldid=1025420",
+      "basis": "nonstackable-equipment"
+    },
+    "裁縫工具箱": {
+      "stackSize": 1,
+      "wikiTitle": "Tailoring Kit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataTailoring%20Kit&oldid=897806",
+      "basis": "nonstackable-equipment"
+    },
+    "護身符": {
+      "stackSize": 1,
+      "wikiTitle": "Amulet",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAmulet&oldid=685205",
+      "basis": "nonstackable-equipment"
+    },
+    "樹木扮裝工具": {
+      "stackSize": 1,
+      "wikiTitle": "Tree Costume Kit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataTree%20Costume%20Kit&oldid=960199",
+      "basis": "nonstackable-equipment"
+    },
+    "蛤蜊鮮貝義大利麵": {
+      "stackSize": 1,
+      "wikiTitle": "Spaghetti alle Vongole",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSpaghetti%20alle%20Vongole&oldid=724003",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "透明燕尾服": {
+      "stackSize": 1,
+      "wikiTitle": "See-Through Cocktail Dress",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSee-Through%20Cocktail%20Dress&oldid=1010119",
+      "basis": "nonstackable-equipment"
+    },
+    "德斯丁銀騎士金屬靴": {
+      "stackSize": 1,
+      "wikiTitle": "Dustin Silver Knight Greaves",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDustin%20Silver%20Knight%20Greaves&oldid=1023424",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族頭冠(女)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Circlet (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Circlet%20(F)&oldid=1025449",
+      "basis": "nonstackable-equipment"
+    },
+    "空瓶子": {
+      "stackSize": 1,
+      "wikiTitle": "Empty Bottle",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataEmpty%20Bottle&oldid=995404",
+      "basis": "nonstackable-equipment"
+    },
+    "木製鳥籠": {
+      "stackSize": 1,
+      "wikiTitle": "Wooden Birdcage",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataWooden%20Birdcage&oldid=945186",
+      "basis": "nonstackable-furniture"
+    },
+    "銀河里拉琴": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Lyre",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Lyre&oldid=1011076",
+      "basis": "nonstackable-equipment"
+    },
+    "貝爾法斯特鰻魚蓋飯": {
+      "stackSize": 1,
+      "wikiTitle": "Belvast Eel Rice Bowl",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBelvast%20Eel%20Rice%20Bowl&oldid=723040",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "花邊層裙": {
+      "stackSize": 1,
+      "wikiTitle": "Lace Layered Skirt",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataLace%20Layered%20Skirt&oldid=1010222",
+      "basis": "nonstackable-equipment"
+    },
+    "伯納姆平板靴": {
+      "stackSize": 1,
+      "wikiTitle": "Birnam Plate Boots",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBirnam%20Plate%20Boots&oldid=1027831",
+      "basis": "nonstackable-equipment"
+    },
+    "帶框眼鏡": {
+      "stackSize": 1,
+      "wikiTitle": "Wood-rimmed Glasses",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataWood-rimmed%20Glasses&oldid=996630",
+      "basis": "nonstackable-equipment"
+    },
+    "雙槍": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDualGunShurikenChainbladeControlBarErgRankB&oldid=888208",
+      "basis": "nonstackable-weapon-category"
+    },
+    "手裏劍": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDualGunShurikenChainbladeControlBarErgRankB&oldid=888208",
+      "basis": "nonstackable-weapon-category"
+    },
+    "絲綢用織布機": {
+      "stackSize": 1,
+      "wikiTitle": "Silk Weaving Loom",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSilk%20Weaving%20Loom&oldid=1009408",
+      "basis": "nonstackable-furniture"
+    },
+    "鎖鏈鐮刃": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDualGunShurikenChainbladeControlBarErgRankB&oldid=888208",
+      "basis": "nonstackable-weapon-category"
+    },
+    "銀河倫卡圖拉": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Roncadora",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Roncadora&oldid=1011240",
+      "basis": "nonstackable-equipment"
+    },
+    "人偶手把": {
+      "stackSize": 1,
+      "wikiTitle": null,
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDualGunShurikenChainbladeControlBarErgRankB&oldid=888208",
+      "basis": "nonstackable-weapon-category"
+    },
+    "花生奶油醬": {
+      "stackSize": 1,
+      "wikiTitle": "Peanut Butter Jam",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataPeanut%20Butter%20Jam&oldid=640531",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "惡魔幻覺手把": {
+      "stackSize": 1,
+      "wikiTitle": "Demonic Illusion Control Bar",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDemonic%20Illusion%20Control%20Bar&oldid=1011406",
+      "basis": "nonstackable-equipment"
+    },
+    "伯尼塔絲綢迷你裙": {
+      "stackSize": 1,
+      "wikiTitle": "Bonita Silky Dress",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBonita%20Silky%20Dress&oldid=1010282",
+      "basis": "nonstackable-equipment"
+    },
+    "刺殺鎖鏈鐮刃": {
+      "stackSize": 1,
+      "wikiTitle": "Cutthroat Chain Blade",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCutthroat%20Chain%20Blade&oldid=1016837",
+      "basis": "nonstackable-equipment"
+    },
+    "泰晤士平板頭盔": {
+      "stackSize": 1,
+      "wikiTitle": "Thames Plate Helmet",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThames%20Plate%20Helmet&oldid=1027846",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特塔烏拉 ZERO": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Dowra Aces",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Dowra%20Aces&oldid=1026562",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族靴子(男)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Greaves (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Greaves%20(M)&oldid=1025453",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特手裏劍": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Throwing Star",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Throwing%20Star&oldid=1025261",
+      "basis": "nonstackable-equipment"
+    },
+    "拉克里斯追逐者鎧甲（女性用）": {
+      "stackSize": 1,
+      "wikiTitle": "Languhiris Chaser Armor (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataLanguhiris%20Chaser%20Armor%20(F)&oldid=1025460",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特誓約手把": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Control Bars",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Control%20Bars&oldid=1026529",
+      "basis": "nonstackable-equipment"
+    },
+    "雷德歐II": {
+      "stackSize": 1,
+      "wikiTitle": "Zeder II",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataZeder%20II&oldid=1034838",
+      "basis": "nonstackable-equipment"
+    },
+    "苗條長袍": {
+      "stackSize": 1,
+      "wikiTitle": "Slender Robe",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSlender%20Robe&oldid=973206",
+      "basis": "nonstackable-equipment"
+    },
+    "優質皮繩用手紡車": {
+      "stackSize": 1,
+      "wikiTitle": "Spinning Wheel - Finest Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSpinning%20Wheel%20-%20Finest%20Leather%20Strap&oldid=944503",
+      "basis": "nonstackable-furniture"
+    },
+    "銀河夏威夷四絃琴": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Ukulele",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Ukulele&oldid=1011246",
+      "basis": "nonstackable-equipment"
+    },
+    "炒青菜": {
+      "stackSize": 1,
+      "wikiTitle": "Fried Vegetables",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFried%20Vegetables&oldid=713631",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "時髦套裝": {
+      "stackSize": 1,
+      "wikiTitle": "Chic Suit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataChic%20Suit&oldid=1010144",
+      "basis": "nonstackable-equipment"
+    },
+    "伯納姆平板頭盔": {
+      "stackSize": 1,
+      "wikiTitle": "Birnam Plate Helmet",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataBirnam%20Plate%20Helmet&oldid=1027829",
+      "basis": "nonstackable-equipment"
+    },
+    "毛尾巴帽": {
+      "stackSize": 1,
+      "wikiTitle": "Tail Cap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataTail%20Cap&oldid=943495",
+      "basis": "nonstackable-equipment"
+    },
+    "高級皮繩用手紡車": {
+      "stackSize": 1,
+      "wikiTitle": "Spinning Wheel - Fine Leather Strap",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSpinning%20Wheel%20-%20Fine%20Leather%20Strap&oldid=944519",
+      "basis": "nonstackable-furniture"
+    },
+    "銀河蕭姆管": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Chalumeau",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Chalumeau&oldid=1011074",
+      "basis": "nonstackable-equipment"
+    },
+    "魚與薄片": {
+      "stackSize": 1,
+      "wikiTitle": "Fish and Chips",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFish%20and%20Chips&oldid=654331",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "高級皮革盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "High-Class Leather Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHigh-Class%20Leather%20Armor&oldid=1010135",
+      "basis": "nonstackable-equipment"
+    },
+    "泰晤士平板盔甲": {
+      "stackSize": 1,
+      "wikiTitle": "Thames Plate Armor",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThames%20Plate%20Armor&oldid=1027847",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族手套(男)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Gauntlets (M)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Gauntlets%20(M)&oldid=1025451",
+      "basis": "nonstackable-equipment"
+    },
+    "手工藝工具": {
+      "stackSize": 1,
+      "wikiTitle": "Handicraft Kit",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHandicraft%20Kit&oldid=960109",
+      "basis": "nonstackable-equipment"
+    },
+    "布料用織布機": {
+      "stackSize": 1,
+      "wikiTitle": "Fabric Weaving Loom",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataFabric%20Weaving%20Loom&oldid=1009409",
+      "basis": "nonstackable-furniture"
+    },
+    "銀河大提琴": {
+      "stackSize": 1,
+      "wikiTitle": "Milky Way Cello",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMilky%20Way%20Cello&oldid=1011672",
+      "basis": "nonstackable-equipment"
+    },
+    "義大利海產細麵條": {
+      "stackSize": 1,
+      "wikiTitle": "Seafood Spaghetti",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSeafood%20Spaghetti&oldid=726078",
+      "basis": "nonstackable-cooked-dish"
+    },
+    "可愛圍裙服": {
+      "stackSize": 1,
+      "wikiTitle": "Apron Dress",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataApron%20Dress&oldid=1010280",
+      "basis": "nonstackable-equipment"
+    },
+    "泰晤士平板手套": {
+      "stackSize": 1,
+      "wikiTitle": "Thames Plate Gauntlets",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataThames%20Plate%20Gauntlets&oldid=1027848",
+      "basis": "nonstackable-equipment"
+    },
+    "巨人貴族手套(女)": {
+      "stackSize": 1,
+      "wikiTitle": "Colossal Valiance Gauntlets (F)",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataColossal%20Valiance%20Gauntlets%20(F)&oldid=1025450",
+      "basis": "nonstackable-equipment"
+    },
+    "守護星鐮刀": {
+      "stackSize": 1,
+      "wikiTitle": "Dispositor Scythe",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataDispositor%20Scythe&oldid=1025179",
+      "basis": "nonstackable-equipment"
+    },
+    "凱爾特三位一體鐮刀": {
+      "stackSize": 1,
+      "wikiTitle": "Celtic Triplicity Scythe",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataCeltic%20Triplicity%20Scythe&oldid=1025181",
+      "basis": "nonstackable-equipment"
+    },
+    "聚能開放輔助藥水": {
+      "stackSize": 100,
+      "wikiTitle": "Erg Unlock Assist Potion",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataErg%20Unlock%20Assist%20Potion&oldid=1033604",
+      "basis": "explicit-stack"
+    },
+    "升階催化劑A": {
+      "stackSize": 50,
+      "wikiTitle": "Advancement Catalyst A",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAdvancement%20Catalyst%20A&oldid=913700",
+      "basis": "explicit-stack"
+    },
+    "升階催化劑B": {
+      "stackSize": 50,
+      "wikiTitle": "Advancement Catalyst B",
+      "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAdvancement%20Catalyst%20B&oldid=913701",
+      "basis": "explicit-stack"
+    }
+  }
+}

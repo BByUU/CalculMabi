@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
+  <link rel="icon" type="image/png" sizes="400x400" href="./assets/calculmabi-icon.png">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#16333e">
+<meta name="description" content="瑪奇小算盤 CalculMabi：依期望值或目標累積成功率，計算星塵主體與支援效果的任務次數及加倍獎勵。">
+<meta name="application-name" content="瑪奇小算盤 CalculMabi">
+<meta property="og:site_name" content="瑪奇小算盤 CalculMabi">
+<meta property="og:title" content="星塵任務次數｜瑪奇小算盤 CalculMabi">
+<meta property="og:description" content="瑪奇小算盤 CalculMabi：依期望值或目標累積成功率，計算星塵主體與支援效果的任務次數及加倍獎勵。">
+<title>星塵任務次數｜瑪奇小算盤 CalculMabi</title>
+<link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./category-nav.css"><link rel="stylesheet" href="./theme.css"><link rel="stylesheet" href="./density.css"><link rel="stylesheet" href="./stardust.css">
+<script src="./theme.js"></script><script src="./navigation.js" defer></script><script type="module" src="./stardust-app.js"></script>
+</head><body>
+<a class="skip-link" href="#main">跳到星塵試算</a>
+<nav class="category-nav" aria-label="大分類"><a href="./">技能 <small>SKILLS</small></a><a href="./erg.html">聚能 <small>ERG</small></a><a href="./stardust.html" aria-current="page">星塵 <small>STARDUST</small></a><a href="./reading.html">讀書型技能 <small>READING</small></a><button id="theme-toggle" class="theme-toggle" type="button" aria-label="黑暗模式" aria-pressed="false" title="切換為黑暗模式"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><span>黑暗模式</span></button></nav>
+<div class="workspace stardust-workspace">
+<main id="main" tabindex="-1">
+<section class="sd-panel sd-bonuses" aria-labelledby="sd-bonus-heading">
+  <div class="sd-bonus-heading-row"><h2 id="sd-bonus-heading">任務獎勵加倍</h2></div>
+  <div class="sd-bonus-options">
+    <div class="sd-bonus-list">
+      <label><input type="checkbox" data-bonus="crystal">皇家學院水晶 <b>2×</b></label>
+      <div class="sd-exclusive-bonuses" role="group" aria-label="圖騰與藥水擇一">
+        <label><input type="checkbox" data-bonus="totem">圖騰 <b>2×</b></label>
+        <label><input type="checkbox" data-bonus="potion">藥水 <b>2×</b></label>
+      </div>
+      <label><input type="checkbox" data-bonus="event">活動 <b>2×</b></label>
+    </div>
+    <div class="sd-base-reward">每次任務基礎獎勵<strong>通用、該級材料各 2 個</strong></div>
+    <div class="sd-bonus-total"><span>材料獎勵倍率</span><strong id="sd-multiplier">1×</strong><p id="sd-reward-caption"></p></div>
+  </div>
+</section>
+  <section class="sd-panel sd-probability" aria-label="計算模式與成功率"><div class="sd-mode-picker" id="sd-mode" role="group" aria-label="計算方式">
+    <span class="sd-mode-label">計算方式</span>
+    <div class="sd-mode-option"><button type="button" class="sd-mode-button" data-mode="confidence" aria-pressed="true">目標累積成功率</button><div class="sd-help"><button class="sd-help-button" type="button" aria-label="目標累積成功率說明" aria-expanded="false" aria-describedby="sd-confidence-help">?</button><div id="sd-confidence-help" class="sd-tooltip" role="tooltip"><strong>依指定成功機率準備材料</strong><p>設定每一個升級階段，在準備的次數內至少成功一次的機率。例如單次成功率 20%，目標 99% 需準備 21 次。</p><p>百分比越高，備料越多。99% 適用於單階，仍可能失敗，也不代表整條升級路線都有 99% 成功機率。</p></div></div></div>
+    <div class="sd-mode-option"><button type="button" class="sd-mode-button" data-mode="expectation" aria-pressed="false">期望值</button><div class="sd-help"><button class="sd-help-button" type="button" aria-label="期望值說明" aria-expanded="false" aria-describedby="sd-expectation-help">?</button><div id="sd-expectation-help" class="sd-tooltip" role="tooltip"><strong>估算平均需要的任務數</strong><p>每階平均嘗試次數為 1 ÷ 單次成功率。例如成功率 20%，平均嘗試 5 次；每次耗 2 個材料，平均需 10 個。</p><p>任務期望值會計入獎勵整批取得的進位影響，合計使用未四捨五入的數值。平均值可有小數，實際任務需整次完成，也可能需要更多次。</p></div></div></div>
+    <button id="sd-reset" class="text-button" type="button">重設設定</button>
+  </div><div id="sd-confidence-controls"><div class="sd-confidence-heading"><label for="sd-confidence-slider">目標累積成功率</label><label class="sd-confidence-number"><input id="sd-confidence-number" type="number" min="0.1" max="99.9" step="0.1" value="99" aria-label="目標累積成功率百分比">%</label></div><input id="sd-confidence-slider" type="range" min="0.1" max="99.9" step="0.1" value="99" aria-label="目標累積成功率拉桿"></div></section>
+  <section class="sd-panel sd-goals" aria-label="星塵主體目標"><h2>星塵主體</h2><label>目前 Rank<select id="sd-current-rank"></select></label><span aria-hidden="true">→</span><label>目標 Rank<select id="sd-target-rank"></select></label></section>
+    <div id="sd-summary" class="sd-summary" aria-live="polite"><div><span>生活任務次數</span><strong id="sd-life-total">—</strong></div><div><span>戰鬥任務次數</span><strong id="sd-combat-total">—</strong></div><div><span id="sd-total-label">規劃任務總次數</span><strong id="sd-task-total">—</strong></div></div>
+  <section class="sd-panel sd-effects" aria-labelledby="sd-effects-title">
+    <div class="sd-section-heading"><h2 id="sd-effects-title">支援效果</h2><div class="sd-bulk"><span>統一設定</span><label><span class="sr-only">全部支援效果目前等級</span><select id="sd-bulk-current" aria-label="全部支援效果目前等級"></select></label><span aria-hidden="true">→</span><label><span class="sr-only">全部支援效果目標等級</span><select id="sd-bulk-target" aria-label="全部支援效果目標等級"></select></label><button id="sd-select-all" class="text-button" type="button">全選</button><button id="sd-main-only" class="text-button" type="button">只算主體</button></div></div>
+    <div class="table-scroll"><table class="sd-effects-table"><thead><tr><th scope="col">基本</th><th scope="col">智能</th><th scope="col">動力</th></tr></thead><tbody id="sd-effects-rows"></tbody></table></div>
+  </section>
+  <div id="sd-error" class="error-message" role="alert" hidden></div>
+  <section id="sd-results" aria-label="星塵任務試算結果">
+
+    <section class="sd-panel sd-materials" aria-labelledby="sd-task-heading">
+      <div class="sd-section-heading"><h2 id="sd-task-heading">各級任務次數</h2><div class="sd-help"><button class="sd-help-button" type="button" aria-label="通用材料與任務換算說明" aria-expanded="false" aria-describedby="sd-material-help">?</button><div id="sd-material-help" class="sd-tooltip sd-tooltip-right" role="tooltip"><p>生活任務給「星塵操控器框架連接器＋該級框架」；戰鬥任務給「星塵核心成束因子＋該級碎片」。兩種任務分開計次。</p><p>框架與碎片需求相同，表內材料數為每一種的用量。各級任務已同時取得通用材料；不足時列為「補通用材料」，預設解 E 級。</p><p>計算包含所選主體與支援效果，預設沒有庫存，不計金額。升級已消耗的材料不再列入。</p></div></div></div>
+      <div class="table-scroll"><table class="sd-task-table"><thead><tr><th scope="col">任務級別</th><th scope="col">材料等級</th><th scope="col">主體用量（個）</th><th id="sd-support-column" scope="col">支援備量（個）</th><th scope="col">生活任務（次）</th><th scope="col">戰鬥任務（次）</th></tr></thead><tbody id="sd-task-rows"></tbody><tfoot><tr><th scope="row" colspan="4">任務總次數</th><td id="sd-life-footer"></td><td id="sd-combat-footer"></td></tr></tfoot></table></div>
+      <p id="sd-common-caption" class="sd-caption"></p>
+    </section>
+  </section>
+</main>
+</div>
+<button id="back-to-top" class="back-to-top" type="button" hidden><span aria-hidden="true">↑</span> 回到頂端</button>
+</body></html>

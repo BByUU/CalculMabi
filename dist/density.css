@@ -1,0 +1,348 @@
+/* Compact shared presentation, loaded after the page and theme styles. */
+:root { --radius: 5px; }
+html { scrollbar-gutter: stable; }
+body { line-height: 1.45; }
+h1, .workspace .page-heading h1 { font-size: 1.125rem; line-height: 1.3; letter-spacing: 0; }
+h2, .section-heading h2, .erg-percentile h2, .settings-heading h2 { font-size: 1rem; }
+.topbar { height: 56px; padding: 0 20px; }
+.brand { gap: 8px; font-size: 1rem; letter-spacing: 0; }
+.brand-mark { width: 30px; height: 34px; border-radius: 4px; font-size: 32px; }
+.theme-toggle { min-height: 32px; padding: 5px 9px; gap: 5px; border-radius: 4px; }
+.category-nav { gap: 4px; padding: 5px 20px; }
+.category-nav a { gap: 6px; padding: 5px 16px; border-radius: 4px; }
+#skill-nav.subcategory-nav, #weapon-nav.subcategory-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 5px max(20px, calc((100% - 1760px) / 2));
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+.subcategory-nav .skill-button {
+  width: auto;
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 5px 9px;
+  gap: 5px;
+  line-height: 1.4;
+  white-space: nowrap;
+  border-radius: 4px;
+  box-shadow: none;
+}
+.subcategory-nav .skill-count { display: none; }
+#skill-nav .skill-icon { display:block; width:26px; height:26px; flex:0 0 26px; object-fit:contain; }
+.workspace { grid-template-columns: minmax(0, 1fr) 270px; min-height: calc(100vh - 138px); }
+.dan-workspace { grid-template-columns: minmax(0, 1fr) 250px; }
+.workspace > .settings-sidebar { grid-column: auto; grid-row: auto; }
+.erg-workspace { display: block; }
+main, .erg-workspace main { padding: 14px 20px 72px; }
+.page-heading, .dan-page .page-heading { margin-bottom: 12px; }
+.section-heading { gap: 8px; }
+.mode-nav { gap: 3px; margin-bottom: 12px; padding-bottom: 6px; }
+.mode-nav a { padding: 5px 12px; border-radius: 4px; font-size: .875rem; }
+.erg-view-tabs, .tabs { gap: 16px; }
+.erg-view-tabs { margin-bottom: 12px; }
+.tab, .erg-view-tabs button { padding: 5px 0 7px; }
+.journey-card, .erg-percentile, .erg-shopping { padding: 10px 12px; border-radius: 5px; }
+.journey-fields { margin-top: 10px; gap: 8px; }
+.journey-fields select { margin-top: 4px; padding: 5px 8px; font-size: 1rem; border-radius: 4px; }
+.input-unit { height: 35px; margin-top: 4px; border-radius: 4px; }
+.input-unit input { padding: 5px 8px; font-size: 1rem; }
+.journey-arrow { padding-bottom: 7px; }
+.progress-field { margin-left: 4px; }
+.field-help { margin-top: 6px; line-height: 1.5; }
+.summary-grid, .dan-page .summary-grid { gap: 0; margin-top: 10px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); overflow: hidden; }
+.stat-card, .dan-page .stat-card { padding: 9px 12px; border: 0; border-right: 1px solid var(--line); border-radius: 0; background: transparent; }
+.stat-card:last-child { border-right: 0; }
+.stat-card.accent { background: var(--surface-soft); }
+.stat-card strong, .dan-page .stat-card strong { margin-top: 3px; font-size: 1.65rem; line-height: 1.2; }
+.stat-card p { margin-top: 3px; line-height: 1.45; }
+.plan-section { margin-top: 12px; }
+.rank-card { margin-top: 7px; border-radius: 5px; }
+.rank-card > summary { padding: 8px 12px; gap: 8px; }
+.rank-emblem { width: 32px; height: 34px; border-radius: 4px; font-size: 1.2rem; }
+.rank-title p, .rank-score small { margin-top: 3px; }
+.rank-detail { padding: 0 12px 8px; }
+.rank-note { margin: 7px 0; line-height: 1.5; }
+.task-table th, .task-table td { padding-block: 6px; }
+/* Training ranks stay open and use compact, aligned columns. */
+.training-goal-option { display:flex; align-items:center; gap:5px; margin-left:auto; font-size:.8125rem; cursor:pointer; white-space:nowrap; }
+.training-goal-option input { width:15px; height:15px; margin:0; accent-color:var(--green); }
+.training-page .rank-card { margin-top:6px; border-radius:3px; }
+.training-page .rank-heading { display:flex; align-items:center; gap:7px; padding:5px 8px; background:var(--surface-soft); }
+.training-page .rank-emblem { width:25px; height:25px; font-size:1rem; border-radius:3px; }
+.training-page .rank-title { display:flex; align-items:center; flex-wrap:wrap; gap:2px 10px; }
+.training-page .rank-title p { margin:0; }
+.training-page .rank-score { font-size:.8125rem; }
+.training-page .task-table tfoot th, .training-page .task-table tfoot td { border-top:1px solid var(--line-strong); padding:5px 6px; background:var(--surface-soft); font-weight:600; text-align:right; width:auto; }
+.training-page .task-table tfoot tr td:last-child { text-align:right; width:auto; }
+.training-page .task-table tfoot th small { margin-left:8px; font-size:.6875rem; font-weight:400; }
+.training-page .score-below-goal { color:#bc3030; }
+[data-theme="dark"] .training-page .score-below-goal { color:#ff9292; }
+.training-page .rank-detail { padding:0 8px 5px; }
+.training-page .task-table { min-width:620px; font-size:.8125rem; line-height:1.3; }
+.training-page .task-table th, .training-page .task-table td { padding:3px 6px; border-right:1px solid var(--line); }
+.training-page .task-table th:first-child, .training-page .task-table td:first-child { width:34%; padding-left:0; }
+.training-page .task-table th:nth-child(2), .training-page .task-table td:nth-child(2) { width:27%; text-align:left; }
+.training-page .task-table th:last-child, .training-page .task-table td:last-child { border-right:0; }
+.training-page .task-table th { background:var(--surface-soft); white-space:nowrap; }
+.training-page .task-table td { border-bottom-style:dashed; }
+.training-page .task-check { align-items:center; gap:5px; min-height:24px; line-height:1.3; }
+.training-page .task-check input { margin:0; flex-shrink:0; }
+.training-page .task-recipe { display:flex; flex-wrap:wrap; align-items:center; gap:2px 6px; margin:0; line-height:1.3; }
+.training-page .task-recipe small { font-size:.75rem; }
+.training-page .recipe-select, .training-page .completed-input { min-height:26px; margin:0; padding:2px 4px; font-size:.8125rem; }
+.training-page .progress-track { height:3px; margin-top:4px; }
+.training-page .rank-footer { margin-top:3px; font-size:.6875rem; }
+.training-page .rank-warning { margin-top:5px; padding:5px 8px; border-radius:3px; font-size:.75rem; line-height:1.4; }
+.task-check { gap: 6px; line-height: 1.45; }
+.task-description small { margin-top: 2px; }
+.task-recipe { margin-top: 3px; line-height: 1.45; }
+.recipe-select, .completed-input { padding: 4px 6px; min-height: 30px; border-radius: 4px; }
+.progress-track { margin-top: 8px; }
+.rank-footer { margin-top: 7px; }
+.material-intro { margin: 10px 0 7px; line-height: 1.5; }
+.materials-grid { gap: 6px; margin-top: 8px; }
+.material-item { padding: 8px 10px; gap: 8px; border-radius: 4px; }
+.data-footer { margin-top: 14px; padding-top: 10px; line-height: 1.5; }
+.settings-sidebar, .dan-workspace .settings-sidebar { padding: 16px 14px; }
+.bonus-group-title { margin: 14px 0 6px; }
+.bonus-option { gap: 6px; padding-block: 4px; line-height: 1.4; }
+.bonus-option label { gap: 6px; }
+.bonus-select { margin-top: 9px; }
+.bonus-select select, .bonus-select input { margin-top: 4px; padding: 5px 7px; border-radius: 4px; }
+.bonus-help { margin-top: 6px; line-height: 1.5; }
+.bonus-total { padding: 10px; margin-top: 12px; border-radius: 5px; }
+.bonus-total strong { font-size: 2.1rem; }
+.note-box { margin-top: 12px; padding-top: 10px; }
+.note-box p { margin-top: 6px; line-height: 1.5; }
+.dan-fields, .erg-fields { gap: 8px; }
+.erg-fields { margin-top: 10px; }
+.dan-fields select, .dan-fields input, .erg-fields select, .erg-search-label input {
+  margin-top: 4px; padding: 5px 8px; min-height: 32px; border-radius: 4px;
+}
+.selection-heading { margin-top: 12px; }
+.selection-heading p, .erg-section-heading p { margin-top: 4px; }
+.dan-notes { margin-top: 7px; line-height: 1.5; }
+.dan-materials { margin-top: 8px; border-radius: 5px; }
+.dan-table th, .dan-table td { padding: 6px 8px; }
+.dan-table input { min-height: 30px; padding: 4px 6px; border-radius: 4px; }
+.dan-table small { margin-top: 3px; line-height: 1.4; }
+.dan-table .current-stacks strong { min-height: 30px; padding-top: 5px; }
+.dan-caption { padding: 8px 10px; line-height: 1.5; }
+.dan-note-box, .row-evidence { line-height: 1.5; }
+.dan-note-box h3 { margin: 12px 0 6px; }
+.dan-note-box p + p { margin-top: 8px; }
+.row-evidence { margin-top: 5px; }
+
+.erg-results { gap: 14px; }
+.erg-percentile { margin-bottom: 12px; }
+.erg-pr-number { gap: 5px; }
+.erg-pr-number input { padding: 5px 7px; border-radius: 4px; }
+#erg-confidence-slider { margin: 10px 0 6px; }
+.erg-pr-scale { gap: 8px; margin-bottom: 5px; }
+.erg-shopping .erg-search-label { margin: 8px 0; }
+.erg-reference { padding: 10px 12px; margin-top: 14px; border-radius: 5px; line-height: 1.5; }
+.erg-reference p { margin: 6px 0; }
+.erg-table-wrap { margin-top: 7px; border-radius: 5px; }
+.erg-table-wrap table { line-height: 1.4; }
+.erg-table-wrap th, .erg-table-wrap td, .erg-lookup-table th, .erg-lookup-table td { padding: 6px 8px; }
+.erg-lookup-table { margin: 10px 0; border-radius: 5px; }
+.erg-lookup-table th, .erg-lookup-table td { line-height: 1.4; }
+.erg-material-cell { padding-block: 3px; gap: 5px; }
+.erg-inline-price { padding-block: 3px; gap: 3px; }
+.erg-priced-material { gap: 7px; }
+.erg-copy-name { padding: 3px; min-height: 28px; }
+.erg-price-input, .erg-attempts-input { min-height: 30px; padding: 4px 6px; border-radius: 4px; }
+.erg-inline-price .erg-price-input { padding: 4px; }
+.erg-copy-hint { margin-bottom: 8px; }
+.erg-conversion-option { margin-top: 8px; gap: 6px; }
+
+.erg-budget-footer { gap: 12px; }
+.erg-button { min-height: 30px; padding: 5px 8px; border-radius: 4px; }
+.outline-badge, .exam-status { padding: 3px 7px; border-radius: 4px; }
+.back-to-top {
+  position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40; min-height: 36px; padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 4px;
+  background: var(--header); color: var(--on-dark); font-size: .875rem;
+}
+.back-to-top:hover { background: var(--header-hover); }
+.back-to-top span { margin-right: 3px; }
+@media (min-width: 1001px) and (max-width: 1350px) {
+  .dan-workspace .settings-sidebar { border-left: 1px solid var(--line); border-top: 0; }
+  .dan-workspace .dan-note-box { display: block; }
+}
+@media (max-width: 1000px) {
+  .workspace, .dan-workspace { grid-template-columns: minmax(0, 1fr); }
+  .workspace > .settings-sidebar { grid-column: 1; }
+  #bonus-controls, .dan-workspace .dan-note-box { gap: 12px; }
+}
+@media (max-width: 700px) {
+  .topbar { height: 52px; padding-inline: 12px; }
+  main, .erg-workspace main { padding: 12px 12px 72px; }
+  .category-nav { padding: 4px 12px; }
+  .category-nav a { padding: 5px 12px; }
+  #skill-nav.subcategory-nav, #weapon-nav.subcategory-nav { padding: 4px 8px; }
+  .subcategory-nav .skill-button { min-height: 34px; padding: 5px 8px; }
+  .settings-sidebar, .dan-workspace .settings-sidebar { padding: 10px 12px; }
+  .journey-card, .erg-percentile, .erg-shopping { padding: 10px; }
+  .progress-field { margin-left: 0; }
+  .stat-card, .dan-page .stat-card { padding: 8px; }
+  .stat-card strong, .dan-page .stat-card strong { font-size: 1.45rem; }
+  .rank-card > summary { padding: 8px 10px; }
+  .rank-detail { padding: 0 10px 8px; }
+  .erg-fields select { padding: 5px 6px; }
+  .theme-toggle, .back-to-top, .erg-price-input, .erg-attempts-input, .dan-table input,
+  .erg-copy-name, .erg-button, .journey-fields select, .dan-fields select, .dan-fields input,
+  .erg-fields select, .input-unit { min-height: 36px; }
+  .dan-table .current-stacks strong { min-height: 36px; padding-top: 8px; }
+  .back-to-top { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+
+/* The category bar also holds the theme switch; no separate brand header. */
+.erg-plan-overview { margin-bottom: 12px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 10px; }
+.erg-plan-overview > .journey-card { min-width: 0; }
+.erg-plan-overview > .summary-grid { margin-top: 0; }
+.erg-plan-overview .stat-card { display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 1000px) {
+  .erg-plan-overview { grid-template-columns: minmax(0, 1fr); }
+}
+.category-nav { align-items: center; }
+.category-nav .theme-toggle { margin-left: auto; flex: 0 0 auto; }
+.workspace { min-height: calc(100vh - 82px); }
+.erg-help-anchor { position: relative; }
+.erg-pr-help { position: static; padding-block: 4px; margin-block: -4px; }
+.erg-pr-help button { width: 26px; height: 26px; }
+.erg-pr-tooltip {
+  top: calc(100% - 1px); left: 0; width: min(370px, calc(100vw - 48px));
+  max-height: min(520px, 65vh); overflow-y: auto; padding: 12px;
+  border-radius: 5px; font-size: .8125rem; line-height: 1.6;
+}
+.erg-pr-help:hover .erg-pr-tooltip, .erg-pr-help:focus-within .erg-pr-tooltip { display: none; }
+.erg-pr-help.is-open .erg-pr-tooltip { display: block; }
+.erg-help-paragraph { display: block; margin-bottom: 8px; }
+.erg-help-paragraph:last-child { margin-bottom: 0; }
+#erg-confidence-slider { margin-bottom: 0; }
+@media (max-width: 700px) {
+  .category-nav a { flex: 0 0 auto; }
+  .erg-pr-help button { width: 30px; height: 30px; }
+}
+
+.erg-slot-totals { min-width: 1080px; table-layout: fixed; }
+.erg-table-wrap .erg-slot-totals > thead > tr > th { text-align: center; }
+.erg-slot-totals > thead > tr > th, .erg-slot-totals > tbody > tr > td { border-right: 1px solid var(--line); }
+.erg-slot-totals > thead > tr > th:last-child, .erg-slot-totals > tbody > tr > td:last-child { border-right: 0; }
+.erg-table-wrap .erg-slot-totals > tbody > tr > td { padding: 0 8px; }
+.erg-slot-item { padding: 7px 0; }
+.erg-slot-item + .erg-slot-item { border-top: 1px dashed var(--line-strong); }
+.erg-slot-item .erg-copy-name { font-weight: 500; overflow-wrap: anywhere; }
+.erg-table-wrap .erg-slot-item-details th, .erg-table-wrap .erg-slot-item-details td { border: 0; padding: 3px; vertical-align: middle; }
+.erg-slot-item-details th { width: 38px; color: var(--muted); font-size: .75rem; }
+.erg-slot-item-details td { text-align: right; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.erg-slot-item-details .erg-price-input { width: 100%!important; min-width: 0; padding: 4px; }
+.erg-slot-empty { margin: 12px 0; text-align: center; color: var(--muted); }
+.erg-extra-section { margin-top: 12px; }
+.erg-extra-section h3 { font-size: .875rem; }
+.erg-total-budget { max-width: none; justify-content: space-between; margin-top: 10px; padding: 10px; border-top: 2px solid var(--line-strong); background: var(--surface-accent); }
+.erg-total-budget strong { font-size: 1.125rem; }
+.erg-total-budget small { display: block; color: var(--muted); font-size: .6875rem; }
+
+/* The exam calculator fills the space released by its removed notes sidebar. */
+.workspace.dan-workspace { grid-template-columns: minmax(0, 1fr); }
+
+body > .skill-mode-nav { margin: 0; padding: 5px max(20px, calc((100% - 1760px) / 2)); background: var(--surface); border-bottom: 1px solid var(--line); }
+@media (max-width: 700px) {
+  body > .skill-mode-nav { padding: 4px 8px; }
+  .skill-mode-nav a { min-height: 34px; display: flex; align-items: center; }
+}
+
+.skill-mode-nav a[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+.skill-mode-nav a[aria-disabled="true"]:hover { background: transparent; }
+
+.erg-probability-help-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+.erg-failure-help { font-size: .8125rem; color: var(--muted); }
+.erg-failure-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: .75rem; }
+.erg-failure-table th, .erg-failure-table td { border: 1px solid var(--line); padding: 5px 6px; text-align: center; }
+.erg-failure-table thead { background: var(--surface-accent); color: var(--accent-ink); }
+.erg-failure-table th { font-weight: 500; white-space: nowrap; }
+@media (max-width: 700px) {
+  .erg-probability-help-row { display: grid; gap: 6px; }
+}
+
+/* Separate count and EXP bonuses in either sidebar layout. */
+#bonus-controls > div + div { border-top:1px solid var(--line-strong); margin-top:12px; padding-top:10px; }
+#bonus-controls > div + div > .bonus-group-title { margin-top:0; }
+#weapon-nav .weapon-icon { display:block; width:32px; height:32px; flex:0 0 32px; object-fit:contain; }
+@media (max-width:1000px) {
+  #bonus-controls > div + div { border-top:0; border-left:1px solid var(--line-strong); margin-top:0; padding-top:0; padding-left:12px; }
+}
+
+/* Training: full-width material planning under a horizontal bonus bar. */
+.training-page .workspace { display:block; }
+.training-page main { width:100%; min-width:0; }
+.training-page .training-bonuses { border:1px solid var(--line); border-radius:4px; padding:10px 12px; margin-bottom:10px; background:var(--surface); }
+.training-page .training-bonuses .settings-heading { display:flex; align-items:center; flex-wrap:wrap; gap:6px 18px; margin:0 0 8px; }
+.training-page .training-bonuses .settings-heading h2 { font-size:.875rem; }
+.training-page .training-bonuses .bonus-total { display:flex; align-items:center; gap:8px; margin:0 0 0 auto; padding:0; border:0; background:none; max-width:none; font-size:.75rem; }
+.training-page .training-bonuses .bonus-total strong { font-size:1rem; margin:0; }
+.training-page .training-bonuses .bonus-total,
+.training-page .training-bonuses .bonus-total span { color:var(--ink); }
+.training-page .training-bonuses .bonus-total strong,
+.training-page .training-bonuses .bonus-total strong span { color:var(--accent-ink); }
+.training-page #bonus-controls { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.training-page #bonus-controls > div { display:flex; flex-wrap:wrap; align-content:start; align-items:end; gap:6px 12px; min-width:0; }
+.training-page #bonus-controls > div + div { border-top:0; border-left:1px solid var(--line-strong); margin:0; padding:0 0 0 12px; }
+.training-page #bonus-controls .bonus-group-title { flex:0 0 100%; margin:0; font-size:.8125rem; }
+.training-page #bonus-controls .bonus-option { flex:1 1 200px; margin:0; padding:0; font-size:.75rem; }
+.training-page #bonus-controls .bonus-select { flex:1 1 155px; min-width:0; margin:0; font-size:.75rem; }
+.training-page #bonus-controls .bonus-select[hidden] { display:none; }
+.training-page #bonus-controls select, .training-page #bonus-controls input[type=number] { width:100%; min-width:0; min-height:28px; font-size:.75rem; padding:3px 5px; margin-top:3px; }
+.training-page .plan-section { margin-top:14px; }
+.training-page .materials-jump { color:var(--accent-ink); font-size:.75rem; }
+.training-page .task-table { table-layout:fixed; min-width:1000px; font-size:.75rem; }
+.training-page .task-table th:first-child, .training-page .task-table td:first-child { width:22%; }
+.training-page .task-table th:nth-child(2), .training-page .task-table td:nth-child(2) { width:15%; }
+.training-page .task-table th.training-usage, .training-page .task-table td.training-usage { width:32%; text-align:left; vertical-align:middle; }
+.training-page .task-table .recipe-select { max-width:100%; width:100%; font-size:.75rem; }
+.training-page .task-table tfoot th { width:auto; text-align:right; }
+.training-page .task-table tfoot td.rank-score { width:auto; text-align:right; }
+.training-page .task-table tfoot tr td.training-usage { width:32%; text-align:left; }
+.training-material-list { display:flex; flex-wrap:wrap; gap:3px 12px; list-style:none; padding:0; margin:0; font-size:.75rem; font-weight:400; }
+.training-material-list li { display:flex; gap:5px; align-items:baseline; }
+.training-material-list strong { white-space:nowrap; color:var(--accent-ink); font-variant-numeric:tabular-nums; font-weight:600; }
+.training-usage > .warning { display:block; margin-top:2px; font-size:.6875rem; }
+.training-page .training-materials { margin-top:16px; scroll-margin-top:12px; }
+.training-page .training-materials h2 { font-size:.875rem; margin-bottom:6px; }
+.training-total-list { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; border:1px solid var(--line); background:var(--surface); }
+.training-total-list li { justify-content:space-between; padding:6px 8px; border-bottom:1px dashed var(--line); border-right:1px solid var(--line); }
+.training-total-list li:nth-child(4n) { border-right:0; }
+.training-material-note { color:var(--muted); font-size:.75rem; margin:5px 0; }
+@media(max-width:1000px) {
+  .training-page #bonus-controls .bonus-option { flex-basis:170px; }
+  .training-total-list { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .training-total-list li:nth-child(4n) { border-right:1px solid var(--line); }
+  .training-total-list li:nth-child(3n) { border-right:0; }
+}
+@media(max-width:700px) {
+  .training-page .training-bonuses { padding:8px; }
+  .training-page #bonus-controls { grid-template-columns:1fr; gap:8px; }
+  .training-page #bonus-controls > div + div { border-left:0; border-top:1px solid var(--line-strong); padding:8px 0 0; }
+  .training-page .training-bonuses .bonus-total { margin-left:0; flex-wrap:wrap; }
+  .training-page #bonus-controls .bonus-option { flex-basis:145px; }
+  .training-page #bonus-controls .bonus-select { flex-basis:135px; }
+  .training-total-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .training-total-list li:nth-child(3n) { border-right:1px solid var(--line); }
+  .training-total-list li:nth-child(2n) { border-right:0; }
+}
+
+.training-page #bonus-controls > div { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:end; }
+.training-page #bonus-controls .bonus-group-title { grid-column:1/-1; }
+.training-page #bonus-controls .bonus-option, .training-page #bonus-controls .bonus-select { min-width:0; }
+.training-overview { display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:10px; }
+.training-overview > .summary-grid { margin:0; }
+.training-overview > .error-message { grid-column:1/-1; order:3; }
+.training-overview .stat-card { display:flex; flex-direction:column; justify-content:center; padding:10px; }
+.training-overview .stat-card strong { font-size:1.5rem; }
+@media(max-width:1000px) {
+  .training-overview { grid-template-columns:minmax(0,1fr); }
+}

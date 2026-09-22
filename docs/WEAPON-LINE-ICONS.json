@@ -1,0 +1,84 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-09-22",
+  "note": "Black and white line-art adaptations of collected Mabinogi weapon artwork. Source copyright NEXON/devCAT. Transparent PNG masters; scaled WebP navigation assets.",
+  "items": [
+    {
+      "id": "staff",
+      "input": "source/weapon-references/staff.png",
+      "output": "output/weapons-line/staff.png",
+      "webOutput": "dist/assets/weapons-line/staff.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Celtic Druid Staff, slim long shaft, distinctive pointed diamond ornamental staff head; retain these identifying features."
+    },
+    {
+      "id": "bow",
+      "input": "output/weapons-line/bow-original-rotated.png",
+      "output": "output/weapons-line/bow-user-smooth.png",
+      "webOutput": "dist/assets/weapons-line/bow-user-smooth.webp",
+      "promptSet": "docs/SMOOTH-BOW-PROMPT.json"
+    },
+    {
+      "id": "two-handed",
+      "input": "source/weapon-references/two-handed.png",
+      "output": "output/weapons-line/two-handed.png",
+      "webOutput": "dist/assets/weapons-line/two-handed.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Fanatic Greatsword: long broad straight pointed blade, sunburst crossguard and short grip. Blade tip upper-left, pommel lower-right."
+    },
+    {
+      "id": "one-handed",
+      "input": "source/weapon-references/ladeca-short-sword.png",
+      "output": "output/weapons-line/one-handed.png",
+      "webOutput": "dist/assets/weapons-line/one-handed.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Ladeca Short Sword from reference. SHORT broad CRESCENT MOON CURVED blade, small guard and short ornate grip. Preserve moon blade silhouette, no straight long blade. The short blade should be only about 1.3 times handle length, to clearly distinguish this icon from a longsword. Crescent tip at upper-left, pommel at lower-right."
+    },
+    {
+      "id": "knuckles",
+      "input": "source/weapon-references/knuckles.png",
+      "output": "output/weapons-line/knuckles.png",
+      "webOutput": "dist/assets/weapons-line/knuckles.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Celtic Edged Knuckle: a single armored fist gauntlet with pointed blade claws. Fist/claws upper-left, wrist opening lower-right. Remove the original teal inventory grid entirely."
+    },
+    {
+      "id": "cylinder",
+      "input": "source/weapon-references/cylinder.png",
+      "output": "output/weapons-line/cylinder.png",
+      "webOutput": "dist/assets/weapons-line/cylinder.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Celtic Tetra Cylinder: compact ornate cylindrical forearm cannon, crownlike wide muzzle at upper-left, tubular body and wrist end lower-right, small side handle."
+    },
+    {
+      "id": "control-bar",
+      "input": "source/weapon-references/control-bar.png",
+      "output": "output/weapons-line/control-bar.png",
+      "webOutput": "dist/assets/weapons-line/control-bar.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px.  Deliver one transparent PNG icon. Celtic Restrict Handle: a symmetric PLUS SIGN (+) puppet control handle, upright, one vertical bar and one horizontal bar crossing at exact center. ALL FOUR ARMS ARE EXACTLY EQUAL LENGTH from center to outer tip, same width. Preserve simple pointed endcaps and round studs. DO NOT rotate diagonally, DO NOT make one bar longer than the other. Remove original teal inventory grid."
+    },
+    {
+      "id": "dual-gun",
+      "input": "source/weapon-references/dual-gun.png",
+      "output": "output/weapons-line/dual-gun.png",
+      "webOutput": "dist/assets/weapons-line/dual-gun.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px.  Deliver one transparent PNG icon. Celtic Dowra Zero dual guns: TWO pistols crossing in a symmetric X, like ORIGINAL reference. Barrels face upper-left and upper-right, grips lower-left and lower-right. Preserve gun details but simplify. Not parallel. Remove original teal inventory grid."
+    },
+    {
+      "id": "shuriken",
+      "input": "source/weapon-references/shuriken.png",
+      "output": "output/weapons-line/shuriken.png",
+      "webOutput": "dist/assets/weapons-line/shuriken.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px.  Deliver one transparent PNG icon. Celtic Throwing Star: FIVE angular blades with a central circular mechanism. One blade points vertically UP and the other four are evenly spaced radially. Keep original star silhouette, simplified details. No forced diagonal orientation."
+    },
+    {
+      "id": "chain",
+      "input": "source/weapon-references/chain.png",
+      "output": "output/weapons-line/chain.png",
+      "webOutput": "dist/assets/weapons-line/chain.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Celtic Howling Chain Blade: a spiked broad curved blade head with a circular hole at upper-left, short handle and visibly linked short chain trailing diagonally down to lower-right. Simplify the chain to a few large clear links."
+    },
+    {
+      "id": "scythe",
+      "input": "source/weapon-references/scythe.png",
+      "output": "output/weapons-line/scythe.png",
+      "webOutput": "dist/assets/weapons-line/scythe.webp",
+      "prompt": "Edit the referenced Mabinogi weapon inventory image into one crisp minimalist black-and-white line drawing icon for a website. Preserve its recognizable weapon silhouette, simplify ornate details to just a few bold clean black outlines with opaque WHITE enclosed fills. NO color, gray shading, texture, lighting, shadow, text, label, border, or backdrop. Actual transparent alpha background everywhere outside the weapon, including holes; never draw a checkerboard. Center the entire weapon on a square canvas, 10% clear margin, fill most of canvas, readable at 32px. Orient the main weapon axis EXACTLY diagonally from TOP LEFT to BOTTOM RIGHT (45 degrees downward to the right); weapon head/tip at upper left, handle/pommel at lower right. Do NOT orient it from bottom left to top right. Deliver one transparent PNG icon. Subject: Celtic Triplicity Scythe. CRITICAL GEOMETRY: the STRAIGHT HAFT itself must follow a line from (30%,30%) to (90%,90%) of square canvas, exactly 45 degrees downward-right. No steep nearly vertical handle. Crescent blade attaches at upper-left end of haft and curves out to the left. Entire scythe fits canvas. Simple black outlines and white fill, minimal decoration."
+    }
+  ]
+}

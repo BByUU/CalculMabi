@@ -1,0 +1,9 @@
+{
+  "tool": "built-in image_gen",
+  "original": "source/weapon-references/bow-user-reference.png",
+  "input": "output/weapons-line/bow-original-rotated.png",
+  "preparation": "User-requested grayscale and rigid counterclockwise 45-degree rotation of original sprite, then uniform enlargement for reference.",
+  "output": "output/weapons-line/bow-user-smooth.png",
+  "webOutput": "dist/assets/weapons-line/bow-user-smooth.webp",
+  "prompt": "Enhance this exact already-rotated grayscale bow sprite into a clean high-resolution black-and-white icon with smooth anti-aliased edges. This image is the geometry template, NOT loose inspiration. Trace its EXISTING silhouette and interior shapes closely. Keep its composition, proportions, curve, rotation and positions of every ornament exactly as supplied. The upper tip is at about (20%,12%), the large decorative plate is left of center near (34%,43%), the short dark curved lower limb runs toward the small ornament at about (70%,72%), and the lower tip points right at about (88%,72%). Preserve this broad bent asymmetric shape, including the hollow upper loop and the small round feature in the main decorative plate. Do not elongate or straighten the lower half; do not move the grip to the center of a straight diagonal; do not make both limbs symmetric. Remove the stair-step pixel blocks by tracing smooth contours, with simple black outlines and clean white enclosed surfaces. Thin dark limb sections may have a slim white inner highlight so the shape reads on either theme. Keep the details in their original relative sizes. No new decoration, no arrowheads added, no invented feather points, no bowstring, no arrow. Do not rotate any further. Fully transparent background and transparent openings, no checkerboard, no shadows, no text, no gradients. Entire shape within square canvas. Fidelity to the supplied traced shape is much more important than making a fancy new weapon."
+}

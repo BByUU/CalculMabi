@@ -1,0 +1,110 @@
+{
+  "note": "Original Mabinogi inventory artwork. Copyright belongs to NEXON/devCAT. Retrieved from item databases for weapon category navigation; files are unmodified.",
+  "retrieved": "2026-09-22",
+  "items": [
+    {
+      "id": "staff",
+      "name": "凱爾特德魯伊魔杖",
+      "pageUrl": "https://mabi.gg/items/celtic-druid-staff",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/ff/ffe3fd0f3e6c93d29463f41a8ab0c497422e7a919d01cab502b8b5c3bc3b1b45.png",
+      "file": "staff.png",
+      "bytes": 778
+    },
+    {
+      "id": "two-handed",
+      "name": "狂徒巨劍",
+      "pageUrl": "https://mabi.gg/items/fanatic-greatsword",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/bb/bb5e0b67a259adf23cdfb787dcff9110f34bb7ee07db8ea3d1901b00c65397da.png",
+      "file": "two-handed.png",
+      "bytes": 1073
+    },
+    {
+      "id": "bow",
+      "name": "救贖聖弓",
+      "pageUrl": "https://mabi.gg/items/salvation-bow",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/bb/bb03f1cb9738efa3fadf34ca6519e7e31c89c257b3e3c416a7d18bfdab24c345.png",
+      "file": "bow.png",
+      "bytes": 1535
+    },
+    {
+      "id": "knuckles",
+      "name": "凱爾特利刃拳套",
+      "pageUrl": "https://mabinogi.fws.tw/items.php?iid=008275&view=1",
+      "imgUrl": "https://mabinogi-images.fws.tw/uploads/items/20161023031420.png",
+      "file": "knuckles.png",
+      "bytes": 5802
+    },
+    {
+      "id": "cylinder",
+      "name": "凱爾特四屬性鋼瓶",
+      "pageUrl": "https://mabi.gg/items/celtic-tetra-cylinder",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/f7/f7e6985acf42d6a7f38ce264791a4d42ca23e278e5c9724e526aee7acb77467d.png",
+      "file": "cylinder.png",
+      "bytes": 2004
+    },
+    {
+      "id": "one-handed",
+      "name": "凱爾特皇家騎士劍",
+      "pageUrl": "https://mabi.gg/items/celtic-royal-knight-sword",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/a2/a2af88e9937df445df86b5849e92cc1995fc40d40fe6855bd246153495e9573b.png",
+      "file": "one-handed.png",
+      "bytes": 663
+    },
+    {
+      "id": "dual-gun",
+      "name": "凱爾特塔烏拉 ZERO",
+      "pageUrl": "https://mabinogi.fws.tw/items.php?iid=008273&view=1",
+      "imgUrl": "https://mabinogi-images.fws.tw/uploads/items/20160807005445.png",
+      "file": "dual-gun.png",
+      "bytes": 5407
+    },
+    {
+      "id": "shuriken",
+      "name": "凱爾特手裏劍",
+      "pageUrl": "https://mabi.gg/items/celtic-throwing-star",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/19/19bc1d697bfe42a813b7e3fb952cd9e7beae6b8d0dc4d39e8aa2f3eb0954ca06.png",
+      "file": "shuriken.png",
+      "bytes": 1465
+    },
+    {
+      "id": "control-bar",
+      "name": "凱爾特誓約手把",
+      "pageUrl": "https://mabinogi.fws.tw/items.php?iid=008274&view=1",
+      "imgUrl": "https://mabinogi-images.fws.tw/uploads/items/20160807005714.png",
+      "file": "control-bar.png",
+      "bytes": 4406
+    },
+    {
+      "id": "chain",
+      "name": "皇家凱爾特鎖鏈鐮刃",
+      "pageUrl": "https://mabi.gg/items/celtic-howling-chain-blade",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/b1/b1c800376ba66292435203ea068a05f4a2153c88aa5fb50321175905066c9bca.png",
+      "file": "chain.png",
+      "bytes": 2367
+    },
+    {
+      "id": "scythe",
+      "name": "Celtic Triplicity Scythe",
+      "pageUrl": "https://na.mabibase.com/item/1090002",
+      "imgUrl": "https://api.na.mabibase.com/assets/item/icon/1090002?colors=0x3c3c3c%2C0xaf7e40%2C0xaa763b%2C0xaa813b%2C0x1e1e1e%2C",
+      "file": "scythe.png",
+      "bytes": 2077
+    },
+    {
+      "id": "ladeca-short-sword",
+      "name": "拉狄卡短劍",
+      "pageUrl": "https://mabi.gg/items/ladeca-short-sword",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/aa/aab59d0530765d292d179ae859b908d45babed3805523b990f07a8c57b8a2eed.png",
+      "file": "ladeca-short-sword.png",
+      "bytes": 908
+    },
+    {
+      "id": "royal-crystal-wing-bow",
+      "name": "皇家水晶翅膀之弓",
+      "pageUrl": "https://mabi.gg/items/royal-crystal-wing-bow",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/item-icons/3d/3d3e354fe498374c0887413309248a4e2168d36a4c732c525c0e76c2048db48f.png",
+      "file": "royal-crystal-wing-bow.png",
+      "bytes": 881
+    }
+  ]
+}

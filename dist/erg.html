@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap">
+  <link rel="icon" type="image/png" sizes="400x400" href="./assets/calculmabi-icon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#16333e">
+  <meta name="description" content="瑪奇小算盤 CalculMabi：查找聚能配方，計算開放次數、材料用量、飼料與金幣需求。">
+  <meta name="application-name" content="瑪奇小算盤 CalculMabi">
+  <meta property="og:site_name" content="瑪奇小算盤 CalculMabi">
+  <meta property="og:title" content="聚能材料｜瑪奇小算盤 CalculMabi">
+  <meta property="og:description" content="瑪奇小算盤 CalculMabi：查找聚能配方，計算開放次數、材料用量、飼料與金幣需求。">
+  <title>聚能材料｜瑪奇小算盤 CalculMabi</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./category-nav.css">
+  <link rel="stylesheet" href="./erg.css">
+  <link rel="stylesheet" href="./theme.css">
+  <link rel="stylesheet" href="./density.css">
+  <script src="./theme.js"></script>
+  <script src="./navigation.js" defer></script>
+  <script type="module" src="./erg-app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到聚能材料</a>
+  <nav class="category-nav" aria-label="大分類"><a href="./">技能 <small>SKILLS</small></a><a href="./erg.html" aria-current="page">聚能 <small>ERG</small></a><a href="./stardust.html">星塵 <small>STARDUST</small></a><a href="./reading.html">讀書型技能 <small>READING</small></a><button id="theme-toggle" class="theme-toggle" type="button" aria-label="黑暗模式" aria-pressed="false" title="切換為黑暗模式"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><span>黑暗模式</span></button></nav>
+  <nav id="weapon-nav" class="subcategory-nav" aria-label="選擇聚能武器"></nav>
+  <div class="workspace erg-workspace">
+    <main id="main" tabindex="-1">
+      <div class="erg-view-tabs" role="tablist" aria-label="聚能功能">
+        <button id="simulate-tab" type="button" class="active" role="tab" aria-selected="true" aria-controls="simulate-panel">簡易試算</button>
+        <button id="lookup-tab" type="button" role="tab" aria-selected="false" aria-controls="lookup-panel" tabindex="-1">快速查找</button>
+      </div>
+      <p id="load-status" class="loading-state" role="status">正在整理聚能資料…</p>
+      <div id="erg-content" hidden>
+        <div class="erg-item-copy-feedback"><p id="item-copy-status" role="status" aria-live="polite"></p><input id="item-copy-fallback" type="text" readonly hidden aria-label="可手動複製的道具名稱"></div>
+        <section class="erg-percentile" aria-labelledby="percentile-heading">
+          <div class="section-heading">
+            <div class="erg-probability-help-row">
+            <div class="erg-pr-title erg-help-anchor">
+              <h2 id="percentile-heading">目標累積成功率</h2>
+              <span class="erg-pr-help">
+                <button id="erg-pr-help" data-context-help type="button" aria-label="累積成功率與計算公式說明" aria-describedby="erg-pr-tooltip" aria-expanded="false">?</button>
+                <span id="erg-pr-tooltip" class="erg-pr-tooltip" role="tooltip">
+                  <strong>成功率與材料備量</strong>
+                  <span id="erg-confidence-description" class="erg-help-paragraph" aria-live="polite"></span>
+                  <span class="erg-help-paragraph">可選 0.1–99.9%。50% 表示約一半的人能在這些次數內成功。</span>
+                  <span class="erg-help-paragraph">調整成功率會清除手填次數，保留藥水勾選。單次成功率未達 100% 時，沒有有限的保證次數。</span>
+                  <strong>計算方式</strong>
+                  <span class="erg-help-paragraph">這個百分比代表：準備計算出的嘗試次數後，至少成功一次的機率。設定越高，需要準備的次數與材料越多；不會提高每一次的成功率。</span>
+                  <span class="erg-help-paragraph">例如每次成功率為 0.3%、不使用藥水，目標設為 99%，就需準備 1,533 次的材料。約 99% 的人能在這些次數內成功，仍有約 1% 的人全部失敗。次數無條件進位，有小數就多算一次。</span>
+                  <span class="erg-help-paragraph">以每次成功率固定估算。目標適用於每個階段；每階達到 99%，不代表整條路線也有 99%。</span>
+                </span>
+              </span>
+            </div>
+              <div class="erg-pr-title erg-help-anchor erg-failure-help">
+                <span>失敗追加成功率</span>
+                <div class="erg-pr-help">
+                  <button data-context-help type="button" aria-label="失敗追加成功率說明" aria-describedby="erg-failure-tooltip" aria-expanded="false">?</button>
+                  <div id="erg-failure-tooltip" class="erg-pr-tooltip" role="tooltip">
+                    <strong>失敗追加成功率</strong>
+                    <p class="erg-help-paragraph">失敗累積到一定次數後追加成功率，並非每次失敗都固定增加。</p>
+                    <table class="erg-failure-table">
+                      <caption class="sr-only">各聚能級別的失敗追加參考</caption>
+                      <thead><tr><th scope="col">級別</th><th scope="col">平均失敗間隔</th><th scope="col">每次觸發追加</th></tr></thead>
+                      <tbody><tr><th scope="row">S 級</th><td>7～15 次</td><td>+0.01%</td></tr><tr><th scope="row">A 級</th><td>5～7 次</td><td>+0.01%</td></tr><tr><th scope="row">B 級</th><td>2～4 次</td><td>+0.02%、0.03%、0.05%…</td></tr></tbody>
+                    </table>
+                    <p class="erg-help-paragraph">以上為平均間隔參考，實際節奏依級別、開放階段及已累積的加成而異；B 級數字並非完整遞增表。</p>
+                    <p class="erg-help-paragraph">加成直接加在成功率上，例如 1% 追加 0.01 個百分點後為 1.01%。</p>
+                    <p class="erg-help-paragraph">目前的次數與材料試算尚未計入失敗追加加成。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label class="erg-pr-number"><input id="erg-confidence-number" type="number" min="0.1" max="99.9" step="0.1" value="99" aria-label="目標累積成功率百分比">%</label>
+          </div>
+          <label class="sr-only" for="erg-confidence-slider">目標累積成功率拉桿</label><input id="erg-confidence-slider" type="range" min="0.1" max="99.9" step="0.1" value="99">
+        </section>
+        <section id="simulate-panel" role="tabpanel" aria-labelledby="simulate-tab">
+          <div class="erg-plan-overview">
+          <section class="journey-card" aria-labelledby="route-title">
+            <div class="section-heading"><h2 id="route-title">集魔杖、單手杖、治癒魔杖</h2><button id="reset-erg" class="text-button" type="button">重設聚能設定</button></div>
+            <div class="erg-fields">
+              <label>起始級別<select id="start-tier"><option value="B">B 級</option><option value="A" selected>A 級</option><option value="S">S 級</option></select></label>
+              <label>下一個開放階段<select id="start-stage"></select></label>
+              <label>目標級別<select id="end-tier"><option value="B">B 級</option><option value="A">A 級</option><option value="S" selected>S 級</option></select></label>
+              <label>最後開放階段<select id="end-stage"></select></label>
+            </div>
+            <p class="field-help">包含起始與最後階段。跨級別時，從下一級的階段 7 接續；已完成的開放請跳過。</p>
+            <label id="conversion-option" class="erg-conversion-option" hidden><input id="include-conversions" type="checkbox">計入轉換材料<small>按跨越的級別加入升階催化劑。</small></label>
+          </section>
+          <section id="erg-summary" class="summary-grid" aria-label="聚能試算摘要" aria-live="polite"></section>
+          </div>
+          <div id="erg-error" class="error-message" role="alert" hidden></div>
+          <div class="erg-results">
+            <section aria-labelledby="stages-heading">
+              <div class="section-heading erg-section-heading"><h2 id="stages-heading">開放材料明細</h2><button id="all-potions" type="button" class="erg-button">全部使用藥水</button></div>
+              <div class="table-scroll erg-table-wrap"><table class="erg-stage-table"><caption class="sr-only">逐階開放材料與藥水設定</caption><thead><tr><th scope="col">開放階段</th><th scope="col">基礎機率</th><th scope="col">使用藥水</th><th scope="col">套用機率</th><th scope="col">嘗試次數</th><th scope="col">每次消耗材料 · 本階合計</th><th scope="col">成功消耗材料 · 一次</th></tr></thead><tbody id="erg-stages"></tbody><tfoot><tr><th colspan="7" scope="row"><div class="erg-budget-footer"><span>開放材料小計</span><div id="stage-cost"></div></div></th></tr></tfoot></table></div>
+            </section>
+            <section id="conversion-section" aria-labelledby="conversion-heading" hidden>
+              <h2 id="conversion-heading">轉換材料</h2>
+              <p class="field-help">每次跨級別消耗 1 個升階催化劑，需先將原級別提升至 Lv.50。此處以催化劑成品計價。</p>
+              <div class="table-scroll erg-table-wrap"><table><thead><tr><th scope="col">轉換</th><th scope="col">材料</th><th scope="col">用量</th><th scope="col" data-price-heading>單價（金幣／個）</th><th scope="col" data-cost-heading>金額（金幣）</th></tr></thead><tbody id="erg-conversions"></tbody></table></div>
+            </section>
+            <section class="erg-shopping" aria-labelledby="totals-heading">
+              <div class="section-heading"><h2 id="totals-heading">合計材料</h2><button id="copy-materials" class="text-button" type="button">複製清單</button></div>
+              <p class="field-help">合計開放材料、藥水與已勾選的轉換材料。金額＝用量 × 單價；飼料與成品製作原料另計。篩選只影響顯示，不影響總金額。</p>
+              <label class="erg-search-label" for="total-search">篩選清單<input id="total-search" type="search" placeholder="輸入材料名稱"></label>
+              <p class="field-help">同格同名材料合併，組數依各格用量無條件進位；單價與金額皆為金幣。</p>
+              <div class="table-scroll erg-table-wrap"><table class="erg-slot-totals"><caption class="sr-only">依材料格別合計的用量與費用</caption><thead><tr><th scope="col">第一格材料</th><th scope="col">第二格材料</th><th scope="col">第三格材料</th><th scope="col">第四格材料</th><th scope="col">第五格材料</th><th scope="col">第六格材料</th></tr></thead><tbody id="erg-totals"></tbody></table></div>
+              <section id="erg-extra-section" class="erg-extra-section" aria-labelledby="erg-extra-heading" hidden>
+                <h3 id="erg-extra-heading">藥水與轉換材料</h3>
+                <div class="table-scroll erg-table-wrap"><table class="erg-total-table"><thead><tr><th scope="col">材料</th><th scope="col">用量</th><th scope="col">組數</th><th scope="col">單價（金幣／個）</th><th scope="col">金額（金幣）</th></tr></thead><tbody id="erg-extra-totals"></tbody></table></div>
+              </section>
+              <div class="erg-total-budget erg-budget-footer"><span>總金額<small>完整清單 · 含藥水與已勾選的轉換材料</small></span><div id="total-cost" aria-live="polite"></div></div>
+              <p id="price-error" class="error-message" role="alert" hidden></p>
+              <p id="copy-status" class="field-help" role="status"></p>
+              <textarea id="copy-fallback" aria-label="可手動複製的材料清單" rows="8" readonly hidden></textarea>
+            </section>
+          </div>
+          <details class="erg-reference"><summary>飼料用量參考</summary><p>依所選區間列出需求經驗及飼料配比；選到第 9 階的級別會包含最後 46～50 等，跨級別也各計一次。採表列固定配比，未扣除目前經驗；飼料費用獨立於開放材料總金額。</p><div id="feed-reference"></div></details>
+        </section>
+        <section id="lookup-panel" role="tabpanel" aria-labelledby="lookup-tab" hidden>
+          <section class="journey-card" aria-label="材料查找條件">
+            <label class="erg-search-label" for="lookup-search">材料名稱<input id="lookup-search" type="search" placeholder="例如：紙鶴、簽名、神聖礦物碎片"></label>
+            <div class="erg-fields lookup-fields"><label>武器範圍<select id="lookup-weapon"></select></label><label>聚能級別<select id="lookup-tier"><option value="">全部級別</option><option value="B">B 級</option><option value="A">A 級</option><option value="S">S 級</option></select></label></div>
+          </section>
+          <p id="lookup-count" class="field-help" role="status"></p>
+          <div class="table-scroll erg-lookup-table"><table><thead><tr><th scope="col">材料</th><th scope="col">武器</th><th scope="col">開放階段</th><th scope="col">單次用量</th><th scope="col">消耗時機</th><th scope="col">試算</th></tr></thead><tbody id="lookup-rows"></tbody></table></div>
+          <button id="lookup-more" type="button" class="erg-button" hidden>顯示更多</button>
+        </section>
+        <footer class="data-footer">
+          <details><summary>計算說明</summary><div class="erg-method">
+            <p>每次嘗試獨立且成功率固定時，至少成功一次的機率＝1 − (1 − 單次成功率)<sup>嘗試次數</sup>。所需次數＝log(1 − 目標累積成功率) ÷ log(1 − 單次成功率)，結果無條件進位。累積成功率 50% 對應中位數；平均次數為 1 ÷ 單次成功率，兩者不同。使用藥水時，單次成功率加上該階加成，最高 100%；100% 時需 1 次。</p>
+            <p>材料 1–3 各自以單次用量乘次數，材料 4–6 各計成功消耗一次，同名材料再合併。</p>
+            <p>簽名、料理星數與 S 特別改造階段保留在材料名稱中。4 星料理要求為 4 星以上；S 特別改造指藍改。</p>
+            <p>跨級別可勾選計入轉換材料：B → A 消耗升階催化劑B，A → S 消耗升階催化劑A，各 1 個。合計清單涵蓋開放材料、勾選的輔助藥水與轉換材料；未納入飼料與成品製作原料。升級後從 Lv.30 接續、已開放至 Lv.35，因此下一次開放為階段 7。</p>
+          </div></details>
+        </footer>
+      </div>
+    </main>
+  </div>
+  <button id="back-to-top" class="back-to-top" type="button" hidden><span aria-hidden="true">↑</span> 回到頂端</button>
+</body>
+</html>

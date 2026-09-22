@@ -1,0 +1,88 @@
+:root {
+  color-scheme: light;
+  --page: #f2f8fa;
+  --surface: #ffffff;
+  --surface-soft: #e8f3f6;
+  --surface-input: #f8fcfd;
+  --surface-hover: #d7edf2;
+  --surface-accent: #d8eff3;
+  --ink: #213e48;
+  --muted: #526f79;
+  --accent-ink: #226675;
+  --green: #61baca;
+  --lime: #81c7d4;
+  --on-accent: #102f38;
+  --line: #c7dde3;
+  --line-strong: #9dbfc9;
+  --header: #16333e;
+  --header-nav: #1e4653;
+  --header-hover: #2d5a68;
+  --header-line: #416976;
+  --header-muted: #b4d2dc;
+  --on-dark: #eef8fb;
+  --warning: #8b5019;
+  --warning-bg: #fff2df;
+  --warning-line: #dbb88e;
+  --shadow: #102f381c;
+  --focus: #247d90;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #101c23;
+  --surface: #192b34;
+  --surface-soft: #14262f;
+  --surface-input: #10232c;
+  --surface-hover: #294955;
+  --surface-accent: #203f4a;
+  --ink: #e2f0f4;
+  --muted: #a6c0c9;
+  --accent-ink: #81c7d4;
+  --green: #61baca;
+  --lime: #81c7d4;
+  --line: #36515d;
+  --line-strong: #527682;
+  --header: #0d1e26;
+  --header-nav: #142e39;
+  --header-hover: #2d5361;
+  --header-line: #36515d;
+  --header-muted: #a6c6d0;
+  --warning: #f0be80;
+  --warning-bg: #3b2e22;
+  --warning-line: #795d3d;
+  --shadow: #00000040;
+  --focus: #81c7d4;
+}
+
+html, body { background: var(--page); color: var(--ink); }
+input, select, textarea { color: var(--ink); accent-color: var(--green); }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 13px;
+  border: 1px solid var(--header-line);
+  border-radius: 8px;
+  color: var(--on-dark);
+  background: var(--header-nav);
+  font-size: .8125rem;
+  white-space: nowrap;
+}
+.theme-toggle:hover { background: var(--header-hover); border-color: var(--lime); }
+.theme-toggle svg { width: 18px; height: 18px; color: var(--lime); }
+.theme-toggle .theme-sun { display: none; }
+[data-theme="dark"] .theme-toggle .theme-sun { display: block; }
+[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
+.skill-button.active, .mode-nav a[aria-current=page],
+.mode-nav a[aria-current=page]:hover { background: var(--green); color: var(--on-accent); }
+.skill-button.active .skill-icon { color: var(--on-accent); }
+.category-nav a[aria-current] { background: var(--lime); color: var(--on-accent); }
+.skip-link { color: var(--on-accent); }
+.bonus-total { background: var(--header); }
+.erg-pr-number { color: var(--accent-ink); }
+.tab.active, .erg-view-tabs .active { border-color: var(--accent-ink); }
+@media (max-width:700px) {
+  .theme-toggle { padding: 8px 10px; gap: 6px; font-size: .75rem; }
+}

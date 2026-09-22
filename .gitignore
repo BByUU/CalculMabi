@@ -1,0 +1,22 @@
+.sites-runtime/
+.pages/
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+playwright-report/
+test-results/
+source/
+
+# Local-only input documents
+*.xlsx
+*.xls
+*.xlsm
+*.xlsb
+*.ods
+*.csv
+*.tsv
+
+# Local image generation intermediates
+output/
