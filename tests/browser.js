@@ -3,6 +3,8 @@ import {formatNumber} from '/format.js';
 import {TRAITS, defaultTraitPlan, calculateTraits} from '/traits-calculator.js';
 const frame=document.getElementById('app'), report=document.getElementById('results');
 let assertions=0, timing='';
+// Hidden or backgrounded windows can stop producing frames; never wait on one indefinitely.
+const nextFrame=()=>new Promise(resolve=>{const timer=setTimeout(resolve,100);requestAnimationFrame(()=>{clearTimeout(timer);resolve();});});
 function assert(ok,message) { assertions++; if(!ok)throw new Error(message); }
 function same(actual,expected,message) { assert(actual===expected,`${message}: ${actual} !== ${expected}`); }
 function change(input,value,type='change') {
@@ -159,7 +161,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(observer.takeRecords().length,0,'未改動階段沒有 DOM 寫入');observer.disconnect();verify();
     const durations=[];
     for(let i=0;i<20;i++) {
-      await new Promise(resolve=>requestAnimationFrame(resolve));
+      await nextFrame();
       const start=performance.now();sample.click();durations.push(performance.now()-start);
     }
     durations.sort((a,b)=>a-b);
