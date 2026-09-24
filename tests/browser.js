@@ -1,5 +1,6 @@
 import {simulateErg, materialsBySlot, materialCosts, formatGold, materialStacks} from '/erg-calculator.js';
 import {formatNumber} from '/format.js';
+import {TRAITS, defaultTraitPlan, calculateTraits} from '/traits-calculator.js';
 const frame=document.getElementById('app'), report=document.getElementById('results');
 let assertions=0, timing='';
 function assert(ok,message) { assertions++; if(!ok)throw new Error(message); }
@@ -21,7 +22,7 @@ async function open(page,ready) {
 }
 document.getElementById('run').addEventListener('click',async()=>{
   const button=document.getElementById('run');button.disabled=true;assertions=0;
-  const keys=['mabi-erg-v1','mabi-stardust-plan-v1'];
+  const keys=['mabi-erg-v1','mabi-stardust-plan-v1','mabi-traits-v1'];
   const stored=keys.map(key=>[key,localStorage.getItem(key)]);
   keys.forEach(key=>localStorage.removeItem(key));report.textContent='測試中…';
   try {
@@ -43,7 +44,54 @@ document.getElementById('run').addEventListener('click',async()=>{
     cells.forEach((cell,i)=>same(sd.querySelectorAll('[data-effect]')[i],cell,'效果節點保留'));
     sd.getElementById('sd-main-only').click();sd.getElementById('sd-select-all').click();
     same(sd.getElementById('sd-task-total').textContent,originalTotal,'全部取消與全選回到原計算');
-    report.textContent='星塵焦點與狀態測試通過。聚能測試中…';
+    report.textContent='星塵焦點與狀態測試通過。特性測試中…';
+
+    const tr=await open('traits.html',d=>d.querySelectorAll('[data-trait]').length===TRAITS.length);
+    let traitPlan=defaultTraitPlan();
+    const amount=n=>n?formatNumber(n):'—';
+    function verifyTraits() {
+      const result=calculateTraits(traitPlan);
+      for (const row of result.rows) {
+        const node=tr.querySelector(`[data-trait="${row.id}"]`);
+        same(node.querySelector('[data-level="current"]').value,String(row.current),`${row.id} 目前等級`);
+        same(node.querySelector('[data-level="target"]').value,String(row.target),`${row.id} 目標等級`);
+        for (const key of ['points','ap','basic','advanced']) same(node.querySelector(`[data-cell="${key}"]`).textContent,amount(row[key]),`${row.id} ${key}`);
+      }
+      for (const category of result.categories) {
+        const node=tr.querySelector(`[data-category="${category.id}"]`);
+        same(node.querySelector('[data-cell="missing"]').textContent,formatNumber(category.missing),`${category.id} 缺少`);
+        same(node.querySelector('[data-cell="weeks"]').textContent,category.missing?`${formatNumber(category.weeks)} 週`:'已足夠',`${category.id} 週數`);
+      }
+      same(tr.getElementById('tr-missing-total').textContent,`${formatNumber(result.totals.missing)} 點`,'特性缺少合計');
+      same(tr.getElementById('tr-weeks-total').textContent,result.totals.weeks?`${formatNumber(result.totals.weeks)} 週`:'已足夠','特性週數');
+    }
+    verifyTraits();
+    same(tr.getElementById('tr-weeks-total').textContent,'33 週','全部升滿需 33 週');
+    const traitControls=[...tr.querySelectorAll('[data-level], [data-held]')];
+    const hasteCurrent=tr.querySelector('[data-trait="haste"] [data-level="current"]');
+    change(tr.querySelector('[data-trait="haste"] [data-level="target"]'),'5');traitPlan.levels.haste.target=5;
+    hasteCurrent.focus();change(hasteCurrent,'8');traitPlan.levels.haste={current:8,target:8};
+    same(tr.activeElement,hasteCurrent,'特性等級焦點不變');
+    assert(tr.querySelector('[data-trait="haste"] [data-level="target"] option[value="7"]').disabled,'低於目前等級的目標停用');
+    verifyTraits();
+    const untouchedTrait=tr.querySelector('[data-trait="block"]'), traitObserver=new MutationObserver(()=>{});
+    traitObserver.observe(untouchedTrait,{attributes:true,childList:true,subtree:true,characterData:true});
+    change(tr.querySelector('[data-trait="haste"] [data-level="target"]'),'10');traitPlan.levels.haste.target=10;
+    same(traitObserver.takeRecords().length,0,'未改動特性沒有 DOM 寫入');traitObserver.disconnect();verifyTraits();
+    const held=tr.querySelector('[data-held="training"]');
+    held.focus();change(held,'1200','input');traitPlan.held.training=1200;
+    same(tr.activeElement,held,'持有點數焦點不變');verifyTraits();
+    change(held,'6000','input');
+    assert(!tr.getElementById('tr-error').hidden,'超過持有上限顯示錯誤');verifyTraits();
+    change(held,'','input');traitPlan.held.training=0;
+    assert(tr.getElementById('tr-error').hidden,'修正後隱藏錯誤');verifyTraits();
+    change(tr.getElementById('tr-bulk-current'),'5');change(tr.getElementById('tr-bulk-target'),'9');
+    tr.getElementById('tr-bulk-apply').click();
+    for (const trait of TRAITS) traitPlan.levels[trait.id]={current:5,target:9};
+    verifyTraits();
+    assert(traitControls.every(node=>tr.contains(node)),'特性控制項不重建');
+    tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
+    report.textContent='星塵與特性測試通過。聚能測試中…';
 
     const data=await (await fetch('/data/erg.json')).json(), catalog=await (await fetch('/data/erg-stacks.json')).json();
     const doc=await open('erg.html',d=>d.querySelectorAll('[data-stage]').length===12);

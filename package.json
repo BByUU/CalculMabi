@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "瑪奇小算盤 CalculMabi：技能修練與升段備料、聚能材料、星塵任務次數計算",
+  "description": "瑪奇小算盤 CalculMabi：技能修練與升段備料、聚能材料、星塵任務次數、特性升級需求計算",
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check dist/app.js && node --check dist/calculator.js && node --check dist/bonuses.js && node --check dist/dan-app.js && node --check dist/dan-calculator.js && node --check dist/erg-app.js && node --check dist/erg-calculator.js && node --check dist/erg-audit.js && node --check dist/erg-material-names.js && node --check dist/theme.js && node --check dist/erg-feed.js && node --check dist/skill-navigation.js && node --check dist/dan-planner.js && node --check dist/stardust-calculator.js && node --check dist/stardust-app.js && node --check dist/dan-rounds.js && node --check dist/reading.js && node --check dist/format.js && node --check scripts/serve.mjs && node --check scripts/build.mjs && node --check tests/browser.js",
+    "check": "node --check dist/app.js && node --check dist/calculator.js && node --check dist/bonuses.js && node --check dist/dan-app.js && node --check dist/dan-calculator.js && node --check dist/erg-app.js && node --check dist/erg-calculator.js && node --check dist/erg-audit.js && node --check dist/erg-material-names.js && node --check dist/theme.js && node --check dist/erg-feed.js && node --check dist/skill-navigation.js && node --check dist/dan-planner.js && node --check dist/stardust-calculator.js && node --check dist/stardust-app.js && node --check dist/dan-rounds.js && node --check dist/reading.js && node --check dist/format.js && node --check dist/traits-calculator.js && node --check dist/traits-app.js && node --check scripts/serve.mjs && node --check scripts/build.mjs && node --check tests/browser.js",
     "test:browser": "node scripts/serve.mjs --test --built"
   },
   "engines": {

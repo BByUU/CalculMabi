@@ -227,6 +227,9 @@ main, .erg-workspace main { padding: 14px 20px 72px; }
   .category-nav a { flex: 0 0 auto; }
   .erg-pr-help button { width: 30px; height: 30px; }
 }
+@media (max-width: 400px) {
+  .category-nav a { padding: 5px 6px; }
+}
 
 .erg-slot-totals { min-width: 1080px; table-layout: fixed; }
 .erg-table-wrap .erg-slot-totals > thead > tr > th { text-align: center; }
