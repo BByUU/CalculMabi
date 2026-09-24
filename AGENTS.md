@@ -3,7 +3,7 @@
 - 名稱：瑪奇小算盤 CalculMabi。
 - 用途：技能修練與升段備料、聚能材料、星塵任務次數、特性升級需求計算與讀書型技能升級查詢。
 - 技術：HTML、CSS、原生 JavaScript ES modules；沒有前端框架、後端應用或資料庫。
-- 開發環境：Node.js 20 以上，GitHub Actions 使用 Node.js 22；npm 執行專案命令。目前沒有宣告第三方套件依賴。
+- 開發環境：Node.js 20 以上，GitHub Actions 使用 Node.js 22；npm 執行專案命令。目前沒有宣告第三方套件依賴。只有 `npm run font` 需要 Python、fontTools 與本機 `NotoSansTC-VF.ttf`。
 - 本文件適用於整個專案。操作與維護入口為 README.md，不要求另建 spec、架構或 handoff 文件。
 - 使用者明確指令及目前程式、設定、測試為確認需求的依據；無法確認的內容不得寫成事實。
 
@@ -15,10 +15,10 @@
 - `dist/stardust.html`、`stardust-app.js`、`stardust-calculator.js`：星塵任務與獎勵計算。
 - `dist/traits.html`、`traits-app.js`、`traits-calculator.js`：特性等級、璞黎點、AP、結晶與每週上限週數。
 - `dist/reading.html`、`reading.js`、`reading.css`：讀書型技能簡表與滑鼠、鍵盤、觸控取得詳情。
-- `dist/data/`：網站必要數據；`dist/assets/`：網站圖像。
+- `dist/data/`：網站必要數據；`dist/assets/`：網站圖像；`dist/assets/fonts/`：自架字型子集。
 - `dist/skill-navigation.js`、`navigation.js`、`theme.js`：導覽及共用互動。
 - `dist/format.js`：前端與建置共用的文字跳脫及數字格式。
-- `scripts/serve.mjs`：本機預覽；`scripts/build.mjs`：建置、預載及資源版本。
+- `scripts/serve.mjs`：本機預覽；`scripts/build.mjs`：建置、預載及資源版本；`scripts/font.mjs`、`font-text.mjs`：依網站文字重建字型子集。
 - `tests/`：Node.js 內建測試，涵蓋計算、資料與建置。
 - `.github/workflows/pages.yml`：main 推送後執行測試、建置及 GitHub Pages 部署。
 
@@ -34,6 +34,7 @@
 | Lint／格式檢查 | 未設定 linter 或 formatter；提交前執行 `git diff --check` |
 | 型別檢查 | 未設定 |
 | 建置 | `npm run build`，輸出 `.pages/` |
+| 字型子集 | `npm run font`；需 Python、fontTools 與本機字型，`npm test` 回報缺字時執行 |
 
 不得假設其他工具已安裝，不得宣稱未執行的檢查已通過。
 
@@ -53,7 +54,7 @@
 
 - 勾選、次數及價格變更應保留原輸入節點與鍵盤焦點，優先更新受影響列及合計。不要用整表 `innerHTML` 加重新 `focus()` 掩蓋節點重建；路線、篩選或資料結構改變時才重建必要區域。
 - 修改互動更新時，以實際瀏覽器驗證 Tab、空白鍵、解鎖狀態、同名單價同步、篩選、重設及錯誤後恢復。局部更新的顯示數量與金額須和完整計算一致，補入 `tests/browser.js` 的相關案例。
-- 字型不可透過 CSS `@import` 串行載入；HTML 直接宣告字型與所需的 preconnect。保留已使用字重，減少字重或自架子集前確認外觀、授權、字元涵蓋與維護成本。
+- 字型使用 `dist/assets/fonts/` 的自架 Noto Sans TC 子集，HTML 以 preload 同源載入，不經 CSS `@import` 或外部字型服務。新增文字後執行 `npm run font`；調整字重、字元範圍或字型來源前確認外觀、授權、字元涵蓋與維護成本。
 - `dist/` 只放執行時使用的資源。原始圖片與產圖中繼檔放在已忽略的 `source/` 或 `output/`；移除素材時核對動態引用、建置輸出及 `.gitignore`。加入 ignore 不會移除既有追蹤，必須另查 `git ls-files` 與暫存區。
 - 發布前確認測試頁未混入 `.pages/`，本機輸入、備份及產圖暫存未被追蹤或混入部署內容。沿用資料衛生與資源檢查測試；重建 repo 只推乾淨根提交，不推舊分支、標籤、bundle 或完整 mirror。未經使用者要求不改寫公開歷史。
 - 共用文字跳脫與一般數字格式使用 `dist/format.js`；金幣分組沿用聚能規則。新增資源格式時確認預覽伺服器 MIME。效能報告註明環境、操作、樣本與量測範圍，區分同步事件耗時、繪製及網路時間；不得將他人量測當成本次實測。

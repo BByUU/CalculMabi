@@ -8,7 +8,7 @@ test('本機預覽使用圖片 MIME，測試頁僅於測試模式提供', async 
     await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
     t.after(()=>new Promise(resolve=>server.close(resolve)));
     const base=`http://127.0.0.1:${server.address().port}`;
-    for (const [file, mime] of [['calculmabi-icon.png','image/png'],['weapons-line/staff.webp','image/webp']]) {
+    for (const [file, mime] of [['calculmabi-icon.png','image/png'],['weapons-line/staff.webp','image/webp'],['fonts/noto-sans-tc.woff','font/woff']]) {
       const response=await fetch(`${base}/assets/${file}`);
       assert.equal(response.status,200);
       assert.equal(response.headers.get('content-type'),mime);

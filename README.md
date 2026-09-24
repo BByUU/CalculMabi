@@ -15,7 +15,7 @@
 
 ## 環境與安裝
 
-需要 Node.js 20 以上及隨附的 npm，CI 使用 Node.js 22。專案使用 HTML、CSS 與原生 JavaScript，沒有 Python 或第三方套件依賴，目前不需要執行 `npm install`。
+需要 Node.js 20 以上及隨附的 npm，CI 使用 Node.js 22。專案使用 HTML、CSS 與原生 JavaScript，沒有第三方套件依賴，目前不需要執行 `npm install`。網站、測試與建置不需要 Python；只有重建字型子集的 `npm run font` 需要 Python、fontTools 與本機的 `NotoSansTC-VF.ttf`。
 
 ## 使用
 
@@ -35,7 +35,7 @@ npm run dev
 
 `npm run build` 將網站輸出至 `.pages/`。main 推送後，由 GitHub Actions 執行測試、建置及 GitHub Pages 部署；正式網址為 `https://bbyuu.github.io/CalculMabi/`。連結及資源須支援此專案子路徑。既有資料維護腳本可讀取公開 Wiki，網站一般計算不依賴即時查詢 Wiki。
 
-字型由各頁直接載入 Google Fonts 並預先連線。技能修練的項目、配方、已計數與加成，以及聚能同一路線的藥水、次數與金額採局部更新，只在技能、Rank 區間或已計數欄改變時重建修練表；星塵支援效果與特性等級保留輸入節點，供鍵盤連續操作。圖片原始素材與產圖中繼檔留在本機 `source/`、`output/`，不納入公開儲存庫；重複建置會清掉已移除的舊輸出資源。
+字型使用自架的 Noto Sans TC 子集 `dist/assets/fonts/noto-sans-tc.woff`（SIL OFL 1.1，授權與著作權資訊保留在字型內），只含網站檔案用到的字元與 400–700 字重，各頁以 preload 同源載入，不連外部字型服務。新增文字後 `npm test` 會列出子集缺少的字，執行 `npm run font` 重建；字型來源可用 `NOTO_SANS_TC_SOURCE` 指定，或放在 `source/fonts/`。技能修練的項目、配方、已計數與加成，以及聚能同一路線的藥水、次數與金額採局部更新，只在技能、Rank 區間或已計數欄改變時重建修練表；星塵支援效果與特性等級保留輸入節點，供鍵盤連續操作。圖片原始素材與產圖中繼檔留在本機 `source/`、`output/`，不納入公開儲存庫；重複建置會清掉已移除的舊輸出資源。
 
 ## 驗證
 
@@ -46,6 +46,7 @@ npm run dev
 | Lint／格式 | 未設定專用工具；`git diff --check` 檢查變更中的空白錯誤 |
 | 型別檢查 | 未設定 |
 | 建置 | `npm run build` |
+| 字型子集 | `npm run font`，文字變更且 `npm test` 回報缺字時執行 |
 | 瀏覽器回歸 | 建置後執行 `npm run test:browser`，開啟 `http://127.0.0.1:4174/__tests__/browser.html` 並按「執行測試」 |
 
 瀏覽器回歸使用建置結果，檢查星塵焦點及解鎖狀態、特性等級與持有點數的局部更新、技能修練局部更新與完整重建一致、聚能各武器的局部更新、用量與金額同步、篩選、重設及錯誤恢復。測試來源使用獨立的 4174 埠，完成後還原該來源的儲存設定。測試頁不部署，也不在一般預覽模式提供；修改程式後需重新建置再測。測試頁顯示的互動時間僅包含同步事件處理，不包含後續繪製。
@@ -54,7 +55,7 @@ npm run dev
 
 開發規則集中在 [AGENTS.md](AGENTS.md)，適用於所有資料夾。需求與操作說明維護在本文件；設計決策查詢 Git 提交紀錄，不另外要求 spec、架構或 handoff 文件。
 
-`dist/` 包含技能、升段、聚能、星塵、特性各自的頁面與計算模組；`dist/data/` 放必要數據，`dist/assets/` 放圖像，`scripts/` 負責預覽與建置，`tests/` 放測試。既有 `docs/` 保留計算及道具查核資料，按需查閱。
+`dist/` 包含技能、升段、聚能、星塵、特性各自的頁面與計算模組；`dist/data/` 放必要數據，`dist/assets/` 放圖像與字型，`scripts/` 負責預覽、建置與字型子集，`tests/` 放測試。既有 `docs/` 保留計算及道具查核資料，按需查閱。
 
 本機輸入資料、歷史備份與建置暫存不提交。公開儲存庫只保留網站使用的必要資料。
 
