@@ -107,13 +107,27 @@ function webpSize(buffer) {
   throw new Error(`Unknown WebP chunk ${chunk}`);
 }
 
-test('技能圖示皆有使用，尺寸不超過 26px 顯示的 3 倍', async () => {
-  const {SKILLS} = await import('../dist/skill-navigation.js');
-  const root = new URL('../dist/assets/skills/', import.meta.url);
+async function assertIcons(folder, ids) {
+  const root = new URL(`../dist/assets/${folder}/`, import.meta.url);
   const files = (await readdir(root)).sort();
-  assert.deepEqual(files, SKILLS.map(skill => `${skill.id}.webp`).sort());
+  assert.deepEqual(files, ids.map(id => `${id}.webp`).sort());
   for (const file of files) {
     const [width, height] = webpSize(await readFile(new URL(file, root)));
     assert.ok(width <= 78 && height <= 78, `${file} ${width}x${height}`);
   }
+}
+
+test('技能圖示皆有使用，尺寸不超過 26px 顯示的 3 倍', async () => {
+  const {SKILLS} = await import('../dist/skill-navigation.js');
+  await assertIcons('skills', SKILLS.map(skill => skill.id));
+});
+
+test('特性圖示一個特性一張，尺寸不超過 26px 顯示的 3 倍，來源紀錄對應全部特性', async () => {
+  const {TRAITS} = await import('../dist/traits-calculator.js');
+  await assertIcons('traits', TRAITS.map(trait => trait.id));
+  const sources = JSON.parse(await readFile(new URL('../docs/TRAIT-ICON-SOURCES.json', import.meta.url), 'utf8'));
+  assert.deepEqual(sources.items.map(item => [item.id, item.name]), TRAITS.map(trait => [trait.id, trait.name]));
+  assert.equal(new Set(sources.items.map(item => item.mabiggId)).size, TRAITS.length);
+  const app = await readFile(new URL('../dist/traits-app.js', import.meta.url), 'utf8');
+  assert.ok(app.includes('src="./assets/traits/${trait.id}.webp" width="26" height="26" alt=""'));
 });

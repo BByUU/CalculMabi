@@ -32,6 +32,8 @@
 .tr-trait-table tbody+tbody .tr-group th { border-top:1px solid var(--line-strong); }
 .tr-group th { padding-top:7px; background:var(--surface-soft); }
 .tr-trait-table :is(th,td):nth-child(2) { text-align:left; }
+.tr-name { display:inline-flex; align-items:center; gap:8px; vertical-align:middle; }
+.tr-icon { flex:0 0 26px; width:26px; height:26px; border-radius:3px; }
 .tr-trait-table .tr-done td:not(:nth-child(2)) { color:var(--muted); }
 .tr-cost-table tfoot { color:var(--accent-ink); background:var(--surface-accent); }
 .tr-error { margin:0; border-width:1px 0 0; border-radius:0; }

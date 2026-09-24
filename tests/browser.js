@@ -75,6 +75,13 @@ document.getElementById('run').addEventListener('click',async()=>{
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
     same(tr.getElementById('tr-weeks-total').textContent,'33 週','全部升滿需 33 週');
     same(tr.querySelectorAll('[data-trait="haste"] select').length,1,'每個特性只選目前等級');
+    const icons=[...tr.querySelectorAll('[data-trait] .tr-icon')];
+    same(icons.length,TRAITS.length,'每個特性都有圖示');
+    for (const icon of icons) {
+      const id=icon.closest('[data-trait]').dataset.trait;
+      same(icon.getAttribute('src'),`./assets/traits/${id}.webp`,`${id} 圖示路徑`);
+      same((await fetch(icon.src,{method:'HEAD'})).status,200,`${id} 圖示存在`);
+    }
     const traitControls=[...tr.querySelectorAll('[data-level], [data-held]')];
     const haste=tr.querySelector('[data-trait="haste"] [data-level]');
     haste.focus();change(haste,'8');traitPlan.levels.haste={current:8};

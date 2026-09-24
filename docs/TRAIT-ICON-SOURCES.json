@@ -1,0 +1,196 @@
+{
+  "note": "Mabinogi technique card artwork, copyright NEXON/devCAT. Downloaded from mabi.gg technique pages (about 320x600 cards), cropped to the 240x240 art area at x=40,y=130 and resized to 78x78 (3x the 26px display size) with ffmpeg lanczos scaling and libwebp quality 90. The downloads are kept locally in source/trait-icons-original/. English names were matched to the Chinese trait names by their activation conditions in the Bahamut trait guide; each card frame colour also matches its category (red training, teal challenge, blue sympathy).",
+  "retrieved": "2026-09-25",
+  "items": [
+    {
+      "id": "firm-will",
+      "name": "堅定意志",
+      "mabiggId": "iron_will",
+      "pageUrl": "https://mabi.gg/techniques/iron_will",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/92/92e10d4571935275b26d815d1b66333b842b732aaa7819ade3403094ff8b7c9b.webp",
+      "file": "firm-will.webp",
+      "originalBytes": 38968,
+      "bytes": 3234
+    },
+    {
+      "id": "transcend-life",
+      "name": "超越:生命",
+      "mabiggId": "vital_surge",
+      "pageUrl": "https://mabi.gg/techniques/vital_surge",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/80/8043d8b17cc322807c6d93c04b775e91a21f71e686960767b08c12f1b33c728c.webp",
+      "file": "transcend-life.webp",
+      "originalBytes": 35846,
+      "bytes": 2454
+    },
+    {
+      "id": "impact-cancel",
+      "name": "衝擊相消",
+      "mabiggId": "dampen_shock",
+      "pageUrl": "https://mabi.gg/techniques/dampen_shock",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/7d/7d6267f770b5c43b44add22f1f5cffca7061aa25ad3681a98f5b8c917bc8070d.webp",
+      "file": "impact-cancel.webp",
+      "originalBytes": 43628,
+      "bytes": 3694
+    },
+    {
+      "id": "damage-absorb",
+      "name": "傷害吸收",
+      "mabiggId": "blunting_field",
+      "pageUrl": "https://mabi.gg/techniques/blunting_field",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/85/856d8fa8724e43f126dd9cd4ae6dcac50288c0ee612dd9b2cda297d115f3a984.webp",
+      "file": "damage-absorb.webp",
+      "originalBytes": 44330,
+      "bytes": 3762
+    },
+    {
+      "id": "revival",
+      "name": "起死回生",
+      "mabiggId": "defiance",
+      "pageUrl": "https://mabi.gg/techniques/defiance",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/d9/d9eec8a708502fba43e9bab7413d283250692d7c6cdf0e397dbf777f97a4262a.webp",
+      "file": "revival.webp",
+      "originalBytes": 41734,
+      "bytes": 3432
+    },
+    {
+      "id": "time-warp",
+      "name": "時間歪曲",
+      "mabiggId": "time_shift",
+      "pageUrl": "https://mabi.gg/techniques/time_shift",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/2f/2f30e6d40164dfca5320e19c078ce1ac9a7d690bf4412d6e68ff7a63048034da.webp",
+      "file": "time-warp.webp",
+      "originalBytes": 41234,
+      "bytes": 3450
+    },
+    {
+      "id": "haste",
+      "name": "快速",
+      "mabiggId": "relentless_assault",
+      "pageUrl": "https://mabi.gg/techniques/relentless_assault",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/60/60fd743903f815b68a75bdb063a1959d137590ade81828e9171ed6cdda8c7515.webp",
+      "file": "haste.webp",
+      "originalBytes": 46246,
+      "bytes": 4102
+    },
+    {
+      "id": "vital-pierce",
+      "name": "要害貫通",
+      "mabiggId": "exploit_weakness",
+      "pageUrl": "https://mabi.gg/techniques/exploit_weakness",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/2d/2dc270f44b9729060119bc207b0f1a6c859c7d86727647ce2acd984b3a896827.webp",
+      "file": "vital-pierce.webp",
+      "originalBytes": 43380,
+      "bytes": 3746
+    },
+    {
+      "id": "element-hone",
+      "name": "元素打磨",
+      "mabiggId": "elemental_attunement",
+      "pageUrl": "https://mabi.gg/techniques/elemental_attunement",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/d2/d2b93f3c5a5cc1d344e48f32b28bbdbc0da1769cc6fb68fb79558f5fb451943d.webp",
+      "file": "element-hone.webp",
+      "originalBytes": 36364,
+      "bytes": 2468
+    },
+    {
+      "id": "follow-up",
+      "name": "連續攻擊",
+      "mabiggId": "redoubled_offensive",
+      "pageUrl": "https://mabi.gg/techniques/redoubled_offensive",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/2e/2e3456a474b4fbee1e323076963d9521b449abf811736dd0e5694f242dcf824d.webp",
+      "file": "follow-up.webp",
+      "originalBytes": 45884,
+      "bytes": 4116
+    },
+    {
+      "id": "insight-eye",
+      "name": "洞察之眼",
+      "mabiggId": "phantasmal_sight",
+      "pageUrl": "https://mabi.gg/techniques/phantasmal_sight",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/22/2252e52bd09498831e0529e75b32ac05dfe7aad34f138429a2180ea043392829.webp",
+      "file": "insight-eye.webp",
+      "originalBytes": 38606,
+      "bytes": 3192
+    },
+    {
+      "id": "status-support",
+      "name": "狀態支援",
+      "mabiggId": "fateweaver",
+      "pageUrl": "https://mabi.gg/techniques/fateweaver",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/b0/b08cf8109eff69fbbe0877861b059c8ff6511a06e0a17727fa95e73295504ad3.webp",
+      "file": "status-support.webp",
+      "originalBytes": 37568,
+      "bytes": 2766
+    },
+    {
+      "id": "focused-lure",
+      "name": "集中引誘",
+      "mabiggId": "tenacious_taunt",
+      "pageUrl": "https://mabi.gg/techniques/tenacious_taunt",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/52/5241b5fc67891324ce63b22c6b0be4fef585673c55f1c19ec7ccbdb0e49c31a4.webp",
+      "file": "focused-lure.webp",
+      "originalBytes": 42424,
+      "bytes": 3340
+    },
+    {
+      "id": "regen-field",
+      "name": "再生之域",
+      "mabiggId": "zone_of_renewal",
+      "pageUrl": "https://mabi.gg/techniques/zone_of_renewal",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/1d/1d2a3be1ade1ca1755443231d675f52a6c0becbf20b4bc6e754fc30038adc8c1.webp",
+      "file": "regen-field.webp",
+      "originalBytes": 32200,
+      "bytes": 2426
+    },
+    {
+      "id": "power-rally",
+      "name": "力量團聚",
+      "mabiggId": "unified_might",
+      "pageUrl": "https://mabi.gg/techniques/unified_might",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/32/32f3ba91c78587bf57e1a1f6565c4c3146fdd8f99f4ad74663534037cb8f1848.webp",
+      "file": "power-rally.webp",
+      "originalBytes": 37082,
+      "bytes": 2682
+    },
+    {
+      "id": "chain-manifest",
+      "name": "連續實體化",
+      "mabiggId": "continuous_awakening",
+      "pageUrl": "https://mabi.gg/techniques/continuous_awakening",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/a6/a6a43007c842981e06cfe7f248e6d3cb0333c0e89422dbaad062c8bc1c5c51ef.webp",
+      "file": "chain-manifest.webp",
+      "originalBytes": 49492,
+      "bytes": 4286
+    },
+    {
+      "id": "block",
+      "name": "阻斷",
+      "mabiggId": "shield",
+      "pageUrl": "https://mabi.gg/techniques/shield",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/5c/5c448e0860b066596dff8170d48e152a03696960b4216a66c370d1479db96fb1.webp",
+      "file": "block.webp",
+      "originalBytes": 34838,
+      "bytes": 2174
+    },
+    {
+      "id": "guard-hand",
+      "name": "保護之手",
+      "mabiggId": "protective_touch",
+      "pageUrl": "https://mabi.gg/techniques/protective_touch",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/56/56821e4ae91fd337e50917fa47593646552b56cf5f2586bb2c91b6b42ed2098b.webp",
+      "file": "guard-hand.webp",
+      "originalBytes": 41286,
+      "bytes": 3456
+    },
+    {
+      "id": "fragarach",
+      "name": "刻印：弗拉加拉赫",
+      "mabiggId": "seal_fragarach",
+      "pageUrl": "https://mabi.gg/techniques/seal_fragarach",
+      "imgUrl": "https://mabi.gg/assets/blob/derived/progression-icons/7d/7d107844e4cca59a25edaa87edb30c62a3a78e1ab59930db78884dd254a1fc10.webp",
+      "file": "fragarach.webp",
+      "originalBytes": 33698,
+      "bytes": 2954
+    }
+  ]
+}
