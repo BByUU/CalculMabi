@@ -62,28 +62,27 @@ export function upgradeCost(from, to) {
 
 export function defaultTraitPlan() {
   return {
-    levels:Object.fromEntries(TRAITS.map(trait => [trait.id, {current:1, target:MAX_LEVEL}])),
+    levels:Object.fromEntries(TRAITS.map(trait => [trait.id, {current:1}])),
     held:Object.fromEntries(CATEGORIES.map(category => [category.id, 0])),
   };
 }
 
 const sum = (items, key) => items.reduce((total, item) => total + item[key], 0);
 
+// Every trait is planned up to Lv.10; only the current level varies.
 export function calculateTraits(plan) {
   const rows = TRAITS.map(trait => {
     const choice = plan?.levels?.[trait.id];
     if (!choice || typeof choice !== 'object') throw new Error(`缺少${trait.name}的等級設定。`);
     const current = integer(choice.current, 1, MAX_LEVEL, `${trait.name}目前等級`);
-    const target = integer(choice.target, 1, MAX_LEVEL, `${trait.name}目標等級`);
-    if (target < current) throw new Error(`${trait.name}的目標等級不可低於目前等級。`);
-    return {...trait, current, target, ...upgradeCost(current, target)};
+    return {...trait, current, ...upgradeCost(current, MAX_LEVEL)};
   });
   const categories = CATEGORIES.map(category => {
     const own = rows.filter(row => row.category === category.id);
     const held = integer(plan?.held?.[category.id] ?? 0, 0, HOLD_CAP, `${category.name}的目前持有璞黎點`);
     const points = sum(own, 'points');
     const missing = Math.max(0, points - held);
-    return {...category, traits:own.length, upgrading:own.filter(row => row.target > row.current).length,
+    return {...category, traits:own.length, upgrading:own.filter(row => row.current < MAX_LEVEL).length,
       points, held, missing, weeks:Math.ceil(missing / WEEKLY_CAP), ap:sum(own, 'ap'), basic:sum(own, 'basic'), advanced:sum(own, 'advanced')};
   });
   const weeks = Math.max(...categories.map(category => category.weeks));

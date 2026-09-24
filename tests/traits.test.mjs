@@ -15,11 +15,11 @@ test('每級需求與巴哈姆特整合表一致，結晶由 Lv.5 與 Lv.8 開�
 test('文中任務線範例：Lv.3 需 900 點，Lv.5 需 2,100 點與 20 個一般結晶', () => {
   assert.equal(upgradeCost(1, 3).points, 900);
   assert.deepEqual(upgradeCost(1, 5), {ap:26, points:2100, basic:20, advanced:0});
-  const plan = defaultTraitPlan();
-  for (const trait of TRAITS) plan.levels[trait.id] = {current:1, target:1};
-  for (const id of ['time-warp', 'follow-up', 'haste', 'element-hone']) plan.levels[id].target = 3;
-  const byId = Object.fromEntries(calculateTraits(plan).categories.map(category => [category.id, category.points]));
-  assert.deepEqual(byId, {training:900, challenge:0, sympathy:2700});
+  // 快速 is training; 時間歪曲、連續攻擊、元素打磨 are sympathy.
+  const byName = name => TRAITS.find(trait => trait.name === name).category;
+  assert.equal(byName('快速'), 'training');
+  assert.deepEqual(['時間歪曲', '連續攻擊', '元素打磨'].map(byName), ['sympathy', 'sympathy', 'sympathy']);
+  assert.equal(3 * upgradeCost(1, 3).points, 2700);
 });
 
 test('19 種特性分為修行 7、挑戰 6、交感 6，ID 不重複', () => {
@@ -43,9 +43,9 @@ test('全部升滿：修行 48,300 點需 33 週，其餘各 28 週，由修行�
 
 test('目前持有點數只扣同分類，缺少點數不為負，週數向上取整', () => {
   const plan = defaultTraitPlan();
-  for (const trait of TRAITS) plan.levels[trait.id] = {current:1, target:1};
-  plan.levels['firm-will'] = {current:9, target:10};
-  plan.levels.revival = {current:1, target:2};
+  for (const trait of TRAITS) plan.levels[trait.id] = {current:10};
+  plan.levels['firm-will'] = {current:9};
+  plan.levels.revival = {current:9};
   plan.held = {training:1000, challenge:HOLD_CAP, sympathy:0};
   const result = calculateTraits(plan);
   const byId = Object.fromEntries(result.categories.map(category => [category.id, category]));
@@ -54,18 +54,31 @@ test('目前持有點數只扣同分類，缺少點數不為負，週數向上�
   assert.equal(result.totals.missing, 400);
   plan.held.training = 1400;
   assert.equal(calculateTraits(plan).totals.weeks, 0);
-  plan.levels['firm-will'] = {current:1, target:10};
+  plan.levels['firm-will'] = {current:1};
   plan.held.training = 0;
   assert.equal(calculateTraits(plan).totals.weeks, Math.ceil(6900 / WEEKLY_CAP));
 });
 
-test('無效等級、降級與超過持有上限不能產生假合計', () => {
+test('目標固定 Lv.10：Lv.10 不需資源也不算升級項目，舊版儲存的目標等級被忽略', () => {
+  const plan = defaultTraitPlan();
+  plan.levels.haste = {current:10};
+  const done = calculateTraits(plan);
+  assert.deepEqual(['points', 'ap', 'basic', 'advanced'].map(key => done.rows.find(row => row.id === 'haste')[key]), [0, 0, 0, 0]);
+  assert.equal(done.categories.find(category => category.id === 'training').upgrading, 6);
+  plan.levels.haste = {current:5, target:7};
+  const legacy = calculateTraits(plan).rows.find(row => row.id === 'haste');
+  assert.equal(legacy.points, upgradeCost(5, 10).points);
+  assert.ok(!Object.hasOwn(legacy, 'target'));
+});
+
+test('無效等級與超過持有上限不能產生假合計', () => {
   const invalid = [
-    plan => { plan.levels.haste = {current:0, target:10}; },
-    plan => { plan.levels.haste = {current:1, target:11}; },
-    plan => { plan.levels.haste = {current:1.5, target:10}; },
-    plan => { plan.levels.haste = {current:8, target:7}; },
-    plan => { plan.levels.haste = {current:'', target:10}; },
+    plan => { plan.levels.haste = {current:0}; },
+    plan => { plan.levels.haste = {current:11}; },
+    plan => { plan.levels.haste = {current:1.5}; },
+    plan => { plan.levels.haste = {current:''}; },
+    plan => { plan.levels.haste = {}; },
+    plan => { plan.levels.haste = 5; },
     plan => { delete plan.levels.haste; },
     plan => { plan.held.training = HOLD_CAP + 1; },
     plan => { plan.held.training = -1; },

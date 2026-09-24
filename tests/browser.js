@@ -48,15 +48,18 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(sd.getElementById('sd-task-total').textContent,originalTotal,'全部取消與全選回到原計算');
     report.textContent='星塵焦點與狀態測試通過。特性測試中…';
 
+    // A plan saved before the target level was fixed at Lv.10 still loads its current levels and held points.
+    localStorage.setItem('mabi-traits-v1',JSON.stringify({levels:{haste:{current:5,target:7}},held:{training:300}}));
     const tr=await open('traits.html',d=>d.querySelectorAll('[data-trait]').length===TRAITS.length);
     let traitPlan=defaultTraitPlan();
+    traitPlan.levels.haste={current:5};traitPlan.held.training=300;
     const amount=n=>n?formatNumber(n):'—';
     function verifyTraits() {
       const result=calculateTraits(traitPlan);
       for (const row of result.rows) {
         const node=tr.querySelector(`[data-trait="${row.id}"]`);
-        same(node.querySelector('[data-level="current"]').value,String(row.current),`${row.id} 目前等級`);
-        same(node.querySelector('[data-level="target"]').value,String(row.target),`${row.id} 目標等級`);
+        same(node.querySelector('[data-level]').value,String(row.current),`${row.id} 目前等級`);
+        same(node.classList.contains('tr-done'),row.current===10,`${row.id} 完成標示`);
         for (const key of ['points','ap','basic','advanced']) same(node.querySelector(`[data-cell="${key}"]`).textContent,amount(row[key]),`${row.id} ${key}`);
       }
       for (const category of result.categories) {
@@ -68,17 +71,17 @@ document.getElementById('run').addEventListener('click',async()=>{
       same(tr.getElementById('tr-weeks-total').textContent,result.totals.weeks?`${formatNumber(result.totals.weeks)} 週`:'已足夠','特性週數');
     }
     verifyTraits();
+    same(tr.querySelector('[data-held="training"]').value,'300','舊版儲存的持有點數');
+    tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
     same(tr.getElementById('tr-weeks-total').textContent,'33 週','全部升滿需 33 週');
+    same(tr.querySelectorAll('[data-trait="haste"] select').length,1,'每個特性只選目前等級');
     const traitControls=[...tr.querySelectorAll('[data-level], [data-held]')];
-    const hasteCurrent=tr.querySelector('[data-trait="haste"] [data-level="current"]');
-    change(tr.querySelector('[data-trait="haste"] [data-level="target"]'),'5');traitPlan.levels.haste.target=5;
-    hasteCurrent.focus();change(hasteCurrent,'8');traitPlan.levels.haste={current:8,target:8};
-    same(tr.activeElement,hasteCurrent,'特性等級焦點不變');
-    assert(tr.querySelector('[data-trait="haste"] [data-level="target"] option[value="7"]').disabled,'低於目前等級的目標停用');
-    verifyTraits();
+    const haste=tr.querySelector('[data-trait="haste"] [data-level]');
+    haste.focus();change(haste,'8');traitPlan.levels.haste={current:8};
+    same(tr.activeElement,haste,'特性等級焦點不變');verifyTraits();
     const untouchedTrait=tr.querySelector('[data-trait="block"]'), traitObserver=new MutationObserver(()=>{});
     traitObserver.observe(untouchedTrait,{attributes:true,childList:true,subtree:true,characterData:true});
-    change(tr.querySelector('[data-trait="haste"] [data-level="target"]'),'10');traitPlan.levels.haste.target=10;
+    change(haste,'10');traitPlan.levels.haste={current:10};
     same(traitObserver.takeRecords().length,0,'未改動特性沒有 DOM 寫入');traitObserver.disconnect();verifyTraits();
     const held=tr.querySelector('[data-held="training"]');
     held.focus();change(held,'1200','input');traitPlan.held.training=1200;
@@ -87,9 +90,9 @@ document.getElementById('run').addEventListener('click',async()=>{
     assert(!tr.getElementById('tr-error').hidden,'超過持有上限顯示錯誤');verifyTraits();
     change(held,'','input');traitPlan.held.training=0;
     assert(tr.getElementById('tr-error').hidden,'修正後隱藏錯誤');verifyTraits();
-    change(tr.getElementById('tr-bulk-current'),'5');change(tr.getElementById('tr-bulk-target'),'9');
+    change(tr.getElementById('tr-bulk-level'),'5');
     tr.getElementById('tr-bulk-apply').click();
-    for (const trait of TRAITS) traitPlan.levels[trait.id]={current:5,target:9};
+    for (const trait of TRAITS) traitPlan.levels[trait.id]={current:5};
     verifyTraits();
     assert(traitControls.every(node=>tr.contains(node)),'特性控制項不重建');
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();

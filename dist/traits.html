@@ -3,11 +3,11 @@
 <link rel="preload" href="./assets/fonts/noto-sans-tc.woff" as="font" type="font/woff" crossorigin>
   <link rel="icon" type="image/png" sizes="400x400" href="./assets/calculmabi-icon.png"><link rel="icon" type="image/png" sizes="64x64" href="./assets/calculmabi-icon-64.png">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#16333e">
-<meta name="description" content="瑪奇小算盤 CalculMabi：選擇特性目前與目標等級，列出缺少的修行、挑戰、交感璞黎點、AP 與璞黎結晶，並依每週 1,500 點上限估算週數。">
+<meta name="description" content="瑪奇小算盤 CalculMabi：選擇特性目前等級，列出升到 Lv.10 缺少的修行、挑戰、交感璞黎點、AP 與璞黎結晶，並依每週 1,500 點上限估算週數。">
 <meta name="application-name" content="瑪奇小算盤 CalculMabi">
 <meta property="og:site_name" content="瑪奇小算盤 CalculMabi">
 <meta property="og:title" content="特性升級｜瑪奇小算盤 CalculMabi">
-<meta property="og:description" content="瑪奇小算盤 CalculMabi：選擇特性目前與目標等級，列出缺少的修行、挑戰、交感璞黎點、AP 與璞黎結晶，並依每週 1,500 點上限估算週數。">
+<meta property="og:description" content="瑪奇小算盤 CalculMabi：選擇特性目前等級，列出升到 Lv.10 缺少的修行、挑戰、交感璞黎點、AP 與璞黎結晶，並依每週 1,500 點上限估算週數。">
 <title>特性升級｜瑪奇小算盤 CalculMabi</title>
 <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./category-nav.css"><link rel="stylesheet" href="./theme.css"><link rel="stylesheet" href="./density.css"><link rel="stylesheet" href="./traits.css">
 <script src="./theme.js"></script><script src="./navigation.js" defer></script><script type="module" src="./traits-app.js"></script>
@@ -32,9 +32,9 @@
   </section>
 
   <section class="tr-panel" aria-labelledby="tr-trait-heading">
-    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><div class="tr-bulk"><span>統一設定</span><select id="tr-bulk-current" aria-label="全部特性目前等級"></select><span aria-hidden="true">→</span><select id="tr-bulk-target" aria-label="全部特性目標等級"></select><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
+    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10，右側列出升滿所需。</p><div class="tr-bulk"><span>統一目前等級</span><select id="tr-bulk-level" aria-label="全部特性目前等級"></select><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
     <div class="table-scroll"><table id="tr-trait-table" class="tr-table tr-trait-table">
-      <thead><tr><th scope="col">特性</th><th scope="col">目前 → 目標</th><th scope="col">璞黎點</th><th scope="col">AP</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
+      <thead><tr><th scope="col">特性</th><th scope="col">目前等級</th><th scope="col">璞黎點</th><th scope="col">AP</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
     </table></div>
   </section>
 
@@ -48,7 +48,7 @@
   </section>
 
   <footer class="data-footer"><p>特性升級後無法降級。結晶使用與特性相同分類的璞黎結晶，僅泰赫圖殷副本出產；高級結晶出自非常困難難度。</p><details><summary>計算說明</summary><div>
-    <p>缺少璞黎點 = 所選特性由目前等級升到目標等級的璞黎點合計 − 該分類目前持有點數。三種璞黎各有每週 1,500 點取得上限，週數以缺少點數 ÷ 1,500 向上取整，三類同時累積，最慢的一類決定完成週數。</p>
+    <p>缺少璞黎點 = 各特性由目前等級升到 Lv.10 的璞黎點合計 − 該分類目前持有點數。三種璞黎各有每週 1,500 點取得上限，週數以缺少點數 ÷ 1,500 向上取整，三類同時累積，最慢的一類決定完成週數。</p>
     <p>取得方式：修行為角色等級每提升 1 級 +10；挑戰為完成地下城、副本、影子任務或平原首領攻略任務每次 +50；交感為完成反覆欄每日任務或任務捲軸每個 +50。</p>
     <p>每天可另外將 10 AP 轉換為 100 璞黎點，不受每週上限限制。資料未說明轉換後的分類，本頁週數不計入 AP 轉換。目前等級計點條內已注入的璞黎點也未扣除。</p>
     <p>資料依巴哈姆特新瑪奇哈啦板〈<a href="https://forum.gamer.com.tw/C.php?bsn=7422&amp;snA=239060" rel="noopener">特性技術系統整合導讀</a>〉整理，19 種特性分類含 4 樓補充的刻印：弗拉加拉赫（修行）。實際需求以遊戲內顯示為準。</p>
