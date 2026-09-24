@@ -36,3 +36,22 @@ test('公開武器圖示皆有使用，暫存與輸入檔不受 Git 追蹤', asy
   const ignored = execFileSync('git', ['check-ignore','--no-index','source/private.png','output/temporary.png','.pages/index.html'], {encoding:'utf8'}).trim().split(/\r?\n/);
   assert.equal(ignored.length, 3);
 });
+
+function webpSize(buffer) {
+  const chunk = buffer.toString('ascii', 12, 16);
+  if (chunk === 'VP8 ') return [buffer.readUInt16LE(26) & 0x3fff, buffer.readUInt16LE(28) & 0x3fff];
+  if (chunk === 'VP8L') { const bits = buffer.readUInt32LE(21); return [(bits & 0x3fff) + 1, ((bits >> 14) & 0x3fff) + 1]; }
+  if (chunk === 'VP8X') return [buffer.readUIntLE(24, 3) + 1, buffer.readUIntLE(27, 3) + 1];
+  throw new Error(`Unknown WebP chunk ${chunk}`);
+}
+
+test('技能圖示皆有使用，尺寸不超過 26px 顯示的 3 倍', async () => {
+  const {SKILLS} = await import('../dist/skill-navigation.js');
+  const root = new URL('../dist/assets/skills/', import.meta.url);
+  const files = (await readdir(root)).sort();
+  assert.deepEqual(files, SKILLS.map(skill => `${skill.id}.webp`).sort());
+  for (const file of files) {
+    const [width, height] = webpSize(await readFile(new URL(file, root)));
+    assert.ok(width <= 78 && height <= 78, `${file} ${width}x${height}`);
+  }
+});
