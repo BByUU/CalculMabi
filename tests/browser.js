@@ -93,7 +93,48 @@ document.getElementById('run').addEventListener('click',async()=>{
     verifyTraits();
     assert(traitControls.every(node=>tr.contains(node)),'特性控制項不重建');
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
-    report.textContent='星塵與特性測試通過。聚能測試中…';
+    report.textContent='星塵與特性測試通過。技能測試中…';
+
+    const sk=await open('index.html',d=>d.querySelectorAll('[data-task-row]').length>0);
+    sk.querySelector('[data-skill="stationery-craft"]').click();
+    const skillSnapshot=()=>[...sk.querySelectorAll('#plan-panel [data-rank]')].map(section=>JSON.stringify({
+      title:section.querySelector('.rank-title p')?.textContent, total:section.querySelector('tfoot th')?.innerHTML,
+      score:section.querySelector('.rank-score')?.textContent, below:section.querySelector('.rank-score')?.classList.contains('score-below-goal'),
+      label:section.querySelector('.rank-score')?.getAttribute('aria-label'), usage:section.querySelector('tfoot .training-usage')?.innerHTML,
+      now:section.querySelector('.progress-track')?.getAttribute('aria-valuenow'), width:section.querySelector('.progress-fill')?.style.width,
+      rows:[...section.querySelectorAll('[data-task-row]')].map(row=>[row.classList.contains('dim'),row.querySelector('[data-task]').checked,row.querySelector('[data-recipe]')?.value,row.querySelector('.action-number').innerHTML,row.querySelector('[data-points]').textContent,row.querySelector('td.training-usage').innerHTML]),
+    })).join('')+sk.getElementById('summary').innerHTML+sk.getElementById('materials-panel').innerHTML;
+    function sameAsRebuild(message) {
+      const patched=skillSnapshot(), start=sk.getElementById('start-rank'), rank=start.value;
+      change(start,'E');change(sk.getElementById('start-rank'),rank);
+      same(skillSnapshot(),patched,message);
+    }
+    const skillControls=[...sk.querySelectorAll('#plan-panel input, #plan-panel select')];
+    for (const box of [...sk.querySelectorAll('[data-task]')].filter((_,i)=>i%7===0)) {
+      box.focus();box.click();same(sk.activeElement,box,'修練項目焦點不變');
+    }
+    for (const select of [...sk.querySelectorAll('[data-recipe]')].slice(0,3)) {
+      select.focus();change(select,[...select.options].find(option=>option.value!==select.value).value);same(sk.activeElement,select,'配方焦點不變');
+    }
+    assert(skillControls.every(node=>sk.contains(node)),'修練項目與配方不重建');
+    const bonus=sk.querySelector('[data-bonus]');bonus.focus();bonus.click();same(sk.activeElement,bonus,'加成焦點不變');
+    change(sk.getElementById('potion'),'royal');sk.getElementById('train-to-30').click();
+    assert(skillControls.every(node=>sk.contains(node)),'加成變更不重建修練表');
+    const equipment=sk.getElementById('equipment');equipment.focus();change(equipment,'custom');
+    same(sk.activeElement,equipment,'裝備選單焦點不變');assert(!sk.getElementById('equipment-custom').closest('label').hidden,'自訂裝備倍率顯示');
+    change(sk.getElementById('equipment'),'none');
+    sameAsRebuild('修練表局部更新與重建一致');
+    const progress=sk.getElementById('current-progress');change(progress,'40','input');
+    const completed=[...sk.querySelectorAll('[data-completed]')].reduce((a,b)=>Number(b.max)>Number(a.max)?b:a);
+    const withCompleted=[...sk.querySelectorAll('#plan-panel input, #plan-panel select')];
+    completed.focus();change(completed,String(Math.min(1,Number(completed.max))));same(sk.activeElement,completed,'已計數焦點不變');
+    change(progress,'55','input');assert(withCompleted.every(node=>sk.contains(node)),'修練值與已計數變更不重建');
+    change(sk.getElementById('count-event'),'0');assert(!sk.getElementById('error-message').hidden,'無效活動倍率顯示錯誤');
+    change(sk.getElementById('count-event'),'1');assert(sk.getElementById('error-message').hidden,'修正後恢復計算');
+    change(progress,'0','input');same(sk.querySelectorAll('[data-completed]').length,0,'修練值歸零移除已計數欄');
+    sameAsRebuild('錯誤恢復後與重建一致');
+    sk.getElementById('reset').click();sk.querySelector('[data-skill="blacksmith"]').click();
+    report.textContent='星塵、特性與技能測試通過。聚能測試中…';
 
     const data=await (await fetch('/data/erg.json')).json(), catalog=await (await fetch('/data/erg-stacks.json')).json();
     const doc=await open('erg.html',d=>d.querySelectorAll('[data-stage]').length===12);
