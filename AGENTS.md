@@ -1,7 +1,7 @@
 # 專案概況
 
 - 名稱：瑪奇小算盤 CalculMabi。
-- 用途：技能修練與升段備料、聚能材料、星塵任務次數、特性升級需求計算與讀書型技能升級查詢。
+- 用途：技能修練與升段備料、聚能材料、星塵任務次數、特性升級需求、騎士團副技能修練時間計算與讀書型技能升級查詢。
 - 技術：HTML、CSS、原生 JavaScript ES modules；沒有前端框架、後端應用或資料庫。
 - 開發環境：Node.js 20 以上，GitHub Actions 使用 Node.js 22；npm 執行專案命令。目前沒有宣告第三方套件依賴。只有 `npm run font` 需要 Python、fontTools 與本機 `NotoSansTC-VF.ttf`。
 - 本文件適用於整個專案。操作與維護入口為 README.md，不要求另建 spec、架構或 handoff 文件。
@@ -14,6 +14,7 @@
 - `dist/erg.html`、`erg-app.js`、`erg-calculator.js`、`erg-feed.js`：聚能開放、材料、費用與飼料。
 - `dist/stardust.html`、`stardust-app.js`、`stardust-calculator.js`：星塵任務與獎勵計算。
 - `dist/traits.html`、`traits-app.js`、`traits-calculator.js`：特性等級、璞黎點、AP、結晶與每週上限週數。
+- `dist/knights.html`、`knights-app.js`、`knights-calculator.js`：騎士團副技能每級修練值、升級次數與時間。
 - `dist/reading.html`、`reading.js`、`reading.css`：讀書型技能簡表與滑鼠、鍵盤、觸控取得詳情。
 - `dist/data/`：網站必要數據；`dist/assets/`：網站圖像；`dist/assets/fonts/`：自架字型子集。
 - `dist/skill-navigation.js`、`navigation.js`、`theme.js`：導覽及共用互動。

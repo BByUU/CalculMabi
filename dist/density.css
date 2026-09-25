@@ -227,8 +227,18 @@ main, .erg-workspace main { padding: 14px 20px 72px; }
   .category-nav a { flex: 0 0 auto; }
   .erg-pr-help button { width: 30px; height: 30px; }
 }
-@media (max-width: 400px) {
-  .category-nav a { padding: 5px 6px; }
+@media (max-width: 1000px) {
+  .category-nav .theme-toggle span { display: none; }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .category-nav a { padding: 5px 10px; }
+}
+@media (max-width: 600px) {
+  .category-nav { gap: 3px; padding: 4px 8px; }
+  .category-nav a { padding: 5px 4px; }
+}
+@media (max-width: 500px) {
+  .category-nav a { font-size: .875rem; }
 }
 
 .erg-slot-totals { min-width: 1080px; table-layout: fixed; }

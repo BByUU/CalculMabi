@@ -1,6 +1,7 @@
 import {simulateErg, materialsBySlot, materialCosts, formatGold, materialStacks} from '/erg-calculator.js';
 import {formatNumber} from '/format.js';
 import {CATEGORIES, TRAITS, defaultTraitPlan, calculateTraits} from '/traits-calculator.js';
+import {SUB_SKILLS, defaultKnightsPlan, calculateKnights, formatDuration} from '/knights-calculator.js';
 const frame=document.getElementById('app'), report=document.getElementById('results');
 let assertions=0, timing='';
 // Hidden or backgrounded windows can stop producing frames; never wait on one indefinitely.
@@ -24,7 +25,7 @@ async function open(page,ready) {
 }
 document.getElementById('run').addEventListener('click',async()=>{
   const button=document.getElementById('run');button.disabled=true;assertions=0;
-  const keys=['mabi-erg-v1','mabi-stardust-plan-v1','mabi-traits-v1','mabi-traits-order'];
+  const keys=['mabi-erg-v1','mabi-stardust-plan-v1','mabi-traits-v1','mabi-traits-order','mabi-knights-v1'];
   const stored=keys.map(key=>[key,localStorage.getItem(key)]);
   keys.forEach(key=>localStorage.removeItem(key));report.textContent='測試中…';
   try {
@@ -125,7 +126,52 @@ document.getElementById('run').addEventListener('click',async()=>{
     tr.querySelector('[data-order="game"]').click();
     same(orderOf(),gameOrder,'切回遊戲排序');verifyTraits();
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
-    report.textContent='星塵與特性測試通過。技能測試中…';
+    report.textContent='星塵與特性測試通過。騎士團測試中…';
+
+    const kn=await open('knights.html',d=>d.querySelectorAll('[data-sub]').length===SUB_SKILLS.length);
+    let knightPlan=defaultKnightsPlan();
+    const knightTime=step=>`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
+    function verifyKnights() {
+      for (const main of calculateKnights(knightPlan).mains) {
+        same(kn.querySelector(`[data-interval="${main.id}"]`).value,String(main.interval),`${main.id} 間隔`);
+        for (const row of main.rows) {
+          const node=kn.querySelector(`[data-sub="${row.id}"]`);
+          same(node.querySelector('[data-level]').value,String(row.level),`${row.id} 等級`);
+          same(node.querySelector('[data-cell="gain"]').textContent,row.maxed?'—':`${row.gain.toLocaleString('zh-TW',{maximumFractionDigits:4})}%`,`${row.id} 每次`);
+          same(node.querySelector('[data-cell="next"]').textContent,row.maxed?'已滿級':knightTime(row.next),`${row.id} 升一級`);
+          same(node.querySelector('[data-cell="max"]').textContent,row.maxed?'—':knightTime(row.toMax),`${row.id} 升滿`);
+        }
+      }
+    }
+    verifyKnights();
+    const knightControls=[...kn.querySelectorAll('#kn-mains select, #kn-mains input')];
+    const magicLevel=kn.querySelector('[data-level="increase-magic-defense"]');
+    magicLevel.focus();change(magicLevel,'10');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};
+    same(kn.activeElement,magicLevel,'副技能等級焦點不變');verifyKnights();
+    same(kn.querySelector('[data-sub="increase-magic-defense"] [data-cell="next"]').textContent,'33 分 20 秒100 次','聖盾每 20 秒：魔法反制 Lv.10 升一級');
+    change(kn.querySelector('[data-level="recover-hp"]'),'12');knightPlan.subSkills['recover-hp']={level:12,progress:0};
+    same(kn.querySelector('[data-sub="recover-hp"] [data-cell="gain"]').textContent,'0.3125%','每次修練值顯示到小數四位');
+    same(kn.querySelector('[data-sub="recover-hp"] [data-cell="next"]').textContent,'1 小時 46 分 40 秒320 次','0.3125% 需 320 次');verifyKnights();
+    const linkRow=kn.querySelector('[data-sub="exp-bonus"]'), knightObserver=new MutationObserver(()=>{});
+    knightObserver.observe(linkRow,{attributes:true,childList:true,subtree:true,characterData:true});
+    const magicProgress=kn.querySelector('[data-progress="increase-magic-defense"]');
+    magicProgress.focus();change(magicProgress,'45','input');knightPlan.subSkills['increase-magic-defense'].progress=45;
+    same(kn.activeElement,magicProgress,'修練值焦點不變');
+    same(knightObserver.takeRecords().length,0,'其他主技能的副技能沒有 DOM 寫入');knightObserver.disconnect();verifyKnights();
+    change(magicProgress,'100','input');
+    assert(!kn.getElementById('kn-error').hidden,'修練值 100 顯示錯誤');verifyKnights();
+    change(magicProgress,'45','input');assert(kn.getElementById('kn-error').hidden,'修正後隱藏錯誤');
+    const shieldInterval=kn.querySelector('[data-interval="shield-of-trust"]');
+    shieldInterval.focus();change(shieldInterval,'10','input');knightPlan.intervals['shield-of-trust']=10;
+    same(kn.activeElement,shieldInterval,'間隔焦點不變');verifyKnights();
+    change(shieldInterval,'','input');assert(!kn.getElementById('kn-error').hidden,'空白間隔顯示錯誤');
+    change(shieldInterval,'20','input');knightPlan.intervals['shield-of-trust']=20;verifyKnights();
+    change(magicLevel,'15');knightPlan.subSkills['increase-magic-defense']={level:15,progress:0};
+    assert(magicProgress.disabled&&magicProgress.value==='','滿級停用修練值並清空');verifyKnights();
+    assert(knightControls.every(node=>kn.contains(node)),'副技能控制項不重建');
+    same(JSON.parse(localStorage.getItem('mabi-knights-v1')).subSkills['increase-magic-defense'].level,15,'記住副技能等級');
+    kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();
+    report.textContent='星塵、特性與騎士團測試通過。技能測試中…';
 
     const sk=await open('index.html',d=>d.querySelectorAll('[data-task-row]').length>0);
     sk.querySelector('[data-skill="stationery-craft"]').click();

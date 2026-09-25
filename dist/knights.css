@@ -1,0 +1,45 @@
+.knights-workspace { grid-template-columns:minmax(0,1fr); min-height:calc(100vh - 44px); }
+.knights-workspace main { padding-bottom:24px; }
+.kn-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.kn-heading h1 { font-size:1.125rem; }
+.kn-heading .text-button { font-size:.75rem; }
+.kn-panel { margin-bottom:10px; border:1px solid var(--line); border-radius:4px; background:var(--surface); }
+.kn-section-heading { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; padding:7px 10px; background:var(--surface-accent); }
+.kn-section-heading h2 { font-size:.9rem; }
+.kn-section-heading > span { font-size:.75rem; color:var(--muted); }
+.kn-interval { display:flex; align-items:center; gap:6px; margin-left:auto; font-size:.75rem; color:var(--muted); }
+.knights-workspace select,.knights-workspace input[type=number] { min-height:28px; margin-top:0; padding:3px 6px; border:1px solid var(--line); border-radius:3px; color:var(--ink); background:var(--surface-input); font-size:.8125rem; font-variant-numeric:tabular-nums; }
+.knights-workspace input[type=number] { text-align:right; }
+.kn-interval input[type=number] { width:72px; }
+.kn-progress { display:inline-flex; align-items:center; gap:4px; color:var(--muted); }
+.kn-progress input[type=number] { width:76px; }
+.knights-workspace input[aria-invalid="true"] { border-color:var(--warning-line); background:var(--warning-bg); }
+.kn-table { width:100%; border-collapse:collapse; font-size:.8125rem; }
+.kn-table th,.kn-table td { padding:5px 9px; border-top:1px dashed var(--line); text-align:right; vertical-align:middle; font-variant-numeric:tabular-nums; }
+.kn-table thead th { border-top:0; color:var(--muted); font-size:.75rem; font-weight:400; white-space:nowrap; }
+.kn-table th:first-child { text-align:left; }
+.kn-table tbody th { font-weight:500; min-width:180px; }
+.kn-table :is(th,td):nth-child(2),.kn-table :is(th,td):nth-child(3) { text-align:left; white-space:nowrap; }
+.kn-table small { display:block; margin-top:2px; font-size:.6875rem; color:var(--muted); font-weight:400; line-height:1.4; }
+.kn-time { color:var(--accent-ink); font-weight:600; white-space:nowrap; }
+.kn-table td:last-child { white-space:nowrap; }
+.kn-maxed td { color:var(--muted); }
+.kn-maxed .kn-time { font-weight:400; }
+@media(max-width:700px) {
+  .kn-table th,.kn-table td { padding:5px 6px; }
+  .kn-interval { margin-left:0; }
+}
+/* Phones: one card per sub-skill so the level-up time stays on screen. */
+@media(max-width:600px) {
+  .kn-table thead { display:none; }
+  .kn-table,.kn-table tbody { display:block; }
+  .kn-table tr { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px 10px; padding:8px 10px; border-top:1px dashed var(--line); }
+  .kn-table tbody tr:first-child { border-top:0; }
+  .kn-table tbody th,.kn-table td { display:block; padding:0; border:0; text-align:left; min-width:0; }
+  .kn-table tbody th { grid-column:1 / -1; }
+  .kn-table td::before { content:attr(data-label); display:block; margin-bottom:2px; font-size:.6875rem; color:var(--muted); font-weight:400; }
+  .kn-table td[data-cell="next"] { grid-column:1 / 2; }
+  .kn-table td[data-cell="max"] { grid-column:2 / 4; }
+  .kn-table select,.kn-progress input[type=number] { width:100%; }
+  .kn-progress { display:flex; }
+}
