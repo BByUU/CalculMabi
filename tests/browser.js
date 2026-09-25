@@ -1,6 +1,6 @@
 import {simulateErg, materialsBySlot, materialCosts, formatGold, materialStacks} from '/erg-calculator.js';
 import {formatNumber} from '/format.js';
-import {TRAITS, defaultTraitPlan, calculateTraits} from '/traits-calculator.js';
+import {CATEGORIES, TRAITS, defaultTraitPlan, calculateTraits} from '/traits-calculator.js';
 const frame=document.getElementById('app'), report=document.getElementById('results');
 let assertions=0, timing='';
 // Hidden or backgrounded windows can stop producing frames; never wait on one indefinitely.
@@ -24,7 +24,7 @@ async function open(page,ready) {
 }
 document.getElementById('run').addEventListener('click',async()=>{
   const button=document.getElementById('run');button.disabled=true;assertions=0;
-  const keys=['mabi-erg-v1','mabi-stardust-plan-v1','mabi-traits-v1'];
+  const keys=['mabi-erg-v1','mabi-stardust-plan-v1','mabi-traits-v1','mabi-traits-order'];
   const stored=keys.map(key=>[key,localStorage.getItem(key)]);
   keys.forEach(key=>localStorage.removeItem(key));report.textContent='測試中…';
   try {
@@ -50,7 +50,7 @@ document.getElementById('run').addEventListener('click',async()=>{
 
     // A plan saved before the target level was fixed at Lv.10 still loads its current levels and held points.
     localStorage.setItem('mabi-traits-v1',JSON.stringify({levels:{haste:{current:5,target:7}},held:{training:300}}));
-    const tr=await open('traits.html',d=>d.querySelectorAll('[data-trait]').length===TRAITS.length);
+    let tr=await open('traits.html',d=>d.querySelectorAll('[data-trait]').length===TRAITS.length);
     let traitPlan=defaultTraitPlan();
     traitPlan.levels.haste={current:5};traitPlan.held.training=300;
     const amount=n=>n?formatNumber(n):'—';
@@ -102,6 +102,28 @@ document.getElementById('run').addEventListener('click',async()=>{
     for (const trait of TRAITS) traitPlan.levels[trait.id]={current:5};
     verifyTraits();
     assert(traitControls.every(node=>tr.contains(node)),'特性控制項不重建');
+    const orderOf=()=>[...tr.querySelectorAll('#tr-trait-rows > tr:not([hidden])')].map(row=>row.dataset.trait??`group:${row.dataset.group}`).join();
+    const gameOrder=TRAITS.map(trait=>trait.id).join();
+    const colorOrder=CATEGORIES.flatMap(category=>[`group:${category.id}`,...TRAITS.filter(trait=>trait.category===category.id).map(trait=>trait.id)]).join();
+    same(orderOf(),gameOrder,'預設遊戲排序');
+    assert(tr.getElementById('tr-trait-table').classList.contains('tr-game-order'),'遊戲排序顯示分類色條');
+    const hasteLevel=tr.querySelector('[data-trait="haste"] [data-level]');change(hasteLevel,'8');traitPlan.levels.haste={current:8};
+    const colorButton=tr.querySelector('[data-order="color"]');colorButton.focus();colorButton.click();
+    same(tr.activeElement,colorButton,'排序按鈕焦點不變');
+    same(colorButton.getAttribute('aria-pressed'),'true','顏色排序按下');
+    same(orderOf(),colorOrder,'顏色排序依分類分組');
+    same(tr.querySelector('[data-trait="haste"] [data-level]'),hasteLevel,'排序不重建選單');
+    same(hasteLevel.value,'8','排序保留已選等級');
+    assert(traitControls.every(node=>tr.contains(node)),'排序後控制項仍在');verifyTraits();
+    const before=tr;tr.defaultView.location.reload();
+    await new Promise((resolve,reject)=>{
+      const timeout=setTimeout(()=>{clearInterval(timer);reject(new Error('特性頁重新載入逾時'));},10000);
+      const timer=setInterval(()=>{const d=frame.contentDocument;if(!d||d===before||d.querySelectorAll('[data-trait]').length!==TRAITS.length)return;clearTimeout(timeout);clearInterval(timer);resolve();},25);
+    });
+    tr=frame.contentDocument;
+    same(orderOf(),colorOrder,'重新載入保留顏色排序');verifyTraits();
+    tr.querySelector('[data-order="game"]').click();
+    same(orderOf(),gameOrder,'切回遊戲排序');verifyTraits();
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
     report.textContent='星塵與特性測試通過。技能測試中…';
 

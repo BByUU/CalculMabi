@@ -29,7 +29,14 @@
 .tr-table small { display:block; font-size:.6875rem; color:var(--muted); font-weight:400; }
 .tr-category-table th small { margin-top:2px; }
 .tr-missing { color:var(--accent-ink); font-weight:600; }
-.tr-trait-table tbody+tbody .tr-group th { border-top:1px solid var(--line-strong); }
+.tr-group:not(:first-child) th { border-top:1px solid var(--line-strong); }
+.tr-game-order [data-trait] > th { box-shadow:inset 3px 0 var(--trait-color); }
+.tr-order { display:inline-flex; margin-right:6px; }
+.tr-order button { min-height:28px; padding:3px 9px; border:1px solid var(--line); color:var(--ink); background:var(--surface); font-size:.75rem; }
+.tr-order button:first-child { border-radius:4px 0 0 4px; }
+.tr-order button:last-child { border-left:0; border-radius:0 4px 4px 0; }
+.tr-order button:hover { background:var(--surface-hover); }
+.tr-order button[aria-pressed="true"] { color:var(--on-accent); background:var(--green); border-color:var(--green); }
 .tr-group th { padding-top:7px; background:var(--surface-soft); }
 .tr-trait-table :is(th,td):nth-child(2) { text-align:left; }
 .tr-name { display:inline-flex; align-items:center; gap:8px; vertical-align:middle; }

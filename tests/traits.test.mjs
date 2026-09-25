@@ -22,6 +22,11 @@ test('文中任務線範例：Lv.3 需 900 點，Lv.5 需 2,100 點與 20 個一
   assert.equal(3 * upgradeCost(1, 3).points, 2700);
 });
 
+test('特性順序與遊戲特性視窗一致', () => {
+  // Bahamut guide 預設排位, the game's requirement IDs and the user's in-game check agree on this order.
+  assert.deepEqual(TRAITS.map(trait => trait.name), ['堅定意志', '超越:生命', '衝擊相消', '傷害吸收', '起死回生', '時間歪曲', '快速', '要害貫通', '元素打磨', '連續攻擊', '洞察之眼', '狀態支援', '集中引誘', '再生之域', '力量團聚', '連續實體化', '阻斷', '保護之手', '刻印：弗拉加拉赫']);
+});
+
 test('19 種特性分為修行 7、挑戰 6、交感 6，ID 不重複', () => {
   assert.equal(TRAITS.length, 19);
   assert.equal(new Set(TRAITS.map(trait => trait.id)).size, 19);

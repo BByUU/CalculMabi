@@ -32,9 +32,10 @@
   </section>
 
   <section class="tr-panel" aria-labelledby="tr-trait-heading">
-    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10，右側列出升滿所需。</p><div class="tr-bulk"><span>統一目前等級</span><select id="tr-bulk-level" aria-label="全部特性目前等級"></select><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
+    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10，右側列出升滿所需。</p><div class="tr-bulk"><div id="tr-order" class="tr-order" role="group" aria-label="特性排序"><button type="button" data-order="game" aria-pressed="true">遊戲排序</button><button type="button" data-order="color" aria-pressed="false">顏色排序</button></div><span>統一目前等級</span><select id="tr-bulk-level" aria-label="全部特性目前等級"></select><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
     <div class="table-scroll"><table id="tr-trait-table" class="tr-table tr-trait-table">
       <thead><tr><th scope="col">特性</th><th scope="col">目前等級</th><th scope="col">璞黎點</th><th scope="col">AP</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
+      <tbody id="tr-trait-rows"></tbody>
     </table></div>
   </section>
 
