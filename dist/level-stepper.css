@@ -1,0 +1,7 @@
+.level-stepper { display:inline-flex; align-items:center; gap:0; vertical-align:middle; }
+.level-stepper input { width:48px; min-width:0; min-height:30px; margin:0; padding:3px; border:1px solid var(--line); border-radius:0; text-align:center; color:var(--ink); background:var(--surface-input); font:inherit; font-variant-numeric:tabular-nums; }
+.level-stepper button { width:30px; min-height:30px; padding:0; border:1px solid var(--line); border-radius:3px 0 0 3px; color:var(--ink); background:var(--surface); font-size:1.2rem; cursor:pointer; }
+.level-stepper button:last-child { border-radius:0 3px 3px 0; }
+.level-stepper button:disabled { opacity:.4; cursor:default; }
+.level-stepper input[aria-invalid="true"] { border-color:var(--warning-line); background:var(--warning-bg); }
+.level-stepper :focus-visible { outline:2px solid var(--accent-ink); outline-offset:2px; }

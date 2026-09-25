@@ -1,3 +1,4 @@
+import {setStepper} from './level-stepper.js';
 import {formatNumber as fmt} from './format.js';
 import {CATEGORIES, TRAITS, LEVEL_COSTS, MAX_LEVEL, WEEKLY_CAP, HOLD_CAP, defaultTraitPlan, calculateTraits} from './traits-calculator.js';
 
@@ -8,7 +9,6 @@ const ORDERS = ['game', 'color'];
 const LEVELS = Array.from({length:MAX_LEVEL}, (_, i) => i + 1);
 const amount = n => n ? fmt(n) : '—';
 const weeksText = category => category.missing ? `${fmt(category.weeks)} 週` : '已足夠';
-const levelOptions = () => LEVELS.map(n => `<option value="${n}">Lv.${n}</option>`).join('');
 const traitNodes = new Map(), categoryNodes = new Map(), groupNodes = new Map();
 let plan = defaultTraitPlan(), order = 'game';
 try { if (ORDERS.includes(localStorage.getItem(ORDER_STORAGE))) order = localStorage.getItem(ORDER_STORAGE); } catch { /* Storage is optional. */ }
@@ -31,7 +31,7 @@ try {
 function mount() {
   $('tr-category-rows').innerHTML = CATEGORIES.map(category => `<tr class="tr-${category.id}" data-category="${category.id}"><th scope="row"><span class="tr-tag">${category.name}</span><small data-cell="traits"></small></th><td><input class="tr-held" type="number" min="0" max="${HOLD_CAP}" step="1" inputmode="numeric" placeholder="0" data-held="${category.id}" aria-label="${category.name}的璞黎目前持有點數"></td><td data-cell="points"></td><td class="tr-missing" data-cell="missing"></td><td data-cell="weeks"></td><td><span data-cell="basic"></span><small>${category.basicCrystal}</small></td><td><span data-cell="advanced"></span><small>${category.advancedCrystal}</small></td></tr>`).join('');
   $('tr-trait-rows').innerHTML = CATEGORIES.map(category => `<tr class="tr-group tr-${category.id}" data-group="${category.id}"><th scope="colgroup" colspan="6"><span class="tr-tag">${category.name}</span></th></tr>`).join('')
-    + TRAITS.map(trait => `<tr class="tr-${trait.category}" data-trait="${trait.id}"><th scope="row"><span class="tr-name"><img class="tr-icon" src="./assets/traits/${trait.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${trait.name}</span></th><td><select data-level data-trait-id="${trait.id}" aria-label="${trait.name}目前等級">${levelOptions()}</select></td><td data-cell="points"></td><td data-cell="ap"></td><td data-cell="basic"></td><td data-cell="advanced"></td></tr>`).join('');
+    + TRAITS.map(trait => `<tr class="tr-${trait.category}" data-trait="${trait.id}"><th scope="row"><span class="tr-name"><img class="tr-icon" src="./assets/traits/${trait.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${trait.name}</span></th><td><input data-level data-trait-id="${trait.id}" inputmode="numeric" aria-label="${trait.name}目前等級" value="1"></td><td><span data-cell="points"></span><small data-cell="weeks"></small></td><td data-cell="ap"></td><td data-cell="basic"></td><td data-cell="advanced"></td></tr>`).join('');
   const cells = node => Object.fromEntries([...node.querySelectorAll('[data-cell]')].map(cell => [cell.dataset.cell, cell]));
   for (const node of $('tr-trait-rows').querySelectorAll('[data-trait]')) {
     traitNodes.set(node.dataset.trait, {node, level:node.querySelector('[data-level]'), cells:cells(node)});
@@ -40,7 +40,7 @@ function mount() {
   for (const node of $('tr-category-rows').querySelectorAll('[data-category]')) {
     categoryNodes.set(node.dataset.category, {held:node.querySelector('[data-held]'), cells:cells(node)});
   }
-  $('tr-bulk-level').innerHTML = levelOptions();
+  setStepper($('tr-bulk-level'), LEVELS, 1);
   let cumulative = 0;
   $('tr-cost-rows').innerHTML = LEVEL_COSTS.map(step => {
     cumulative += step.points;
@@ -54,7 +54,8 @@ function mount() {
 // Change only the affected controls and text; the input nodes stay mounted.
 function patchTrait(row) {
   const {node, level, cells} = traitNodes.get(row.id);
-  if (level.value !== String(row.current)) level.value = row.current;
+  setStepper(level, LEVELS, row.current);
+  cells.weeks.textContent = `${Math.ceil(row.points / WEEKLY_CAP)} 週`;
   for (const key of ['points', 'ap', 'basic', 'advanced']) cells[key].textContent = amount(row[key]);
   node.classList.toggle('tr-done', row.current === MAX_LEVEL);
 }
@@ -70,7 +71,7 @@ function patchCategory(category) {
   cells.advanced.textContent = amount(category.advanced);
 }
 
-// Reorder by moving the mounted rows, so selects keep their values and no row is rebuilt.
+// Reorder by moving the mounted rows, so inputs keep their values and no row is rebuilt.
 function arrange() {
   const rows = order === 'game'
     ? [...groupNodes.values(), ...TRAITS.map(trait => traitNodes.get(trait.id).node)]

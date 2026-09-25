@@ -1,3 +1,4 @@
+import {setStepper} from './level-stepper.js';
 import {escapeHtml as esc, formatNumber as fmt} from './format.js';
 import {currentSkillRoute, renderSkillNavigation, bindSkillNavigation} from './skill-navigation.js';
 import {RANKS,simulateSkill} from './calculator.js';
@@ -11,8 +12,8 @@ function defaults(skillId='blacksmith'){
 function bonuses(){return calculateSkillBonuses(state.skillId,state);}
 function navigation(){renderSkillNavigation(state.skillId,'training');}
 function controls(){
-  $('start-rank').innerHTML=RANKS.map(r=>`<option value="${r}" ${r===state.startRank?'selected':''}>${r}</option>`).join('');
-  $('target-rank').innerHTML=RANKS.map((r,i)=>`<option value="${r}" ${r===state.targetRank?'selected':''} ${i<RANKS.indexOf(state.startRank)?'disabled':''}>${r}</option>`).join('');
+  setStepper($('start-rank'),RANKS,state.startRank);
+  setStepper($('target-rank'),RANKS.slice(RANKS.indexOf(state.startRank)),state.targetRank);
   $('current-progress').value=state.progress;
   $('train-to-30').checked=state.trainTo30;
   const profile=SKILL_BONUS_PROFILES[state.skillId];

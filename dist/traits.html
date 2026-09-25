@@ -11,6 +11,7 @@
 <title>特性升級｜瑪奇小算盤 CalculMabi</title>
 <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./category-nav.css"><link rel="stylesheet" href="./theme.css"><link rel="stylesheet" href="./density.css"><link rel="stylesheet" href="./traits.css">
 <script src="./theme.js"></script><script src="./navigation.js" defer></script><script type="module" src="./traits-app.js"></script>
+<link rel="stylesheet" href="./level-stepper.css">
 </head><body>
 <a class="skip-link" href="#main">跳到特性試算</a>
 <nav class="category-nav" aria-label="大分類"><a href="./">技能 <small>SKILLS</small></a><a href="./erg.html">聚能 <small>ERG</small></a><a href="./stardust.html">星塵 <small>STARDUST</small></a><a href="./traits.html" aria-current="page">特性 <small>TRAITS</small></a><a href="./knights.html">騎士團 <small>KNIGHTS</small></a><a href="./reading.html">讀書型技能 <small>READING</small></a><button id="theme-toggle" class="theme-toggle" type="button" aria-label="黑暗模式" aria-pressed="false" title="切換為黑暗模式"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><span>黑暗模式</span></button></nav>
@@ -32,7 +33,7 @@
   </section>
 
   <section class="tr-panel" aria-labelledby="tr-trait-heading">
-    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10，右側列出升滿所需。</p><div class="tr-bulk"><div id="tr-order" class="tr-order" role="group" aria-label="特性排序"><button type="button" data-order="game" aria-pressed="true">遊戲排序</button><button type="button" data-order="color" aria-pressed="false">顏色排序</button></div><span>統一目前等級</span><select id="tr-bulk-level" aria-label="全部特性目前等級"></select><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
+    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10；各列週數按每週 1,500 點估算，未扣持有點數。</p><div class="tr-bulk"><div id="tr-order" class="tr-order" role="group" aria-label="特性排序"><button type="button" data-order="game" aria-pressed="true">遊戲排序</button><button type="button" data-order="color" aria-pressed="false">顏色排序</button></div><span>統一目前等級</span><input id="tr-bulk-level" inputmode="numeric" aria-label="全部特性目前等級" value="1"><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
     <div class="table-scroll"><table id="tr-trait-table" class="tr-table tr-trait-table">
       <thead><tr><th scope="col">特性</th><th scope="col">目前等級</th><th scope="col">璞黎點</th><th scope="col">AP</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
       <tbody id="tr-trait-rows"></tbody>

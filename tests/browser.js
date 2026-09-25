@@ -60,6 +60,7 @@ document.getElementById('run').addEventListener('click',async()=>{
       for (const row of result.rows) {
         const node=tr.querySelector(`[data-trait="${row.id}"]`);
         same(node.querySelector('[data-level]').value,String(row.current),`${row.id} 目前等級`);
+        same(node.querySelector('[data-cell="weeks"]').textContent,`${Math.ceil(row.points/1500)} 週`,`${row.id} 個別週數`);
         same(node.classList.contains('tr-done'),row.current===10,`${row.id} 完成標示`);
         for (const key of ['points','ap','basic','advanced']) same(node.querySelector(`[data-cell="${key}"]`).textContent,amount(row[key]),`${row.id} ${key}`);
       }
@@ -75,7 +76,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(tr.querySelector('[data-held="training"]').value,'300','舊版儲存的持有點數');
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
     same(tr.getElementById('tr-weeks-total').textContent,'33 週','全部升滿需 33 週');
-    same(tr.querySelectorAll('[data-trait="haste"] select').length,1,'每個特性只選目前等級');
+    same(tr.querySelectorAll('[data-trait="haste"] input[data-level]').length,1,'每個特性只選目前等級');
     const icons=[...tr.querySelectorAll('[data-trait] .tr-icon')];
     same(icons.length,TRAITS.length,'每個特性都有圖示');
     for (const icon of icons) {
@@ -87,6 +88,14 @@ document.getElementById('run').addEventListener('click',async()=>{
     const haste=tr.querySelector('[data-trait="haste"] [data-level]');
     haste.focus();change(haste,'8');traitPlan.levels.haste={current:8};
     same(tr.activeElement,haste,'特性等級焦點不變');verifyTraits();
+    const stepButtons=haste.parentElement.querySelectorAll('button');
+    stepButtons[1].click();traitPlan.levels.haste={current:9};verifyTraits();
+    stepButtons[0].click();traitPlan.levels.haste={current:8};verifyTraits();
+    change(haste,'11','input');same(haste.getAttribute('aria-invalid'),'true','非法等級標示錯誤');
+    change(haste,'11');same(haste.value,'8','非法等級恢復上次數值');verifyTraits();
+    change(haste,'1','input');change(haste,'10','input');traitPlan.levels.haste={current:10};verifyTraits();
+    assert(stepButtons[1].disabled,'最高等級禁止增加');
+    change(haste,'8');traitPlan.levels.haste={current:8};verifyTraits();
     const untouchedTrait=tr.querySelector('[data-trait="block"]'), traitObserver=new MutationObserver(()=>{});
     traitObserver.observe(untouchedTrait,{attributes:true,childList:true,subtree:true,characterData:true});
     change(haste,'10');traitPlan.levels.haste={current:10};
