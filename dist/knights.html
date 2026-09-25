@@ -3,11 +3,11 @@
 <link rel="preload" href="./assets/fonts/noto-sans-tc.woff" as="font" type="font/woff" crossorigin>
   <link rel="icon" type="image/png" sizes="400x400" href="./assets/calculmabi-icon.png"><link rel="icon" type="image/png" sizes="64x64" href="./assets/calculmabi-icon-64.png">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#16333e">
-<meta name="description" content="瑪奇小算盤 CalculMabi：騎士團副技能修練計算，選擇聖盾庇護、聖靈同步各副技能的目前等級與修練值，列出升一級與升滿所需次數及時間。">
+<meta name="description" content="瑪奇小算盤 CalculMabi：騎士團副技能修練計算，選擇聖盾庇護、聖靈同步各副技能的等級與修練值，列出練滿目前等級與升滿所需次數及時間。">
 <meta name="application-name" content="瑪奇小算盤 CalculMabi">
 <meta property="og:site_name" content="瑪奇小算盤 CalculMabi">
 <meta property="og:title" content="騎士團副技能｜瑪奇小算盤 CalculMabi">
-<meta property="og:description" content="瑪奇小算盤 CalculMabi：騎士團副技能修練計算，選擇聖盾庇護、聖靈同步各副技能的目前等級與修練值，列出升一級與升滿所需次數及時間。">
+<meta property="og:description" content="瑪奇小算盤 CalculMabi：騎士團副技能修練計算，選擇聖盾庇護、聖靈同步各副技能的等級與修練值，列出練滿目前等級與升滿所需次數及時間。">
 <title>騎士團副技能｜瑪奇小算盤 CalculMabi</title>
 <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./category-nav.css"><link rel="stylesheet" href="./theme.css"><link rel="stylesheet" href="./density.css"><link rel="stylesheet" href="./knights.css">
 <script src="./theme.js"></script><script src="./navigation.js" defer></script><script type="module" src="./knights-app.js"></script>
@@ -20,8 +20,8 @@
   <div id="kn-mains"></div>
   <div id="kn-error" class="error-message" role="alert" hidden></div>
   <footer class="data-footer"><p>副技能每級最高 15，升一級另需 1 點神聖點數；修練值可先練滿再配點。</p><details><summary>計算說明</summary><div>
-    <p>每次成功修練增加表內「每次」的修練值，滿 100 即可升級。升一級所需次數 =（100 − 目前修練值）÷ 每次修練值，無條件進位；時間 = 次數 × 每次成功間隔。</p>
-    <p>間隔預設為技能冷卻時間（聖盾庇護 20 秒、聖靈同步 60 秒），假設每次施放成功一次。一次施放可修練多次（例如多名隊員、多次受擊），或修練不靠施放技能（例如聖靈同步連結期間的經驗值、擊殺、自動防禦）時，請改填實際每次成功的間隔。</p>
+    <p>每次成功修練增加表內「每次」的修練值，滿 100 即可升級。「目前等級」欄為練滿目前等級所需：次數 =（100 − 目前修練值）÷ 每次修練值，無條件進位；時間 = 次數 × 每次成功間隔。</p>
+    <p>聖盾庇護預設每 20 秒成功一次（技能冷卻）；聖靈同步的復甦的靈魂預設每 60 秒、復活的權杖預設每 10 秒一次。啟迪之光、聖光顯靈、守護者的誓約的修練來自連結期間的經驗值、擊殺與自動防禦，只列次數。一次可修練多次（例如多名隊員、多次受擊）時，請改填實際每次成功的間隔。</p>
     <p>每級修練條件與數值依 Mabinogi 奇幻世界〈<a href="https://mabinogi.fws.tw/skills_sub_info.php?id=1" rel="noopener">聖盾庇護</a>〉與〈<a href="https://mabinogi.fws.tw/skills_sub_info.php?id=16" rel="noopener">聖靈同步</a>〉各副技能資料整理，實際以遊戲內顯示為準。</p>
   </div></details></footer>
 </main>

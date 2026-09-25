@@ -7,7 +7,8 @@
 .kn-section-heading { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; padding:7px 10px; background:var(--surface-accent); }
 .kn-section-heading h2 { font-size:.9rem; }
 .kn-section-heading > span { font-size:.75rem; color:var(--muted); }
-.kn-interval { display:flex; align-items:center; gap:6px; margin-left:auto; font-size:.75rem; color:var(--muted); }
+.kn-intervals { display:flex; flex-wrap:wrap; gap:6px 14px; margin-left:auto; }
+.kn-interval { display:flex; align-items:center; gap:6px; font-size:.75rem; color:var(--muted); }
 .knights-workspace select,.knights-workspace input[type=number] { min-height:28px; margin-top:0; padding:3px 6px; border:1px solid var(--line); border-radius:3px; color:var(--ink); background:var(--surface-input); font-size:.8125rem; font-variant-numeric:tabular-nums; }
 .knights-workspace input[type=number] { text-align:right; }
 .kn-interval input[type=number] { width:72px; }
@@ -27,7 +28,7 @@
 .kn-maxed .kn-time { font-weight:400; }
 @media(max-width:700px) {
   .kn-table th,.kn-table td { padding:5px 6px; }
-  .kn-interval { margin-left:0; }
+  .kn-intervals { margin-left:0; }
 }
 /* Phones: one card per sub-skill so the level-up time stays on screen. */
 @media(max-width:600px) {

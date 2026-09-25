@@ -128,22 +128,36 @@ document.getElementById('run').addEventListener('click',async()=>{
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();
     report.textContent='星塵與特性測試通過。騎士團測試中…';
 
+    // A plan saved before 聖靈同步 had per-sub-skill timers keeps its 聖盾 interval; the old single 聖靈同步 interval is dropped.
+    localStorage.setItem('mabi-knights-v1',JSON.stringify({intervals:{'shield-of-trust':25,'divine-link':30},subSkills:{'pet-auto-revive':{level:3,progress:0}}}));
     const kn=await open('knights.html',d=>d.querySelectorAll('[data-sub]').length===SUB_SKILLS.length);
     let knightPlan=defaultKnightsPlan();
-    const knightTime=step=>`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
+    knightPlan.intervals['shield-of-trust']=25;knightPlan.subSkills['pet-auto-revive']={level:3,progress:0};
+    const knightStep=step=>step.seconds===null?`${formatNumber(step.successes)} 次只計次數`:`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
     function verifyKnights() {
       for (const main of calculateKnights(knightPlan).mains) {
-        same(kn.querySelector(`[data-interval="${main.id}"]`).value,String(main.interval),`${main.id} 間隔`);
+        for (const [id,seconds] of Object.entries(main.intervals)) same(kn.querySelector(`[data-interval="${id}"]`).value,String(seconds),`${id} 間隔`);
         for (const row of main.rows) {
           const node=kn.querySelector(`[data-sub="${row.id}"]`);
           same(node.querySelector('[data-level]').value,String(row.level),`${row.id} 等級`);
           same(node.querySelector('[data-cell="gain"]').textContent,row.maxed?'—':`${row.gain.toLocaleString('zh-TW',{maximumFractionDigits:4})}%`,`${row.id} 每次`);
-          same(node.querySelector('[data-cell="next"]').textContent,row.maxed?'已滿級':knightTime(row.next),`${row.id} 升一級`);
-          same(node.querySelector('[data-cell="max"]').textContent,row.maxed?'—':knightTime(row.toMax),`${row.id} 升滿`);
+          same(node.querySelector('[data-cell="next"]').textContent,row.maxed?'已滿級':knightStep(row.next),`${row.id} 目前等級`);
+          same(node.querySelector('[data-cell="max"]').textContent,row.maxed?'—':knightStep(row.toMax),`${row.id} 升滿`);
         }
       }
     }
     verifyKnights();
+    same(kn.querySelectorAll('[data-interval]').length,3,'聖盾一個、聖靈同步兩個時間輸入框');
+    same(kn.querySelector('[data-interval="pet-life-wound-recover"]').value,'60','舊版聖靈同步間隔不套用');
+    same(kn.querySelector('[data-sub="exp-bonus"] [data-cell="next"]').textContent,'10 次只計次數','啟迪之光只計次數');
+    kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();
+    same(kn.querySelector('[data-sub="pet-life-wound-recover"] [data-cell="next"]').textContent,'5 分 0 秒5 次','復甦的靈魂每 60 秒');
+    same(kn.querySelector('[data-sub="pet-auto-revive"] [data-cell="next"]').textContent,'50 秒5 次','復活的權杖每 10 秒');
+    const reviveInterval=kn.querySelector('[data-interval="pet-auto-revive"]'), shieldRow=kn.querySelector('[data-sub="range-bonus"]'), timerObserver=new MutationObserver(()=>{});
+    timerObserver.observe(shieldRow,{attributes:true,childList:true,subtree:true,characterData:true});
+    reviveInterval.focus();change(reviveInterval,'12','input');knightPlan.intervals['pet-auto-revive']=12;
+    same(kn.activeElement,reviveInterval,'復活間隔焦點不變');
+    same(timerObserver.takeRecords().length,0,'改復活間隔不動聖盾列');timerObserver.disconnect();verifyKnights();
     const knightControls=[...kn.querySelectorAll('#kn-mains select, #kn-mains input')];
     const magicLevel=kn.querySelector('[data-level="increase-magic-defense"]');
     magicLevel.focus();change(magicLevel,'10');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};

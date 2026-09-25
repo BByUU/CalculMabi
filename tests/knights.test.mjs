@@ -26,6 +26,12 @@ test('聖盾庇護與聖靈同步各 5 個副技能，每個有 Lv.1 至 Lv.14 �
   }
 });
 
+test('福音傳遞與庇佑步伐的修練條件使用遊戲內說法，每級相同', () => {
+  const byId = Object.fromEntries(SUB_SKILLS.map(sub => [sub.id, sub]));
+  assert.ok(byId['range-bonus'].levels.every(([condition]) => condition === '對同伴或寵物使用聖盾庇護'));
+  assert.ok(byId['boost-movement-speed'].levels.every(([condition]) => condition === '在使者的隕石流星雨攻擊中保護自身'));
+});
+
 test('每級所需次數與奇幻世界一致，非整數無條件進位，0.3125% 為 320 次', () => {
   for (const sub of SUB_SKILLS) {
     assert.deepEqual(sub.levels.map(([, gain]) => successesNeeded(gain)), SITE_COUNTS[sub.id].map(count => Math.ceil(count - 0.01)), sub.name);
@@ -50,15 +56,32 @@ test('聖盾每 20 秒一次：魔法反制 Lv.10 升一級 100 次 33 分 20 �
   assert.deepEqual(hp.next, hp.toMax);
 });
 
+test('聖靈同步：復甦的靈魂每 60 秒、復活的權杖每 10 秒，啟迪之光、聖光顯靈、守護者的誓約只計次數', () => {
+  assert.deepEqual(defaultKnightsPlan().intervals, {'shield-of-trust':20, 'pet-life-wound-recover':60, 'pet-auto-revive':10});
+  const link = calculateKnights(defaultKnightsPlan()).mains.find(main => main.id === 'divine-link');
+  const byId = Object.fromEntries(link.rows.map(row => [row.id, row]));
+  assert.deepEqual(byId['pet-life-wound-recover'].next, {successes:5, seconds:300});
+  assert.equal(formatDuration(byId['pet-life-wound-recover'].next.seconds), '5 分 0 秒');
+  assert.deepEqual(byId['pet-auto-revive'].next, {successes:5, seconds:50});
+  assert.equal(formatDuration(byId['pet-auto-revive'].toMax.seconds), '4 小時 38 分 50 秒');
+  for (const id of ['exp-bonus', 'pet-damage-bonus', 'pet-no-hit-motion']) {
+    assert.equal(byId[id].next.seconds, null, id);
+    assert.equal(byId[id].toMax.seconds, null, id);
+  }
+  assert.deepEqual([byId['exp-bonus'].next.successes, byId['exp-bonus'].toMax.successes], [10, 1919]);
+});
+
 test('目前修練值扣除、間隔可調整，Lv.15 視為滿級', () => {
   const plan = defaultKnightsPlan();
-  plan.intervals['divine-link'] = 30;
+  plan.intervals['pet-life-wound-recover'] = 30;
   plan.subSkills['exp-bonus'] = {level:6, progress:40};
+  plan.subSkills['pet-life-wound-recover'] = {level:7, progress:40};
   plan.subSkills['pet-auto-revive'] = {level:MAX_LEVEL, progress:0};
   const link = calculateKnights(plan).mains.find(main => main.id === 'divine-link');
   const exp = link.rows.find(row => row.id === 'exp-bonus');
-  assert.deepEqual(exp.next, {successes:20, seconds:600});
+  assert.deepEqual(exp.next, {successes:20, seconds:null});
   assert.equal(exp.condition, '靈魂連結狀態下獲得經驗值 13,000 以上');
+  assert.deepEqual(link.rows.find(row => row.id === 'pet-life-wound-recover').next, {successes:20, seconds:600});
   const revive = link.rows.find(row => row.id === 'pet-auto-revive');
   assert.deepEqual([revive.maxed, revive.next, revive.toMax], [true, null, null]);
 });
@@ -73,7 +96,8 @@ test('無效等級、修練值與間隔不能產生假結果', () => {
     plan => { delete plan.subSkills['recover-hp']; },
     plan => { plan.intervals['shield-of-trust'] = 0; },
     plan => { plan.intervals['shield-of-trust'] = ''; },
-    plan => { plan.intervals['divine-link'] = 86401; },
+    plan => { plan.intervals['pet-auto-revive'] = 86401; },
+    plan => { delete plan.intervals['pet-life-wound-recover']; },
   ];
   for (const mutate of invalid) {
     const plan = defaultKnightsPlan();
