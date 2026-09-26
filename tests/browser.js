@@ -213,10 +213,27 @@ document.getElementById('run').addEventListener('click',async()=>{
     for(const cell of reading.querySelectorAll('.reading-cell')) {
       assert(cell.querySelector('.reading-source')?.textContent,'讀書格子有取得來源或對話對象');
       assert(cell.querySelector('.reading-requirement')?.textContent,'讀書格子有書名或任務需求');
-      const detail=reading.getElementById(cell.getAttribute('aria-describedby'));
+      const help=cell.querySelector('.reading-help');
+      assert(help?.textContent==='?','格子右側有問號');
+      const detail=reading.getElementById(help.getAttribute('aria-describedby'));
+      cell.dispatchEvent(new reading.defaultView.Event('pointerenter'));
+      assert(detail.hidden,'移到格子不開啟詳情');
+      help.dispatchEvent(new reading.defaultView.PointerEvent('pointerenter',{pointerType:'mouse'}));
+      assert(!detail.hidden,'移到問號開啟詳情');
+      reading.dispatchEvent(new reading.defaultView.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
       same(detail.querySelectorAll('p').length,2,'詳情固定來源與需求兩段');
       assert(!detail.querySelector('br'),'任務流程不逐步換行');
     }
+    same(reading.querySelectorAll('.reading-legend .reading-help').length,2,'兩個共用商店任務問號');
+    for(const help of reading.querySelectorAll('.reading-legend .reading-help')) {
+      const panel=reading.getElementById(help.getAttribute('aria-describedby'));
+      help.dispatchEvent(new reading.defaultView.PointerEvent('pointerenter',{pointerType:'mouse'}));
+      assert(!panel.hidden,'圖例問號顯示任務資訊');
+      assert(panel.textContent.includes('腓力特'),'商店任務有觸發對象');
+      reading.dispatchEvent(new reading.defaultView.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+      assert(panel.hidden,'Esc 關閉商店任務');
+    }
+    same(reading.getElementById('reading-1-3').querySelector('.reading-source').textContent,'取得來源：馬努斯特別商店','商店格子不重複領券任務');
     same(reading.querySelectorAll('.reading-empty').length,7,'未提供資料仍保持空白');
     const book=reading.querySelector('[aria-describedby="reading-0-0"]');
     book.focus();same(book.getAttribute('aria-expanded'),'true','讀書格子鍵盤焦點開啟詳情');

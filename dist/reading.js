@@ -1,4 +1,4 @@
-// Keep the concise table visible; show acquisition details on hover, focus or tap.
+// Keep the concise table visible; only question-mark buttons open details on hover, focus or tap.
 (() => {
   let active = null, pinned = false, closeTimer;
   const panelFor = button => document.getElementById(button.getAttribute('aria-describedby'));
@@ -35,7 +35,7 @@
       close();
     }, 140);
   }
-  document.querySelectorAll('.reading-cell').forEach(button => {
+  document.querySelectorAll('.reading-help').forEach(button => {
     const panel = panelFor(button);
     button.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') show(button); });
     button.addEventListener('pointerleave', scheduleClose);

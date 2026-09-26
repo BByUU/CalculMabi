@@ -21,9 +21,13 @@
 .reading-table thead th:first-child { z-index: 3; background: var(--surface-accent); }
 .reading-table tr > :last-child { border-right: 0; }
 .reading-table tbody tr:last-child > * { border-bottom: 0; }
-.reading-cell { display: block; width: 100%; min-height: 34px; padding: 5px 4px; border: 0; border-radius: 0; background: transparent; color: var(--reading-color, var(--ink)); font: inherit; line-height: 1.4; cursor: help; }
-.reading-cell:hover, .reading-cell[aria-expanded="true"] { background: var(--surface-hover); }
-.reading-cell:focus-visible, .reading-table-wrap:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.reading-cell { display:flex; align-items:center; gap:5px; min-height:34px; color:var(--reading-color, var(--ink)); line-height:1.4; }
+.reading-cell-text { flex:1; min-width:0; }
+.reading-help { display:inline-flex; align-items:center; justify-content:center; flex:0 0 22px; width:22px; height:22px; padding:0; border:1px solid currentColor; border-radius:50%; color:var(--reading-color, var(--accent-ink)); background:var(--surface); font:inherit; font-size:.75rem; cursor:help; }
+.reading-legend > span { display:inline-flex; align-items:center; gap:5px; }
+.reading-detail ul { margin:7px 0; padding-left:18px; }
+.reading-help:hover, .reading-help[aria-expanded="true"] { background: var(--surface-hover); }
+.reading-help:focus-visible, .reading-table-wrap:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .reading-cell .reading-source { display:block; font-weight:600; }
 .reading-cell .reading-requirement { display:block; margin-top:3px; font-size:.75rem; color:var(--ink); line-height:1.5; }
 .reading-cell { padding:7px 6px; text-align:left; overflow-wrap:anywhere; }
