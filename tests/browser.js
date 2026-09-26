@@ -179,6 +179,11 @@ document.getElementById('run').addEventListener('click',async()=>{
     const magicLevel=kn.querySelector('[data-level="increase-magic-defense"]');
     magicLevel.focus();change(magicLevel,'10');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};
     same(kn.activeElement,magicLevel,'副技能等級焦點不變');verifyKnights();
+    magicLevel.parentElement.querySelector('button:last-child').click();
+    knightPlan.subSkills['increase-magic-defense']={level:11,progress:0};verifyKnights();
+    change(magicLevel,'16','input');same(magicLevel.getAttribute('aria-invalid'),'true','副技能非法等級提示');
+    change(magicLevel,'16');same(magicLevel.value,'11','副技能非法等級恢復');
+    change(magicLevel,'10','input');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};verifyKnights();
     same(kn.querySelector('[data-sub="increase-magic-defense"] [data-cell="next"]').textContent,'33 分 20 秒100 次','聖盾每 20 秒：魔法反制 Lv.10 升一級');
     change(kn.querySelector('[data-level="recover-hp"]'),'12');knightPlan.subSkills['recover-hp']={level:12,progress:0};
     same(kn.querySelector('[data-sub="recover-hp"] [data-cell="gain"]').textContent,'0.3125%','每次修練值顯示到小數四位');
@@ -203,6 +208,25 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(JSON.parse(localStorage.getItem('mabi-knights-v1')).subSkills['increase-magic-defense'].level,15,'記住副技能等級');
     kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();
     report.textContent='星塵、特性與騎士團測試通過。技能測試中…';
+
+    const reading=await open('reading.html',d=>d.readyState==='complete'&&d.querySelectorAll('.reading-cell').length===91);
+    for(const cell of reading.querySelectorAll('.reading-cell')) {
+      assert(cell.querySelector('.reading-source')?.textContent,'讀書格子有取得來源或對話對象');
+      assert(cell.querySelector('.reading-requirement')?.textContent,'讀書格子有書名或任務需求');
+      const detail=reading.getElementById(cell.getAttribute('aria-describedby'));
+      same(detail.querySelectorAll('p').length,2,'詳情固定來源與需求兩段');
+      assert(!detail.querySelector('br'),'任務流程不逐步換行');
+    }
+    same(reading.querySelectorAll('.reading-empty').length,7,'未提供資料仍保持空白');
+    const book=reading.querySelector('[aria-describedby="reading-0-0"]');
+    book.focus();same(book.getAttribute('aria-expanded'),'true','讀書格子鍵盤焦點開啟詳情');
+    assert(reading.getElementById('reading-0-0').textContent.includes('4400G'),'詳情保留價格');
+    reading.dispatchEvent(new reading.defaultView.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+    same(book.getAttribute('aria-expanded'),'false','Esc 關閉詳情');
+    const quest=reading.querySelector('[aria-describedby="reading-13-2"]');
+    quest.click();assert(!reading.getElementById('reading-13-2').hidden,'點選任務顯示詳情');
+    assert(reading.getElementById('reading-13-2').textContent.includes('優質結尾用絲線 ×2'),'保留製作材料');
+    quest.click();assert(reading.getElementById('reading-13-2').hidden,'再次點選關閉詳情');
 
     const sk=await open('index.html',d=>d.querySelectorAll('[data-task-row]').length>0);
     sk.querySelector('[data-skill="stationery-craft"]').click();
