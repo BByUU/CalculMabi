@@ -1,9 +1,10 @@
+import {setStepper} from './level-stepper.js';
 import {escapeHtml as esc, formatNumber as fmt} from './format.js';
 import {MAIN_SKILLS, SUB_SKILLS, TIMERS, MAX_LEVEL, defaultKnightsPlan, calculateKnights, formatDuration} from './knights-calculator.js';
 
 const $ = id => document.getElementById(id);
 const STORAGE = 'mabi-knights-v1';
-const levelOptions = Array.from({length:MAX_LEVEL}, (_, i) => `<option value="${i + 1}">Lv.${i + 1}</option>`).join('');
+const levels = Array.from({length:MAX_LEVEL}, (_, i) => i + 1);
 // Gains such as 0.3125% need more than the shared two decimals to match the per-level counts.
 const gainFormat = new Intl.NumberFormat('zh-TW', {maximumFractionDigits:4});
 const rowNodes = new Map(), intervalNodes = new Map();
@@ -29,7 +30,7 @@ function mount() {
     <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
     <div class="table-scroll"><table class="kn-table">
       <thead><tr><th scope="col">副技能</th><th scope="col">等級</th><th scope="col">目前修練值</th><th scope="col">每次</th><th scope="col">目前等級</th><th scope="col">升到 Lv.${MAX_LEVEL}</th></tr></thead>
-      <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row">${sub.name}<small data-cell="condition"></small></th><td data-label="等級"><select data-level="${sub.id}" aria-label="${sub.name}目前等級">${levelOptions}</select></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
+      <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row">${sub.name}<small data-cell="condition"></small></th><td data-label="等級"><input data-level="${sub.id}" inputmode="numeric" aria-label="${sub.name}目前等級" value="1"></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
     </table></div>
   </section>`).join('');
   const cells = node => Object.fromEntries([...node.querySelectorAll('[data-cell]')].map(cell => [cell.dataset.cell, cell]));
@@ -45,7 +46,7 @@ const stepCell = step => step.seconds === null ? `${fmt(step.successes)} 次<sma
 // Update text and control state in place; inputs stay mounted so focus and typing are kept.
 function patchRow(row) {
   const {node, level, progress, cells} = rowNodes.get(row.id);
-  if (level.value !== String(row.level)) level.value = row.level;
+  setStepper(level, levels, row.level);
   progress.disabled = row.maxed;
   if (document.activeElement !== progress) progress.value = row.progress ? row.progress : '';
   node.classList.toggle('kn-maxed', row.maxed);
@@ -68,7 +69,7 @@ function update(changed = null) {
 }
 
 function showErrors() {
-  const invalid = [...$('kn-mains').querySelectorAll('input[aria-invalid="true"]')];
+  const invalid = [...$('kn-mains').querySelectorAll('[data-progress][aria-invalid="true"], [data-interval][aria-invalid="true"]')];
   $('kn-error').hidden = invalid.length === 0;
   $('kn-error').textContent = invalid.length ? `請修正：${invalid.map(input => input.getAttribute('aria-label')).join('、')}。間隔須為 0.1 至 86,400 秒，修練值須為 0 至 99.99%；其他欄位仍按上次有效值計算。` : '';
 }

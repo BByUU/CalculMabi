@@ -1,5 +1,6 @@
+import {setStepper} from './level-stepper.js';
 import {formatNumber as number} from './format.js';
-import {SUPPORT_EFFECTS, defaultStardustPlan, toggleStardustBonus, calculateStardust} from './stardust-calculator.js';
+import {SUPPORT_EFFECTS, maxStardustPlan, defaultStardustPlan, toggleStardustBonus, calculateStardust} from './stardust-calculator.js';
 const $=id=>document.getElementById(id);
 const STORAGE='mabi-stardust-plan-v1';
 let plan=defaultStardustPlan();
@@ -7,18 +8,17 @@ try {
   const stored=JSON.parse(localStorage.getItem(STORAGE));
   if(stored && stored.effects?.length===15) {
     delete stored.baseReward;
-    calculateStardust(stored); plan=stored;
+    const candidate=maxStardustPlan(stored);
+    calculateStardust(candidate); plan=candidate;
   }
 } catch { /* A missing or outdated saved plan uses defaults. */ }
-function options(max,value,individual=false) {
-  return `${individual?'<option value="">個別</option>':''}`+Array.from({length:max},(_,i)=>`<option value="${i+1}" ${Number(value)===i+1?'selected':''}>${i+1}</option>`).join('');
-}
+const levels = max => Array.from({length:max}, (_, i) => i + 1);
 function renderEffects() {
   // Mount controls once; changes must preserve keyboard focus and open selects.
   if (!$('sd-effects-rows').children.length) $('sd-effects-rows').innerHTML=Array.from({length:5},(_,family)=>`<tr>${[0,1,2].map(group=>{
     const effect=SUPPORT_EFFECTS.find(e=>e.group===group&&e.family===family);
     const choice=plan.effects.find(e=>e.id===effect.id);
-    return `<td><div class="sd-effect-name"><label><input type="checkbox" data-effect="${effect.id}">${effect.name}</label><small>Rank ${effect.unlock} 解鎖</small></div><div class="sd-effect-levels"><select data-level="current" data-effect-id="${effect.id}" aria-label="${effect.name}目前等級">${options(10,choice.current)}</select><span aria-hidden="true">→</span><select data-level="target" data-effect-id="${effect.id}" aria-label="${effect.name}目標等級">${options(10,choice.target)}</select></div></td>`;
+    return `<td><div class="sd-effect-name"><label><input type="checkbox" data-effect="${effect.id}">${effect.name}</label><small>Rank ${effect.unlock} 解鎖</small></div><div class="sd-effect-levels"><input data-level="current" data-effect-id="${effect.id}" inputmode="numeric" aria-label="${effect.name}目前等級" value="${choice.current}"></div></td>`;
   }).join('')}</tr>`).join('');
   for (const effect of SUPPORT_EFFECTS) {
     const choice=plan.effects.find(e=>e.id===effect.id);
@@ -31,24 +31,20 @@ function renderEffects() {
     cell.querySelector('small').hidden=!locked;
     cell.querySelectorAll('[data-level]').forEach(select=>{
       select.disabled=locked||!choice.enabled;
-      select.value=choice[select.dataset.level];
+      setStepper(select,levels(10),choice.current);
     });
   }
   renderBulkLevels();
 }
 function renderBulkLevels() {
-  for(const key of ['current','target']) {
-    const unique=new Set(plan.effects.map(e=>e[key]));
-    const value=unique.size===1?[...unique][0]:'';
-    const select=$(`sd-bulk-${key}`);
-    if(!select.options.length)select.innerHTML=options(10,value,true);
-    select.options[0].hidden=unique.size===1;
-    select.value=value;
-  }
+  const unique=new Set(plan.effects.map(e=>e.current));
+  const value=unique.size===1?[...unique][0]:'';
+  const input=$('sd-bulk-current');
+  input.placeholder='個別';
+  setStepper(input,levels(10),value);
 }
 function renderControls() {
-  $('sd-current-rank').innerHTML=options(15,plan.currentRank);
-  $('sd-target-rank').innerHTML=options(15,plan.targetRank);
+  setStepper($('sd-current-rank'),levels(15),plan.currentRank);
   renderMode();
   $('sd-confidence-number').value=Number((plan.confidence*100).toFixed(1));
   $('sd-confidence-slider').value=Number((plan.confidence*100).toFixed(1));
@@ -79,7 +75,6 @@ function update() {
   }
 }
 $('sd-current-rank').addEventListener('change',event=>{plan.currentRank=Number(event.target.value);update();});
-$('sd-target-rank').addEventListener('change',event=>{plan.targetRank=Number(event.target.value);renderEffects();update();});
 $('sd-mode').addEventListener('click',event=>{
   const button=event.target.closest('[data-mode]');
   if(!button)return;
@@ -104,7 +99,7 @@ $('sd-effects-rows').addEventListener('change',event=>{
   }
   update();
 });
-for(const key of ['current','target']) $(`sd-bulk-${key}`).addEventListener('change',event=>{
+for(const key of ['current']) $(`sd-bulk-${key}`).addEventListener('change',event=>{
   if(!event.target.value)return;
   plan.effects.forEach(e=>{e[key]=Number(event.target.value);});renderEffects();update();
 });

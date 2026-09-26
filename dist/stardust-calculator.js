@@ -18,6 +18,10 @@ export function defaultStardustPlan() {
   return {currentRank:1,targetRank:15,mode:'confidence',confidence:.99,bonuses:{crystal:false,totem:false,potion:false,event:false},
     effects:SUPPORT_EFFECTS.map(e=>({id:e.id,enabled:true,current:1,target:10}))};
 }
+// The page always plans to the maximum; retain other saved settings.
+export function maxStardustPlan(plan) {
+  return {...plan,targetRank:15,effects:plan.effects.map(effect=>({...effect,target:10}))};
+}
 export function toggleStardustBonus(bonuses,key,enabled) {
   if (!BONUS_KEYS.includes(key)) throw new Error('未知的加倍項目');
   const result={...bonuses,[key]:Boolean(enabled)};

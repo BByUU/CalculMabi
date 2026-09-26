@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {BASE_REWARD,defaultStardustPlan,calculateStardust,toggleStardustBonus,stardustMultiplier} from '../dist/stardust-calculator.js';
+import {BASE_REWARD,maxStardustPlan,defaultStardustPlan,calculateStardust,toggleStardustBonus,stardustMultiplier} from '../dist/stardust-calculator.js';
 const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-8,`${actual} ≠ ${expected}`);
 function oneEffect(current=1,target=10) {
   const plan=defaultStardustPlan();plan.currentRank=plan.targetRank=15;
@@ -100,4 +100,16 @@ test('基礎獎勵固定各 2 個，舊版各 1 個設定不再影響計算',()=
   const html=readFileSync(new URL('../dist/stardust.html',import.meta.url),'utf8');
   assert.ok(!html.includes('id="sd-base-reward"'));
   assert.ok(html.includes('通用、該級材料各 2 個'));
+});
+
+test('舊星塵目標固定升滿，保留目前等級與加倍設定',()=>{
+  const saved=defaultStardustPlan();saved.currentRank=6;saved.targetRank=8;
+  saved.effects[0].current=4;saved.effects[0].target=5;saved.effects[1].enabled=false;
+  saved.bonuses.crystal=true;
+  const plan=maxStardustPlan(saved);
+  assert.equal(plan.targetRank,15);assert.ok(plan.effects.every(e=>e.target===10));
+  assert.equal(plan.currentRank,6);assert.equal(plan.effects[0].current,4);
+  assert.equal(plan.effects[1].enabled,false);assert.equal(plan.bonuses.crystal,true);
+  assert.equal(saved.targetRank,8);assert.equal(saved.effects[0].target,5);
+  assert.doesNotThrow(()=>calculateStardust(plan));
 });

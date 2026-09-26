@@ -16,7 +16,7 @@ export function setStepper(input, values, value) {
       return button;
     });
     wrapper.append(buttons[0], input, buttons[1]);
-    control = {values:[], value:'', buttons};
+    control = {input, values:[], value:'', buttons};
     controls.set(input, control);
     input.autocomplete = 'off';
     const normalize = () => input.value.trim().toUpperCase();
@@ -29,6 +29,7 @@ export function setStepper(input, values, value) {
       return true;
     }
     function step(direction) {
+      if (input.disabled) return;
       const index = control.values.indexOf(control.value);
       input.value = control.values[Math.max(0, Math.min(control.values.length - 1, index + direction))];
       input.dispatchEvent(new Event('change', {bubbles:true}));
@@ -40,7 +41,7 @@ export function setStepper(input, values, value) {
         input.setAttribute('aria-invalid', 'false');
       }
       refresh(control);
-    });
+    }, {capture:true});
     input.addEventListener('input', () => {
       input.setAttribute('aria-invalid', String(!control.values.includes(normalize())));
       if (control.values.includes(normalize())) input.dispatchEvent(new Event('change', {bubbles:true}));
@@ -63,6 +64,6 @@ export function setStepper(input, values, value) {
 
 function refresh(control) {
   const index = control.values.indexOf(control.value);
-  control.buttons[0].disabled = index <= 0;
-  control.buttons[1].disabled = index >= control.values.length - 1;
+  control.buttons[0].disabled = control.input.disabled || index === 0;
+  control.buttons[1].disabled = control.input.disabled || index >= control.values.length - 1;
 }
