@@ -1,0 +1,92 @@
+{
+  "note": "Game skill artwork copyright NEXON/devCAT. FWS skill icons extracted from their 42px sprite cells; Glyph Lore from Mabinogi World Wiki. Lossless WebP; originals stay in ignored source/.",
+  "retrieved": "2026-09-27",
+  "items": [
+    {
+      "id": "range-bonus",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=1",
+      "file": "dist/assets/knights/range-bonus.webp"
+    },
+    {
+      "id": "recover-hp",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=2",
+      "file": "dist/assets/knights/recover-hp.webp"
+    },
+    {
+      "id": "increase-magic-defense",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=3",
+      "file": "dist/assets/knights/increase-magic-defense.webp"
+    },
+    {
+      "id": "boost-movement-speed",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=4",
+      "file": "dist/assets/knights/boost-movement-speed.webp"
+    },
+    {
+      "id": "recover-wound",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=5",
+      "file": "dist/assets/knights/recover-wound.webp"
+    },
+    {
+      "id": "exp-bonus",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=16",
+      "file": "dist/assets/knights/exp-bonus.webp"
+    },
+    {
+      "id": "pet-damage-bonus",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=17",
+      "file": "dist/assets/knights/pet-damage-bonus.webp"
+    },
+    {
+      "id": "pet-no-hit-motion",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=18",
+      "file": "dist/assets/knights/pet-no-hit-motion.webp"
+    },
+    {
+      "id": "pet-life-wound-recover",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=19",
+      "file": "dist/assets/knights/pet-life-wound-recover.webp"
+    },
+    {
+      "id": "pet-auto-revive",
+      "pageUrl": "https://mabinogi.fws.tw/skills_sub_info.php?id=20",
+      "file": "dist/assets/knights/pet-auto-revive.webp"
+    },
+    {
+      "id": "music-knowledge",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=10006",
+      "file": "dist/assets/reading/music-knowledge.webp"
+    },
+    {
+      "id": "composing",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=10005",
+      "file": "dist/assets/reading/composing.webp"
+    },
+    {
+      "id": "rest",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=10004",
+      "file": "dist/assets/reading/rest.webp"
+    },
+    {
+      "id": "first-aid",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=10009",
+      "file": "dist/assets/reading/first-aid.webp"
+    },
+    {
+      "id": "campfire",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=10008",
+      "file": "dist/assets/reading/campfire.webp"
+    },
+    {
+      "id": "meditation",
+      "pageUrl": "https://mabinogi.fws.tw/skills_info.php?id=30003",
+      "file": "dist/assets/reading/meditation.webp"
+    },
+    {
+      "id": "glyph-lore",
+      "pageUrl": "https://wiki.mabinogiworld.com/view/Glyph_Lore",
+      "imgUrl": "https://wiki.mabinogiworld.com/images/8/8a/Glyph_Lore.png",
+      "file": "dist/assets/reading/glyph-lore.webp"
+    }
+  ]
+}
