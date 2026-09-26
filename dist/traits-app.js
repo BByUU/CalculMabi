@@ -9,7 +9,7 @@ const ORDERS = ['game', 'color'];
 const LEVELS = Array.from({length:MAX_LEVEL}, (_, i) => i + 1);
 const amount = n => n ? fmt(n) : '—';
 const weeksText = category => category.missing ? `${fmt(category.weeks)} 週` : '已足夠';
-const traitNodes = new Map(), categoryNodes = new Map(), groupNodes = new Map();
+const traitNodes = new Map(), categoryNodes = new Map(), groupNodes = new Map(), subtotalNodes = new Map();
 let plan = defaultTraitPlan(), order = 'game';
 try { if (ORDERS.includes(localStorage.getItem(ORDER_STORAGE))) order = localStorage.getItem(ORDER_STORAGE); } catch { /* Storage is optional. */ }
 
@@ -40,6 +40,8 @@ function mount() {
   for (const node of $('tr-category-rows').querySelectorAll('[data-category]')) {
     categoryNodes.set(node.dataset.category, {held:node.querySelector('[data-held]'), cells:cells(node)});
   }
+  $('tr-subtotal-rows').innerHTML = CATEGORIES.map(category => `<tr class="tr-subtotal tr-${category.id}" data-subtotal="${category.id}"><th scope="row" colspan="2"><span class="tr-tag">${category.name}小計</span></th><td><span data-cell="weeks"></span><small>扣除持有點數</small></td><td data-cell="ap"></td><td><span data-cell="basic"></span><small>${category.basicCrystal}</small></td><td><span data-cell="advanced"></span><small>${category.advancedCrystal}</small></td></tr>`).join('');
+  for (const node of $('tr-subtotal-rows').children) subtotalNodes.set(node.dataset.subtotal, {node, cells:cells(node)});
   setStepper($('tr-bulk-level'), LEVELS, 1);
   let cumulative = 0;
   $('tr-cost-rows').innerHTML = LEVEL_COSTS.map(step => {
@@ -69,15 +71,20 @@ function patchCategory(category) {
   cells.weeks.textContent = weeksText(category);
   cells.basic.textContent = amount(category.basic);
   cells.advanced.textContent = amount(category.advanced);
+  const subtotal = subtotalNodes.get(category.id).cells;
+  subtotal.weeks.textContent = weeksText(category);
+  for (const key of ['ap', 'basic', 'advanced']) subtotal[key].textContent = amount(category[key]);
 }
 
 // Reorder by moving the mounted rows, so inputs keep their values and no row is rebuilt.
 function arrange() {
   const rows = order === 'game'
     ? [...groupNodes.values(), ...TRAITS.map(trait => traitNodes.get(trait.id).node)]
-    : CATEGORIES.flatMap(category => [groupNodes.get(category.id), ...TRAITS.filter(trait => trait.category === category.id).map(trait => traitNodes.get(trait.id).node)]);
+    : CATEGORIES.flatMap(category => [groupNodes.get(category.id), ...TRAITS.filter(trait => trait.category === category.id).map(trait => traitNodes.get(trait.id).node), subtotalNodes.get(category.id).node]);
   for (const group of groupNodes.values()) group.hidden = order === 'game';
   $('tr-trait-rows').append(...rows);
+  if (order === 'game') $('tr-subtotal-rows').append(...CATEGORIES.map(category => subtotalNodes.get(category.id).node));
+  $('tr-subtotals').hidden = order !== 'game';
   $('tr-trait-table').classList.toggle('tr-game-order', order === 'game');
   for (const button of document.querySelectorAll('[data-order]')) button.setAttribute('aria-pressed', String(button.dataset.order === order));
 }

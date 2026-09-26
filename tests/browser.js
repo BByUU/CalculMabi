@@ -77,6 +77,14 @@ document.getElementById('run').addEventListener('click',async()=>{
         same(node.querySelector('[data-cell="missing"]').textContent,formatNumber(category.missing),`${category.id} 缺少`);
         same(node.querySelector('[data-cell="weeks"]').textContent,category.missing?`${formatNumber(category.weeks)} 週`:'已足夠',`${category.id} 週數`);
       }
+      for (const category of result.categories) {
+        const subtotal=tr.querySelector(`[data-subtotal="${category.id}"]`);
+        for (const key of ['ap','basic','advanced']) same(subtotal.querySelector(`[data-cell="${key}"]`).textContent,amount(category[key]),`${category.id} 小計 ${key}`);
+        same(subtotal.querySelector('[data-cell="weeks"]').textContent,category.missing?`${formatNumber(category.weeks)} 週`:'已足夠',`${category.id} 小計週數`);
+        if (tr.getElementById('tr-subtotals').hidden) {
+          same(subtotal.previousElementSibling.dataset.trait,TRAITS.filter(t=>t.category===category.id).at(-1).id,'小計放在各類最後');
+        } else same(subtotal.parentElement.id,'tr-subtotal-rows','遊戲排序小計集中在下方');
+      }
       same(tr.getElementById('tr-missing-total').textContent,`${formatNumber(result.totals.missing)} 點`,'特性缺少合計');
       same(tr.getElementById('tr-weeks-total').textContent,result.totals.weeks?`${formatNumber(result.totals.weeks)} 週`:'已足夠','特性週數');
     }
@@ -120,7 +128,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     for (const trait of TRAITS) traitPlan.levels[trait.id]={current:5};
     verifyTraits();
     assert(traitControls.every(node=>tr.contains(node)),'特性控制項不重建');
-    const orderOf=()=>[...tr.querySelectorAll('#tr-trait-rows > tr:not([hidden])')].map(row=>row.dataset.trait??`group:${row.dataset.group}`).join();
+    const orderOf=()=>[...tr.querySelectorAll('#tr-trait-rows > tr:not([hidden]):not([data-subtotal])')].map(row=>row.dataset.trait??`group:${row.dataset.group}`).join();
     const gameOrder=TRAITS.map(trait=>trait.id).join();
     const colorOrder=CATEGORIES.flatMap(category=>[`group:${category.id}`,...TRAITS.filter(trait=>trait.category===category.id).map(trait=>trait.id)]).join();
     same(orderOf(),gameOrder,'預設遊戲排序');

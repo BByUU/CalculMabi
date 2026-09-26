@@ -50,3 +50,8 @@
   .tr-table th,.tr-table td { padding:5px 6px; }
   .tr-category-table { min-width:640px; }
 }
+
+.tr-subtotal { background:var(--surface-accent); font-weight:600; }
+.tr-table .tr-subtotal > :is(th,td) { border-top:1px solid var(--line-strong); padding-top:8px; padding-bottom:8px; }
+#tr-subtotals[hidden] { display:none; }
+#tr-subtotals h3 { font-size:.8125rem; }
