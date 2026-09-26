@@ -108,3 +108,36 @@ test('各頁都有特性入口，特性程式固定 DOM 引用都存在', () => 
   for (const match of app.matchAll(/\$\('([^']+)'\)/g)) assert.ok(html.includes(`id="${match[1]}"`), match[1]);
   assert.ok(html.includes('aria-current="page">特性'));
 });
+
+test('AP 轉換依分類加點，三類共用每週七天，升級 AP 分開計算', () => {
+  const plan = defaultTraitPlan();
+  plan.conversionDays = {training:3, challenge:2, sympathy:2};
+  const result = calculateTraits(plan);
+  assert.deepEqual(result.categories.map(c => c.weeks), [27, 25, 25]);
+  assert.deepEqual(result.conversion, {days:7, weeklyAP:70, weeklyPoints:700});
+  assert.equal(result.totals.ap, 1748);
+  assert.equal(result.totals.weeks, 27);
+  plan.conversionDays = {training:7, challenge:0, sympathy:0};
+  assert.deepEqual(calculateTraits(plan).categories.map(c => c.weeks), [22, 28, 28]);
+  for (const trait of TRAITS) plan.levels[trait.id].current = 10;
+  plan.levels.haste.current = 8;
+  plan.held.training = 300;
+  assert.equal(calculateTraits(plan).totals.weeks, 1);
+  plan.held.training = 299;
+  assert.equal(calculateTraits(plan).totals.weeks, 2);
+  plan.held.training = 2500;
+  assert.equal(calculateTraits(plan).totals.weeks, 0);
+});
+
+test('AP 轉換拒絕非法天數，舊設定預設不轉換', () => {
+  for (const days of [-1, 8, 1.5, true, '']) {
+    const plan = defaultTraitPlan();
+    plan.conversionDays.training = days;
+    assert.throws(() => calculateTraits(plan));
+  }
+  const plan = defaultTraitPlan();
+  plan.conversionDays = {training:4, challenge:4, sympathy:0};
+  assert.throws(() => calculateTraits(plan));
+  delete plan.conversionDays;
+  assert.deepEqual(calculateTraits(plan), calculateTraits(defaultTraitPlan()));
+});

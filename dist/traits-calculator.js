@@ -63,6 +63,7 @@ export function upgradeCost(from, to) {
 export function defaultTraitPlan() {
   return {
     levels:Object.fromEntries(TRAITS.map(trait => [trait.id, {current:1}])),
+    conversionDays:Object.fromEntries(CATEGORIES.map(category => [category.id, 0])),
     held:Object.fromEntries(CATEGORIES.map(category => [category.id, 0])),
   };
 }
@@ -71,11 +72,15 @@ const sum = (items, key) => items.reduce((total, item) => total + item[key], 0);
 
 // Every trait is planned up to Lv.10; only the current level varies.
 export function calculateTraits(plan) {
+  const days = Object.fromEntries(CATEGORIES.map(category => [category.id, integer(plan?.conversionDays?.[category.id] ?? 0, 0, 7, `${category.name}每週轉換天數`)]));
+  const totalDays = Object.values(days).reduce((a, b) => a + b, 0);
+  if (totalDays > 7) throw new Error('每週轉換天數合計不可超過 7 天。');
   const rows = TRAITS.map(trait => {
     const choice = plan?.levels?.[trait.id];
     if (!choice || typeof choice !== 'object') throw new Error(`缺少${trait.name}的等級設定。`);
     const current = integer(choice.current, 1, MAX_LEVEL, `${trait.name}目前等級`);
-    return {...trait, current, ...upgradeCost(current, MAX_LEVEL)};
+    const cost = upgradeCost(current, MAX_LEVEL);
+    return {...trait, current, ...cost, weeks:Math.ceil(cost.points / (WEEKLY_CAP + days[trait.category] * 100))};
   });
   const categories = CATEGORIES.map(category => {
     const own = rows.filter(row => row.category === category.id);
@@ -83,10 +88,10 @@ export function calculateTraits(plan) {
     const points = sum(own, 'points');
     const missing = Math.max(0, points - held);
     return {...category, traits:own.length, upgrading:own.filter(row => row.current < MAX_LEVEL).length,
-      points, held, missing, weeks:Math.ceil(missing / WEEKLY_CAP), ap:sum(own, 'ap'), basic:sum(own, 'basic'), advanced:sum(own, 'advanced')};
+      points, held, missing, conversionDays:days[category.id], weeklyPoints:WEEKLY_CAP + days[category.id] * 100, weeklyAP:days[category.id] * 10, weeks:Math.ceil(missing / (WEEKLY_CAP + days[category.id] * 100)), ap:sum(own, 'ap'), basic:sum(own, 'basic'), advanced:sum(own, 'advanced')};
   });
   const weeks = Math.max(...categories.map(category => category.weeks));
-  return {rows, categories, totals:{
+  return {rows, categories, conversion:{days:totalDays, weeklyAP:totalDays * 10, weeklyPoints:totalDays * 100}, totals:{
     points:sum(categories, 'points'), missing:sum(categories, 'missing'), ap:sum(rows, 'ap'), weeks,
     slowest:weeks ? categories.filter(category => category.weeks === weeks).map(category => category.id) : [],
   }};

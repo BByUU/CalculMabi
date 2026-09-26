@@ -55,3 +55,12 @@
 .tr-table .tr-subtotal > :is(th,td) { border-top:1px solid var(--line-strong); padding-top:8px; padding-bottom:8px; }
 #tr-subtotals[hidden] { display:none; }
 #tr-subtotals h3 { font-size:.8125rem; }
+
+.tr-conversion { padding:10px 12px; border-top:1px solid var(--line); font-size:.8125rem; }
+.tr-conversion summary { cursor:pointer; font-weight:600; }
+.tr-conversion p { margin:8px 0; color:var(--muted); }
+.tr-conversion-inputs { display:flex; flex-wrap:wrap; gap:12px 24px; }
+.tr-conversion-inputs label { display:grid; grid-template-columns:auto 56px auto; align-items:center; gap:6px; }
+.tr-conversion-inputs input { width:56px; padding:4px; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--ink); }
+.tr-conversion-inputs small { grid-column:1 / -1; color:var(--muted); }
+.tr-conversion-inputs input[aria-invalid="true"] { border-color:var(--warning-line); background:var(--warning-bg); }

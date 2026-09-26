@@ -68,7 +68,7 @@ document.getElementById('run').addEventListener('click',async()=>{
       for (const row of result.rows) {
         const node=tr.querySelector(`[data-trait="${row.id}"]`);
         same(node.querySelector('[data-level]').value,String(row.current),`${row.id} 目前等級`);
-        same(node.querySelector('[data-cell="weeks"]').textContent,`${Math.ceil(row.points/1500)} 週`,`${row.id} 個別週數`);
+        same(node.querySelector('[data-cell="weeks"]').textContent,`${row.weeks} 週`,`${row.id} 個別週數`);
         same(node.classList.contains('tr-done'),row.current===10,`${row.id} 完成標示`);
         for (const key of ['points','ap','basic','advanced']) same(node.querySelector(`[data-cell="${key}"]`).textContent,amount(row[key]),`${row.id} ${key}`);
       }
@@ -141,6 +141,17 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(tr.querySelector('[data-trait="haste"] [data-level]'),hasteLevel,'排序不重建選單');
     same(hasteLevel.value,'8','排序保留已選等級');
     assert(traitControls.every(node=>tr.contains(node)),'排序後控制項仍在');verifyTraits();
+    tr.getElementById('tr-conversion').open=true;
+    const dayInputs=[...tr.querySelectorAll('[data-days]')];
+    dayInputs[0].focus();change(dayInputs[0],'3','input');traitPlan.conversionDays.training=3;
+    same(tr.activeElement,dayInputs[0],'天數輸入保留焦點');verifyTraits();
+    change(dayInputs[1],'2','input');traitPlan.conversionDays.challenge=2;
+    change(dayInputs[2],'2','input');traitPlan.conversionDays.sympathy=2;verifyTraits();
+    assert(tr.getElementById('tr-conversion-summary').textContent.includes('70 AP'),'轉換每週 AP 另列');
+    change(dayInputs[0],'4','input');assert(!tr.getElementById('tr-conversion-error').hidden,'超過七天顯示錯誤');verifyTraits();
+    change(dayInputs[0],'1.5','input');assert(!tr.getElementById('tr-conversion-error').hidden,'拒絕非整數天數');verifyTraits();
+    change(dayInputs[0],'3','input');assert(tr.getElementById('tr-conversion-error').hidden,'修正天數恢復');verifyTraits();
+    assert(dayInputs.every(node=>tr.contains(node)),'天數輸入節點保留');
     const before=tr;tr.defaultView.location.reload();
     await new Promise((resolve,reject)=>{
       const timeout=setTimeout(()=>{clearInterval(timer);reject(new Error('特性頁重新載入逾時'));},10000);
@@ -148,6 +159,8 @@ document.getElementById('run').addEventListener('click',async()=>{
     });
     tr=frame.contentDocument;
     same(orderOf(),colorOrder,'重新載入保留顏色排序');verifyTraits();
+    same(tr.querySelector('[data-days="training"]').value,'3','重新載入保留天數');
+    assert(tr.getElementById('tr-conversion').open,'已設定轉換自動展開');
     tr.querySelector('[data-order="game"]').click();
     same(orderOf(),gameOrder,'切回遊戲排序');verifyTraits();
     tr.getElementById('tr-reset').click();traitPlan=defaultTraitPlan();verifyTraits();

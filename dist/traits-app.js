@@ -23,12 +23,15 @@ try {
       if (choice && typeof choice === 'object') candidate.levels[trait.id] = {current:choice.current};
     }
     for (const category of CATEGORIES) if (Object.hasOwn(saved.held ?? {}, category.id)) candidate.held[category.id] = saved.held[category.id];
+    for (const category of CATEGORIES) if (Object.hasOwn(saved.conversionDays ?? {}, category.id)) candidate.conversionDays[category.id] = saved.conversionDays[category.id];
     calculateTraits(candidate);
     plan = candidate;
   }
 } catch { /* A missing or invalid saved plan uses defaults. */ }
 
 function mount() {
+  $('tr-conversion-inputs').innerHTML = CATEGORIES.map(category => `<label class="tr-${category.id}"><span class="tr-tag">${category.name}</span><input type="number" min="0" max="7" step="1" inputmode="numeric" data-days="${category.id}" aria-label="${category.name}每週轉換天數" value="${plan.conversionDays[category.id]}">天<small data-budget="${category.id}"></small></label>`).join('');
+  $('tr-conversion').open = Object.values(plan.conversionDays).some(Boolean);
   $('tr-category-rows').innerHTML = CATEGORIES.map(category => `<tr class="tr-${category.id}" data-category="${category.id}"><th scope="row"><span class="tr-tag">${category.name}</span><small data-cell="traits"></small></th><td><input class="tr-held" type="number" min="0" max="${HOLD_CAP}" step="1" inputmode="numeric" placeholder="0" data-held="${category.id}" aria-label="${category.name}的璞黎目前持有點數"></td><td data-cell="points"></td><td class="tr-missing" data-cell="missing"></td><td data-cell="weeks"></td><td><span data-cell="basic"></span><small>${category.basicCrystal}</small></td><td><span data-cell="advanced"></span><small>${category.advancedCrystal}</small></td></tr>`).join('');
   $('tr-trait-rows').innerHTML = CATEGORIES.map(category => `<tr class="tr-group tr-${category.id}" data-group="${category.id}"><th scope="colgroup" colspan="6"><span class="tr-tag">${category.name}</span></th></tr>`).join('')
     + TRAITS.map(trait => `<tr class="tr-${trait.category}" data-trait="${trait.id}"><th scope="row"><span class="tr-name"><img class="tr-icon" src="./assets/traits/${trait.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${trait.name}</span></th><td><input data-level data-trait-id="${trait.id}" inputmode="numeric" aria-label="${trait.name}目前等級" value="1"></td><td><span data-cell="points"></span><small data-cell="weeks"></small></td><td data-cell="ap"></td><td data-cell="basic"></td><td data-cell="advanced"></td></tr>`).join('');
@@ -57,7 +60,7 @@ function mount() {
 function patchTrait(row) {
   const {node, level, cells} = traitNodes.get(row.id);
   setStepper(level, LEVELS, row.current);
-  cells.weeks.textContent = `${Math.ceil(row.points / WEEKLY_CAP)} 週`;
+  cells.weeks.textContent = `${row.weeks} 週`;
   for (const key of ['points', 'ap', 'basic', 'advanced']) cells[key].textContent = amount(row[key]);
   node.classList.toggle('tr-done', row.current === MAX_LEVEL);
 }
@@ -93,6 +96,12 @@ function update(changed = null) {
   const result = calculateTraits(plan);
   for (const row of result.rows) if (!changed || changed.has(row.id)) patchTrait(row);
   for (const category of result.categories) patchCategory(category);
+  $('tr-conversion-summary').textContent = `每週 ${result.conversion.days}／7 天・投入 ${result.conversion.weeklyAP} AP・額外取得 ${result.conversion.weeklyPoints} 點`;
+  for (const category of result.categories) {
+    const input = document.querySelector(`[data-days="${category.id}"]`);
+    if (document.activeElement !== input && input.getAttribute('aria-invalid') !== 'true') input.value = category.conversionDays;
+    document.querySelector(`[data-budget="${category.id}"]`).textContent = `${category.weeklyAP} AP／週，額外 ${category.conversionDays * 100} 點`;
+  }
   $('tr-missing-total').textContent = `${fmt(result.totals.missing)} 點`;
   $('tr-ap-total').textContent = fmt(result.totals.ap);
   $('tr-weeks-total').textContent = result.totals.weeks ? `${fmt(result.totals.weeks)} 週` : '已足夠';
@@ -126,6 +135,19 @@ $('tr-category-rows').addEventListener('input', event => {
   showHeldError();
 });
 
+$('tr-conversion-inputs').addEventListener('input', event => {
+  const input = event.target.closest('[data-days]');
+  if (!input) return;
+  const inputs = [...document.querySelectorAll('[data-days]')];
+  const valid = inputs.every(node => !node.validity.badInput && node.checkValidity()) && inputs.reduce((n, node) => n + Number(node.value), 0) <= 7;
+  for (const node of inputs) node.setAttribute('aria-invalid', String(!valid));
+  $('tr-conversion-error').hidden = valid;
+  if (!valid) return;
+  const previous = plan.conversionDays;
+  plan.conversionDays = Object.fromEntries(inputs.map(node => [node.dataset.days, Number(node.value)]));
+  update(new Set(TRAITS.filter(trait => previous[trait.category] !== plan.conversionDays[trait.category]).map(trait => trait.id)));
+});
+
 $('tr-order').addEventListener('click', event => {
   const button = event.target.closest('[data-order]');
   if (!button || button.dataset.order === order) return;
@@ -142,6 +164,8 @@ $('tr-bulk-apply').addEventListener('click', () => {
 
 $('tr-reset').addEventListener('click', () => {
   plan = defaultTraitPlan();
+  for (const input of document.querySelectorAll('[data-days]')) { input.value = '0'; input.setAttribute('aria-invalid', 'false'); }
+  $('tr-conversion-error').hidden = true;
   for (const {held} of categoryNodes.values()) { held.value = ''; held.setAttribute('aria-invalid', 'false'); }
   showHeldError();
   update();

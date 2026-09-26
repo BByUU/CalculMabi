@@ -19,8 +19,8 @@
 <main id="main" tabindex="-1">
   <div class="tr-summary" aria-live="polite">
     <div><span>缺少璞黎點合計</span><strong id="tr-missing-total">—</strong></div>
-    <div><span>所需 AP 合計</span><strong id="tr-ap-total">—</strong></div>
-    <div><span>每週上限下最少需要</span><strong id="tr-weeks-total">—</strong><small id="tr-weeks-caption"></small></div>
+    <div><span>升級 AP 合計</span><strong id="tr-ap-total">—</strong></div>
+    <div><span>依目前設定約需</span><strong id="tr-weeks-total">—</strong><small id="tr-weeks-caption"></small></div>
   </div>
 
   <section class="tr-panel" aria-labelledby="tr-category-heading">
@@ -29,11 +29,18 @@
       <thead><tr><th scope="col">分類</th><th scope="col">目前持有</th><th scope="col">需求璞黎點</th><th scope="col">缺少璞黎點</th><th scope="col">約需週數</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
       <tbody id="tr-category-rows"></tbody>
     </table></div>
+    <details id="tr-conversion" class="tr-conversion"><summary>AP 轉換：每週天數分配</summary>
+      <p>每天可花 10 AP，選一種璞黎取得 100 點。三類合計最多 7 天，預設不轉換。</p>
+      <div id="tr-conversion-inputs" class="tr-conversion-inputs"></div>
+      <p id="tr-conversion-summary" aria-live="polite"></p>
+      <p>按每週固定分配估算，完成的分類不會自動改配其他類。轉換 AP 為每週預算，另計於升級 AP 之外。</p>
+      <div id="tr-conversion-error" class="error-message" role="alert" hidden>各類請填 0 至 7 的整數，合計不可超過 7 天；仍按上次有效分配計算。</div>
+    </details>
     <div id="tr-error" class="error-message tr-error" role="alert" hidden></div>
   </section>
 
   <section class="tr-panel" aria-labelledby="tr-trait-heading">
-    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10；各列週數按每週 1,500 點估算，未扣持有點數。</p><div class="tr-bulk"><div id="tr-order" class="tr-order" role="group" aria-label="特性排序"><button type="button" data-order="game" aria-pressed="true">遊戲排序</button><button type="button" data-order="color" aria-pressed="false">顏色排序</button></div><span>統一目前等級</span><input id="tr-bulk-level" inputmode="numeric" aria-label="全部特性目前等級" value="1"><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
+    <div class="tr-section-heading"><h2 id="tr-trait-heading">特性等級</h2><p>目標固定 Lv.10；各列週數含設定的 AP 轉換，未扣持有點數。</p><div class="tr-bulk"><div id="tr-order" class="tr-order" role="group" aria-label="特性排序"><button type="button" data-order="game" aria-pressed="true">遊戲排序</button><button type="button" data-order="color" aria-pressed="false">顏色排序</button></div><span>統一目前等級</span><input id="tr-bulk-level" inputmode="numeric" aria-label="全部特性目前等級" value="1"><button id="tr-bulk-apply" class="text-button" type="button">套用全部</button><button id="tr-reset" class="text-button" type="button">重設設定</button></div></div>
     <div class="table-scroll"><table id="tr-trait-table" class="tr-table tr-trait-table">
       <thead><tr><th scope="col">特性</th><th scope="col">目前等級</th><th scope="col">璞黎點</th><th scope="col">AP</th><th scope="col">一般結晶</th><th scope="col">高級結晶</th></tr></thead>
       <tbody id="tr-trait-rows"></tbody>
@@ -51,9 +58,9 @@
   </section>
 
   <footer class="data-footer"><p>特性升級後無法降級。結晶使用與特性相同分類的璞黎結晶，僅泰赫圖殷副本出產；高級結晶出自非常困難難度。</p><details><summary>計算說明</summary><div>
-    <p>缺少璞黎點 = 各特性由目前等級升到 Lv.10 的璞黎點合計 − 該分類目前持有點數。三種璞黎各有每週 1,500 點取得上限，週數以缺少點數 ÷ 1,500 向上取整，三類同時累積，最慢的一類決定完成週數。</p>
+    <p>缺少璞黎點 = 各特性由目前等級升到 Lv.10 的璞黎點合計 − 該分類目前持有點數。三種璞黎各有每週 1,500 點取得上限，週數以缺少點數 ÷（1,500 ＋ 每週轉換天數 × 100）向上取整，三類同時累積，最慢的一類決定完成週數。</p>
     <p>取得方式：修行為角色等級每提升 1 級 +10；挑戰為完成地下城、副本、影子任務或平原首領攻略任務每次 +50；交感為完成反覆欄每日任務或任務捲軸每個 +50。</p>
-    <p>每天可另外將 10 AP 轉換為 100 璞黎點，不受每週上限限制。資料未說明轉換後的分類，本頁週數不計入 AP 轉換。目前等級計點條內已注入的璞黎點也未扣除。</p>
+    <p>每天可另外將 10 AP 轉換為 100 璞黎點，不受每週上限限制。可在三種璞黎下方分配每週轉換天數，週數假設每週一般取得皆達上限。目前等級計點條內已注入的璞黎點也未扣除。</p>
     <p>資料依巴哈姆特新瑪奇哈啦板〈<a href="https://forum.gamer.com.tw/C.php?bsn=7422&amp;snA=239060" rel="noopener">特性技術系統整合導讀</a>〉整理，19 種特性分類含 4 樓補充的刻印：弗拉加拉赫（修行）。實際需求以遊戲內顯示為準。</p>
   </div></details></footer>
 </main>
