@@ -45,3 +45,6 @@
   .reading-table-wrap { max-height: calc(100dvh - 175px); }
   .reading-legend { gap: 4px 10px; }
 }
+
+.reading-skill-name { display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
+.reading-skill-name img { flex:0 0 26px; width:26px; height:26px; border-radius:3px; }

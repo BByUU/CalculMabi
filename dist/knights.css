@@ -44,3 +44,6 @@
   .kn-table select,.kn-progress input[type=number] { width:100%; }
   .kn-progress { display:flex; }
 }
+
+.kn-name { display:inline-flex; align-items:center; gap:8px; vertical-align:middle; }
+.kn-icon { flex:0 0 26px; width:26px; height:26px; border-radius:3px; }
