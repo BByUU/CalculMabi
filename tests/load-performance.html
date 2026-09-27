@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>首次載入量測</title>
+<button id="run">量測三頁，各三次</button><pre id="results">尚未執行</pre>
+<iframe id="frame" title="受測頁面" style="width:1200px;height:720px"></iframe>
+<script type="module">
+const frame=document.querySelector('#frame'), results=document.querySelector('#results'), button=document.querySelector('#run');
+button.onclick=async()=>{
+  button.disabled=true;
+  const runs=[];
+  for(const page of ['index.html','traits.html','reading.html'])for(let sample=1;sample<=3;sample++){
+    await new Promise(resolve=>{frame.onload=resolve;frame.src='/'+page+'?measure='+Date.now();});
+    const win=frame.contentWindow;
+    await win.document.fonts.ready;
+    await new Promise(resolve=>setTimeout(resolve,200));
+    const nav=win.performance.getEntriesByType('navigation')[0], resources=win.performance.getEntriesByType('resource');
+    runs.push({page,sample,dom:Math.round(nav.domContentLoadedEventEnd),load:Math.round(nav.loadEventEnd),fcp:Math.round(win.performance.getEntriesByName('first-contentful-paint')[0]?.startTime||0),font:Math.round(resources.find(e=>/woff/.test(e.name))?.responseEnd||0),bytes:resources.reduce((n,e)=>n+e.encodedBodySize,0),requests:resources.length});
+    results.textContent=JSON.stringify(runs,null,2);
+  }
+  button.disabled=false;
+};
+</script></html>

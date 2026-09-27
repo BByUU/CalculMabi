@@ -4,7 +4,7 @@ import {readFile, readdir} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {inflateSync} from 'node:zlib';
-import {FONT_FILE} from '../scripts/font.mjs';
+import {FONT_FILE, FONT_WOFF2} from '../scripts/font.mjs';
 import {siteCodepoints} from '../scripts/font-text.mjs';
 import {weaponIcon} from '../dist/erg-icons.js';
 import {escapeHtml, formatNumber} from '../dist/format.js';
@@ -67,14 +67,19 @@ test('各頁預載自架字型子集，不連外部字型；子集涵蓋網站�
   for (const name of await readdir(root)) {
     if (!name.endsWith('.html')) continue;
     const html = await readFile(new URL(name, root), 'utf8');
-    assert.ok(html.includes(`<link rel="preload" href="./${FONT_FILE}" as="font" type="font/woff" crossorigin>`), name);
+    assert.ok(html.includes(`<link rel="preload" href="./${FONT_WOFF2}" as="font" type="font/woff2" crossorigin>`), name);
     assert.doesNotMatch(html, /fonts\.(?:googleapis|gstatic)\.com|density\.css\?v=/, name);
   }
   const css = await readFile(new URL('styles.css', root), 'utf8');
   assert.doesNotMatch(css, /@import|fonts\.(?:googleapis|gstatic)\.com/);
-  assert.ok(css.includes(`src:url('./${FONT_FILE}') format('woff');font-weight:400 700`));
+  assert.ok(css.includes(`src:url('./${FONT_WOFF2}') format('woff2'),url('./${FONT_FILE}') format('woff');font-weight:400 700`));
   const font = await readFile(new URL(FONT_FILE, root));
   assert.ok(font.length < 600 * 1024, `字型 ${font.length} bytes 超出預算`);
+  const woff2 = await readFile(new URL(FONT_WOFF2, root));
+  assert.equal(woff2.toString('ascii', 0, 4), 'wOF2');
+  assert.equal(woff2.readUInt16BE(12), font.readUInt16BE(12), '兩種格式保留相同表格數');
+  assert.equal(woff2.readUInt32BE(8), woff2.length);
+  assert.ok(woff2.length < font.length, 'WOFF2 必須減少下載量');
   const tables = woffTables(font);
   const covered = mappedCodepoints(tables.get('cmap'));
   const missing = [...await siteCodepoints(fileURLToPath(root))].filter(code => !covered.has(code)).map(code => String.fromCodePoint(code));

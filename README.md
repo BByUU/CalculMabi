@@ -16,7 +16,7 @@
 
 ## 環境與安裝
 
-需要 Node.js 20 以上及隨附的 npm，CI 使用 Node.js 22。專案使用 HTML、CSS 與原生 JavaScript，沒有第三方套件依賴，目前不需要執行 `npm install`。網站、測試與建置不需要 Python；只有重建字型子集的 `npm run font` 需要 Python、fontTools 與本機的 `NotoSansTC-VF.ttf`。
+需要 Node.js 20 以上及隨附的 npm，CI 使用 Node.js 22。專案使用 HTML、CSS 與原生 JavaScript，沒有第三方套件依賴，目前不需要執行 `npm install`。網站、測試與建置不需要 Python；只有重建字型子集的 `npm run font` 需要 Python、fontTools、Brotli 與本機的 `NotoSansTC-VF.ttf`。
 
 ## 使用
 
@@ -36,7 +36,7 @@ npm run dev
 
 `npm run build` 將網站輸出至 `.pages/`。main 推送後，由 GitHub Actions 執行測試、建置及 GitHub Pages 部署；正式網址為 `https://bbyuu.github.io/CalculMabi/`。連結及資源須支援此專案子路徑。既有資料維護腳本可讀取公開 Wiki，網站一般計算不依賴即時查詢 Wiki。
 
-字型使用自架的 Noto Sans TC 子集 `dist/assets/fonts/noto-sans-tc.woff`（SIL OFL 1.1，授權與著作權資訊保留在字型內），只含網站檔案用到的字元與 400–700 字重，各頁以 preload 同源載入，不連外部字型服務。新增文字後 `npm test` 會列出子集缺少的字，執行 `npm run font` 重建；字型來源可用 `NOTO_SANS_TC_SOURCE` 指定，或放在 `source/fonts/`。技能修練的項目、配方、已計數與加成，以及聚能同一路線的藥水、次數與金額採局部更新，只在技能、Rank 區間或已計數欄改變時重建修練表；星塵支援效果與特性等級保留輸入節點，供鍵盤連續操作。圖片原始素材與產圖中繼檔留在本機 `source/`、`output/`，不納入公開儲存庫；重複建置會清掉已移除的舊輸出資源。
+字型使用自架的 Noto Sans TC 子集 `dist/assets/fonts/noto-sans-tc.woff2`，另保留 WOFF 作為後備（SIL OFL 1.1，授權與著作權資訊保留在字型內），只含網站檔案用到的字元與 400–700 字重，各頁以 preload 同源載入，不連外部字型服務。新增文字後 `npm test` 會列出子集缺少的字，執行 `npm run font` 重建；字型來源可用 `NOTO_SANS_TC_SOURCE` 指定，或放在 `source/fonts/`。技能修練的項目、配方、已計數與加成，以及聚能同一路線的藥水、次數與金額採局部更新，只在技能、Rank 區間或已計數欄改變時重建修練表；星塵支援效果與特性等級保留輸入節點，供鍵盤連續操作。圖片原始素材與產圖中繼檔留在本機 `source/`、`output/`，不納入公開儲存庫；重複建置會清掉已移除的舊輸出資源。
 
 ## 驗證
 
@@ -61,3 +61,5 @@ npm run dev
 本機輸入資料、歷史備份與建置暫存不提交。公開儲存庫只保留網站使用的必要資料。
 
 本專案為非官方玩家工具；遊戲名稱與圖像屬原權利人所有。
+
+發布建置會依原順序合併各頁 CSS，並將外觀初始化嵌入 HTML，減少首屏阻擋請求。載入量測可在瀏覽器測試伺服器開啟 `/__tests__/load-performance.html`，每頁量測三次；數值僅代表目前裝置及網路，不代表正式站的冷啟動速度。

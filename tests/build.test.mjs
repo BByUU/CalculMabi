@@ -5,6 +5,26 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {buildSite} from '../scripts/build.mjs';
 
+test('發布 CSS 保留順序與相對資源路徑，外觀腳本在編碼宣告後、樣式之前', async t => {
+  const root = await mkdtemp(path.join(tmpdir(), 'mabi-css-'));
+  t.after(() => rm(root, {recursive:true, force:true}));
+  const source = path.join(root, 'source'), output = path.join(root, 'output');
+  await mkdir(path.join(source, 'css'), {recursive:true});
+  await writeFile(path.join(source, 'index.html'), '<head><meta charset="utf-8"><link rel="stylesheet" href="./css/base.css"><link rel="stylesheet" href="./last.css"><script src="./theme.js"></script></head>');
+  await writeFile(path.join(source, 'css/base.css'), "body{color:red;background:url('../assets/a.png')}");
+  await writeFile(path.join(source, 'last.css'), 'body{color:blue}');
+  await writeFile(path.join(source, 'theme.js'), 'document.documentElement.dataset.theme="dark";');
+  const revision = await buildSite(source, output);
+  const html = await readFile(path.join(output, 'index.html'), 'utf8');
+  assert.equal((html.match(/rel="stylesheet"/g) || []).length, 1);
+  assert.ok(html.includes(`./index.bundle.css?v=${revision}`));
+  assert.ok(html.indexOf('charset=') < html.indexOf('<script>'));
+  assert.ok(html.indexOf('<script>') < html.indexOf('rel="stylesheet"'));
+  assert.ok(!html.includes('src="./theme.js'));
+  assert.equal(await readFile(path.join(output, 'index.bundle.css'), 'utf8'), "body{color:red;background:url('./assets/a.png')}\nbody{color:blue}");
+  assert.equal(await buildSite(source, output), revision);
+});
+
 test('聚能程式直接引用的欄位都存在於目前頁面', async () => {
   const html = await readFile(new URL('../dist/erg.html', import.meta.url), 'utf8');
   const app = await readFile(new URL('../dist/erg-app.js', import.meta.url), 'utf8');

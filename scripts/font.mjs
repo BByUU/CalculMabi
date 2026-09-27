@@ -9,6 +9,7 @@ import {siteCodepoints} from './font-text.mjs';
 // Rebuild the self-hosted Noto Sans TC subset after site text changes.
 // Needs Python with fontTools and a local NotoSansTC-VF.ttf (SIL OFL 1.1); the site, tests and build do not.
 export const FONT_FILE = 'assets/fonts/noto-sans-tc.woff';
+export const FONT_WOFF2 = 'assets/fonts/noto-sans-tc.woff2';
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const dist = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -27,7 +28,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const run = args => {
     const result = spawnSync(python, args, {stdio:'inherit', env:{...process.env, PYTHONIOENCODING:'utf-8'}});
     if (result.error || result.status !== 0) {
-      console.error(`執行失敗：${python} ${args.join(' ')}\n需要 Python 與 fontTools（pip install fonttools）。`);
+      console.error(`執行失敗：${python} ${args.join(' ')}\n需要 Python、fontTools 與 Brotli（pip install fonttools brotli）。`);
       process.exit(1);
     }
   };
@@ -43,6 +44,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     run(['-m', 'fontTools.varLib.instancer', subset, 'wght=400:700', '-q', '-o', limited]);
     await mkdir(path.dirname(output), {recursive:true});
     run(['-m', 'fontTools.subset', limited, '--unicodes=*', '--name-IDs=*', '--flavor=woff', `--output-file=${output}`]);
+    // Both formats contain the same glyphs, weights and license; only the compression differs.
+    run(['-c', 'from fontTools.ttLib import TTFont; import sys; f=TTFont(sys.argv[1],recalcTimestamp=False); f.flavor="woff2"; f.save(sys.argv[2])', output, path.join(dist, FONT_WOFF2)]);
     console.log(`${FONT_FILE}: ${codepoints.length} characters, ${(await stat(output)).size} bytes from ${source}`);
   } finally {
     await rm(work, {recursive:true, force:true});

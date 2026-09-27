@@ -8,6 +8,25 @@ import {skillNavigationMarkup} from '../dist/skill-navigation.js';
 
 
 function prepareHtml(html, file, contents) {
+  // Keep the source styles separate, but fetch the published cascade in one request.
+  const sheets = [...html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="(\.[^"?#]+\.css)"[^>]*>/g)];
+  if (sheets.length > 1 && sheets.every(([, href]) => contents.has(path.posix.normalize(path.posix.join(path.posix.dirname(file), href))))) {
+    const bundle = file.replace(/\.html$/, '.bundle.css');
+    const css = sheets.map(([, href]) => {
+      const source = path.posix.normalize(path.posix.join(path.posix.dirname(file), href));
+      return contents.get(source).toString('utf8').replace(/url\((['"]?)(\.[^)'"?#]+)([^)'" ]*)\1\)/g, (_, quote, asset, suffix) => {
+        const target = path.posix.normalize(path.posix.join(path.posix.dirname(source), asset));
+        return `url(${quote}./${path.posix.relative(path.posix.dirname(bundle), target)}${suffix}${quote})`;
+      });
+    }).join('\n');
+    contents.set(bundle, Buffer.from(css));
+    for (const [index, [tag]] of sheets.entries()) html = html.replace(tag, index === 0 ? `<link rel="stylesheet" href="./${path.posix.basename(bundle)}">` : '');
+  }
+  // Apply the saved theme before styles without waiting for an external blocking script.
+  if (contents.has('theme.js') && html.includes('<script src="./theme.js"></script>')) {
+    html = html.replace('<script src="./theme.js"></script>', '');
+    html = html.replace(/<link\b[^>]*rel="stylesheet"[^>]*>/, tag => `<script>${contents.get('theme.js').toString('utf8').replace(/<\/script/gi, '<\\/script')}</script>${tag}`);
+  }
   // Render the full tab row before data arrives to avoid shifting the page.
   const skills = skillNavigationMarkup().replaceAll('<button ', '<button disabled ');
   html = html.replace(/(<nav\b[^>]*\bid="skill-nav"[^>]*>)[\s\S]*?(<\/nav>)/, `$1${skills}$2`);
@@ -56,6 +75,7 @@ export async function buildSite(source, destination) {
   await collect(source);
   files.sort();
   const contents = new Map(await Promise.all(files.map(async file => [file, await readFile(path.join(source, file))])));
+  for (const file of files.filter(file => file.endsWith('.html'))) contents.set(file, Buffer.from(prepareHtml(contents.get(file).toString('utf8'), file, contents)));
   const hash = createHash('sha256');
   hash.update(await readFile(fileURLToPath(import.meta.url)));
   for (const [file, content] of contents) hash.update(file).update('\0').update(content).update('\0');
@@ -77,7 +97,7 @@ export async function buildSite(source, destination) {
   for (const [file, content] of contents) {
     // Version HTML assets, nested module imports, and fetched data together.
     // Page navigation must also bypass cached HTML from older deployments.
-    const input = file.endsWith('.html') ? prepareHtml(content.toString('utf8'),file,contents) : content.toString('utf8');
+    const input = content.toString('utf8');
     let output = /\.(html|js|css)$/.test(file)
       ? input.replace(/(["'])(\.{1,2}\/[^"'?#]+\.(?:js|css|json))(?:\?[^"'#]*)?\1/g,
         (_, quote, asset) => `${quote}${asset}?v=${revision}${quote}`)
