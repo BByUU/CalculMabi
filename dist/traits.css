@@ -3,6 +3,7 @@
 .tr-training { --trait-color:#b13442; }
 .tr-challenge { --trait-color:#237244; }
 .tr-sympathy { --trait-color:#1465a7; }
+#tr-weeks-caption .tr-caption-category { display:inline; color:var(--trait-color); }
 [data-theme="dark"] .tr-training { --trait-color:#ffabb4; }
 [data-theme="dark"] .tr-challenge { --trait-color:#91dbaa; }
 [data-theme="dark"] .tr-sympathy { --trait-color:#83c5ff; }

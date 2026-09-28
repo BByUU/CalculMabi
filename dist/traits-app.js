@@ -1,5 +1,5 @@
 import {setStepper} from './level-stepper.js';
-import {formatNumber as fmt} from './format.js';
+import {formatNumber as fmt, escapeHtml as esc} from './format.js';
 import {CATEGORIES, TRAITS, LEVEL_COSTS, MAX_LEVEL, WEEKLY_CAP, HOLD_CAP, defaultTraitPlan, calculateTraits} from './traits-calculator.js';
 
 const $ = id => document.getElementById(id);
@@ -105,8 +105,8 @@ function update(changed = null) {
   $('tr-missing-total').textContent = `${fmt(result.totals.missing)} 點`;
   $('tr-ap-total').textContent = fmt(result.totals.ap);
   $('tr-weeks-total').textContent = result.totals.weeks ? `${fmt(result.totals.weeks)} 週` : '已足夠';
-  const slowest = result.categories.filter(category => result.totals.slowest.includes(category.id)).map(category => category.name);
-  $('tr-weeks-caption').textContent = slowest.length ? `三種璞黎各自計算，以所需週數最多者為準：${slowest.join('、')}` : '目前持有點數已足夠';
+  const slowest = result.categories.filter(category => result.totals.slowest.includes(category.id)).map(category => `<span class="tr-${esc(category.id)} tr-caption-category">${esc(category.name)}</span>`);
+  $('tr-weeks-caption').innerHTML = slowest.length ? `三種璞黎各自計算，以所需週數最多者為準：${slowest.join('、')}` : '目前持有點數已足夠';
   try { localStorage.setItem(STORAGE, JSON.stringify(plan)); } catch { /* Storage is optional. */ }
 }
 
