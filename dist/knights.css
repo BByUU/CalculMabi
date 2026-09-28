@@ -26,6 +26,15 @@
 .kn-table td:last-child { white-space:nowrap; }
 .kn-maxed td { color:var(--muted); }
 .kn-maxed .kn-time { font-weight:400; }
+/* Content changes must not redistribute columns in either skill table. */
+@media(min-width:601px) {
+  .kn-table { table-layout:fixed; min-width:900px; }
+  .kn-table thead th:nth-child(2) { width:120px; }
+  .kn-table thead th:nth-child(3) { width:110px; }
+  .kn-table thead th:nth-child(4) { width:80px; }
+  .kn-table thead th:nth-child(5),.kn-table thead th:nth-child(6) { width:21%; }
+}
+.kn-table td[data-cell="next"],.kn-table td[data-cell="max"] { white-space:normal; overflow-wrap:anywhere; }
 @media(max-width:700px) {
   .kn-table th,.kn-table td { padding:5px 6px; }
   .kn-intervals { margin-left:0; }

@@ -219,6 +219,15 @@ document.getElementById('run').addEventListener('click',async()=>{
     assert(!kn.getElementById('kn-error').hidden,'修練值 100 顯示錯誤');verifyKnights();
     change(magicProgress,'45','input');assert(kn.getElementById('kn-error').hidden,'修正後隱藏錯誤');
     const shieldInterval=kn.querySelector('[data-interval="shield-of-trust"]');
+    await kn.fonts.ready;
+    const columnBounds=()=>[...kn.querySelectorAll('.kn-table tbody tr:first-child > *')].map(cell=>{
+      const rect=cell.getBoundingClientRect();return [rect.x,rect.width];
+    });
+    const beforeTimes=JSON.stringify(columnBounds());
+    change(shieldInterval,'86400','input');
+    same(JSON.stringify(columnBounds()),beforeTimes,'長時間不推動副技能欄位');
+    change(shieldInterval,'0.1','input');
+    same(JSON.stringify(columnBounds()),beforeTimes,'短時間不推動副技能欄位');
     shieldInterval.focus();change(shieldInterval,'10','input');knightPlan.intervals['shield-of-trust']=10;
     same(kn.activeElement,shieldInterval,'間隔焦點不變');verifyKnights();
     change(shieldInterval,'','input');assert(!kn.getElementById('kn-error').hidden,'空白間隔顯示錯誤');
