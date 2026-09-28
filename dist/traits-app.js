@@ -106,7 +106,7 @@ function update(changed = null) {
   $('tr-ap-total').textContent = fmt(result.totals.ap);
   $('tr-weeks-total').textContent = result.totals.weeks ? `${fmt(result.totals.weeks)} 週` : '已足夠';
   const slowest = result.categories.filter(category => result.totals.slowest.includes(category.id)).map(category => category.name);
-  $('tr-weeks-caption').textContent = slowest.length ? `三種璞黎各自計算上限，由${slowest.join('、')}決定` : '目前持有點數已足夠';
+  $('tr-weeks-caption').textContent = slowest.length ? `三種璞黎各自計算，以所需週數最多者為準：${slowest.join('、')}` : '目前持有點數已足夠';
   try { localStorage.setItem(STORAGE, JSON.stringify(plan)); } catch { /* Storage is optional. */ }
 }
 
