@@ -10,6 +10,14 @@ const gainFormat = new Intl.NumberFormat('zh-TW', {maximumFractionDigits:4});
 const rowNodes = new Map(), intervalNodes = new Map();
 let plan = defaultKnightsPlan();
 
+function trainingHelp(sub) {
+  const link = 'https://forum.gamer.com.tw/C.php?bsn=7422&snA=230214';
+  const content = ['魔法反制', '守護者的誓約'].includes(sub.name)
+    ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer">${esc(link)}</a>`
+    : sub.name === '復活的權杖' ? '轉成聖詠去衰落的沼澤，角色吃克拉班的樹液防毒，寵物泡毒池' : '';
+  return content ? `<details class="kn-help"><summary aria-label="${sub.name}修練方式">?</summary><div class="kn-help-content">${content}</div></details>` : '';
+}
+
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE));
   if (saved && typeof saved === 'object') {
@@ -30,7 +38,7 @@ function mount() {
     <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
     <div class="table-scroll"><table class="kn-table">
       <thead><tr><th scope="col">副技能</th><th scope="col">等級</th><th scope="col">目前修練值</th><th scope="col">每次</th><th scope="col">目前等級</th><th scope="col">升到 Lv.${MAX_LEVEL}</th></tr></thead>
-      <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row"><span class="kn-name"><img class="kn-icon" src="./assets/knights/${sub.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${sub.name}</span><small data-cell="condition"></small></th><td data-label="等級"><input data-level="${sub.id}" inputmode="numeric" aria-label="${sub.name}目前等級" value="1"></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
+      <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row"><span class="kn-name"><img class="kn-icon" src="./assets/knights/${sub.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${sub.name}</span>${trainingHelp(sub)}<small data-cell="condition"></small></th><td data-label="等級"><input data-level="${sub.id}" inputmode="numeric" aria-label="${sub.name}目前等級" value="1"></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
     </table></div>
   </section>`).join('');
   const cells = node => Object.fromEntries([...node.querySelectorAll('[data-cell]')].map(cell => [cell.dataset.cell, cell]));
