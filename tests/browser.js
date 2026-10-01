@@ -185,6 +185,15 @@ document.getElementById('run').addEventListener('click',async()=>{
       }
     }
     verifyKnights();
+    const threePeople=kn.querySelector('[data-three-people]');
+    same(threePeople.checked,false,'舊設定預設單人');
+    const stableKnightInputs=[...kn.querySelectorAll('input')];
+    threePeople.focus();threePeople.click();knightPlan.shieldThreePeople=true;verifyKnights();
+    same(kn.activeElement,threePeople,'三人選項保留焦點');
+    assert(stableKnightInputs.every(node=>kn.contains(node)),'三人選項不重建輸入框');
+    same(JSON.parse(localStorage.getItem('mabi-knights-v1')).shieldThreePeople,true,'記住三人設定');
+    kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();
+    same(threePeople.checked,false,'重設取消三人設定');
     same(kn.querySelectorAll('[data-interval]').length,3,'聖盾一個、聖靈同步兩個時間輸入框');
     same(kn.querySelector('[data-interval="pet-life-wound-recover"]').value,'60','舊版聖靈同步間隔不套用');
     same(kn.querySelector('[data-sub="exp-bonus"] [data-cell="next"]').textContent,'10 次只計次數','啟迪之光只計次數');

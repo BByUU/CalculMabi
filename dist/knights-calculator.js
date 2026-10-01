@@ -169,13 +169,17 @@ export const TIMERS = MAIN_SKILLS.flatMap(main => main.timers);
 
 export function defaultKnightsPlan() {
   return {
+    shieldThreePeople:false,
     intervals:Object.fromEntries(TIMERS.map(timer => [timer.id, timer.seconds])),
     subSkills:Object.fromEntries(SUB_SKILLS.map(sub => [sub.id, {level:1, progress:0}])),
   };
 }
 
 export function calculateKnights(plan) {
+  const threePeople = plan?.shieldThreePeople ?? false;
+  if (typeof threePeople !== 'boolean') throw new Error('一次三人設定須為布林值。');
   const mains = MAIN_SKILLS.map(main => {
+    const multiplier = main.id === 'shield-of-trust' && threePeople ? 3 : 1;
     const intervals = Object.fromEntries(main.timers.map(timer => [timer.id, number(plan?.intervals?.[timer.id], 0.1, 86400, `${main.name}${timer.label}間隔（秒）`)]));
     const rows = main.subSkills.map(sub => {
       const interval = sub.timer ? intervals[sub.timer] : null;
@@ -186,9 +190,9 @@ export function calculateKnights(plan) {
       if (level === MAX_LEVEL) return {...sub, level, progress:0, maxed:true, gain:null, condition:null, interval, next:null, toMax:null};
       const progress = number(choice.progress ?? 0, 0, 100, `${sub.name}目前修練值`, {inclusiveMax:false});
       const [condition, gain] = sub.levels[level - 1];
-      const nextSuccesses = successesNeeded(gain, progress);
+      const nextSuccesses = Math.ceil(successesNeeded(gain, progress) / multiplier);
       let maxSuccesses = nextSuccesses;
-      for (let at = level + 1; at < MAX_LEVEL; at++) maxSuccesses += successesNeeded(sub.levels[at - 1][1]);
+      for (let at = level + 1; at < MAX_LEVEL; at++) maxSuccesses += Math.ceil(successesNeeded(sub.levels[at - 1][1]) / multiplier);
       return {...sub, level, progress, maxed:false, gain, condition, interval, next:timed(nextSuccesses), toMax:timed(maxSuccesses)};
     });
     return {...main, intervals, rows};

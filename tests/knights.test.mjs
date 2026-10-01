@@ -110,6 +110,26 @@ test('時間格式顯示時、分、秒', () => {
   assert.deepEqual([0, 59, 60, 3599, 3600, 90061].map(formatDuration), ['0 秒', '59 秒', '1 分 0 秒', '59 分 59 秒', '1 小時 0 分 0 秒', '25 小時 1 分 1 秒']);
 });
 
+test('一次三人只影響聖盾，每級施放次數各自進位，舊設定維持單次', () => {
+  const plan = defaultKnightsPlan();
+  const original = calculateKnights(plan);
+  delete plan.shieldThreePeople;
+  assert.deepEqual(calculateKnights(plan), original);
+  plan.shieldThreePeople = true;
+  const result = calculateKnights(plan);
+  assert.deepEqual(result.mains[1], original.mains[1]);
+  for (const row of result.mains[0].rows) {
+    const casts = SITE_COUNTS[row.id].map(count => Math.ceil(count / 3));
+    assert.equal(row.next.successes, casts[0]);
+    assert.equal(row.toMax.successes, casts.reduce((a,b) => a+b, 0));
+    assert.equal(row.toMax.seconds, row.toMax.successes * 20);
+  }
+  plan.subSkills['recover-hp'] = {level:14, progress:99.5};
+  assert.equal(calculateKnights(plan).mains[0].rows.find(row => row.id === 'recover-hp').next.successes, 2);
+  plan.shieldThreePeople = 'true';
+  assert.throws(() => calculateKnights(plan));
+});
+
 test('各頁都有騎士團入口，副技能程式固定 DOM 引用都存在', () => {
   for (const page of ['index', 'dan', 'erg', 'stardust', 'traits', 'knights', 'reading']) {
     const html = readFileSync(new URL(`../dist/${page}.html`, import.meta.url), 'utf8');

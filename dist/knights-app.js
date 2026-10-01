@@ -22,6 +22,7 @@ try {
   const saved = JSON.parse(localStorage.getItem(STORAGE));
   if (saved && typeof saved === 'object') {
     const candidate = defaultKnightsPlan();
+    candidate.shieldThreePeople = saved.shieldThreePeople ?? false;
     // Earlier saves also had a single 聖靈同步 interval; it no longer applies and is dropped.
     for (const timer of TIMERS) if (Object.hasOwn(saved.intervals ?? {}, timer.id)) candidate.intervals[timer.id] = saved.intervals[timer.id];
     for (const sub of SUB_SKILLS) {
@@ -35,7 +36,7 @@ try {
 
 function mount() {
   $('kn-mains').innerHTML = MAIN_SKILLS.map(main => `<section class="kn-panel" aria-labelledby="kn-${main.id}-heading">
-    <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
+    <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.id === 'shield-of-trust' ? '<label class="kn-interval"><input type="checkbox" data-three-people>一次三人（每次施放算 3 次修練）</label>' : ''}${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
     <div class="table-scroll"><table class="kn-table">
       <thead><tr><th scope="col">副技能</th><th scope="col">等級</th><th scope="col">目前修練值</th><th scope="col">每次</th><th scope="col">目前等級</th><th scope="col">升到 Lv.${MAX_LEVEL}</th></tr></thead>
       <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row"><span class="kn-name"><img class="kn-icon" src="./assets/knights/${sub.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${sub.name}</span>${trainingHelp(sub)}<small data-cell="condition"></small></th><td data-label="等級"><input data-level="${sub.id}" inputmode="numeric" aria-label="${sub.name}目前等級" value="1"></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
@@ -66,6 +67,7 @@ function patchRow(row) {
 
 function update(changed = null) {
   const result = calculateKnights(plan);
+  document.querySelector('[data-three-people]').checked = plan.shieldThreePeople;
   for (const main of result.mains) {
     for (const [id, seconds] of Object.entries(main.intervals)) {
       const input = intervalNodes.get(id);
@@ -83,6 +85,11 @@ function showErrors() {
 }
 
 $('kn-mains').addEventListener('change', event => {
+  if (event.target.matches('[data-three-people]')) {
+    plan.shieldThreePeople = event.target.checked;
+    update(new Set(SUB_SKILLS.filter(sub => sub.main === 'shield-of-trust').map(sub => sub.id)));
+    return;
+  }
   const select = event.target.closest('[data-level]');
   if (!select) return;
   // A new level starts from 0 training.
