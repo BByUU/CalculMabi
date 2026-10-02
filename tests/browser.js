@@ -55,6 +55,12 @@ document.getElementById('run').addEventListener('click',async()=>{
     cells.forEach((cell,i)=>same(sd.querySelectorAll('[data-effect]')[i],cell,'效果節點保留'));
     sd.getElementById('sd-main-only').click();sd.getElementById('sd-select-all').click();
     same(sd.getElementById('sd-task-total').textContent,originalTotal,'全部取消與全選回到原計算');
+    const crystal=sd.querySelector('[data-bonus="crystal"]'), sdPotion=sd.querySelector('[data-bonus="potion"]'), totem=sd.querySelector('[data-bonus="totem"]');
+    crystal.click();totem.click();sdPotion.focus();sdPotion.click();
+    assert(sdPotion.checked&&!crystal.checked&&!totem.checked,'藥水排除水晶及圖騰');same(sd.activeElement,sdPotion,'互斥切換保留焦點');
+    crystal.click();assert(crystal.checked&&!sdPotion.checked,'水晶排除藥水');
+    sdPotion.click();totem.click();assert(totem.checked&&!sdPotion.checked,'圖騰排除藥水');
+    sd.getElementById('sd-reset').click();same(sd.getElementById('sd-task-total').textContent,originalTotal,'加成重設還原任務數');
     report.textContent='星塵焦點與狀態測試通過。特性測試中…';
 
     // A plan saved before the target level was fixed at Lv.10 still loads its current levels and held points.

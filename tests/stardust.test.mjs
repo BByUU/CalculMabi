@@ -61,8 +61,14 @@ test('期望材料能合併十五效果，固定成功率階段仍只有一次',
 });
 test('加倍相乘最高 8 倍；選圖騰或藥水取消另一者',()=>{
   let b=toggleStardustBonus({crystal:true,event:true,totem:true},'potion',true);
-  assert.equal(b.totem,false);assert.equal(stardustMultiplier(b),8);
+  assert.equal(b.totem,false);assert.equal(b.crystal,false);assert.equal(stardustMultiplier(b),4);
   b=toggleStardustBonus(b,'totem',true);assert.equal(b.potion,false);
+  b=toggleStardustBonus(b,'crystal',true);
+  assert.equal(stardustMultiplier(b),8);
+  assert.throws(()=>stardustMultiplier({crystal:true,potion:true}));
+  assert.equal(toggleStardustBonus({potion:true},'crystal',true).potion,false);
+  const saved=defaultStardustPlan();saved.bonuses={crystal:true,potion:true,event:true};saved.effects[0].current=5;
+  const migrated=maxStardustPlan(saved);assert.equal(migrated.bonuses.potion,false);assert.equal(migrated.effects[0].current,5);
   assert.throws(()=>stardustMultiplier({totem:true,potion:true}));
   const p=defaultStardustPlan();p.bonuses=b;
   const r=calculateStardust(p);assert.equal(r.reward,16);assert.equal(r.lifeTasks,154);assert.equal(r.totalTasks,308);

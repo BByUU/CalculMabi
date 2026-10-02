@@ -20,17 +20,21 @@ export function defaultStardustPlan() {
 }
 // The page always plans to the maximum; retain other saved settings.
 export function maxStardustPlan(plan) {
-  return {...plan,targetRank:15,effects:plan.effects.map(effect=>({...effect,target:10}))};
+  const bonuses={...plan.bonuses};
+  // Keep saved levels; discard the incompatible potion from older plans.
+  if (bonuses.crystal || bonuses.totem) bonuses.potion=false;
+  return {...plan,bonuses,targetRank:15,effects:plan.effects.map(effect=>({...effect,target:10}))};
 }
 export function toggleStardustBonus(bonuses,key,enabled) {
   if (!BONUS_KEYS.includes(key)) throw new Error('未知的加倍項目');
   const result={...bonuses,[key]:Boolean(enabled)};
-  if (enabled && key==='totem') result.potion=false;
-  if (enabled && key==='potion') result.totem=false;
+  if (enabled && (key==='totem' || key==='crystal')) result.potion=false;
+  if (enabled && key==='potion') { result.totem=false; result.crystal=false; }
   return result;
 }
 export function stardustMultiplier(bonuses={}) {
   if (bonuses.totem && bonuses.potion) throw new Error('圖騰與藥水不能同時使用');
+  if (bonuses.crystal && bonuses.potion) throw new Error('皇家學院水晶與藥水不能同時使用');
   return BONUS_KEYS.reduce((value,key)=>value*(bonuses[key]?2:1),1);
 }
 function integer(value,min,max,name) {
