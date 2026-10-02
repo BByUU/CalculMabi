@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {MAIN_SKILLS, SUB_SKILLS, MAX_LEVEL, successesNeeded, defaultKnightsPlan, calculateKnights, formatDuration} from '../dist/knights-calculator.js';
 
-// Count column of Mabinogi 奇幻世界 for Lv.1-14; fractional counts mean the last success overshoots 100.
+// Lv.1-14 counts; BoostMovementSpeed uses updated game data, others use 奇幻世界.
+// Fractional counts mean the last success overshoots 100.
 const SITE_COUNTS = {
   'range-bonus':[1, 2, 4, 5, 10, 16, 16, 20, 20, 25, 32, 50, 100, 200],
   'recover-hp':[5, 8, 10, 16, 20, 25, 32, 40, 50, 100, 200, 320, 500, 1000],
   'increase-magic-defense':[5, 8, 10, 16, 20, 25, 32, 40, 50, 100, 200, 320, 500, 1000],
-  'boost-movement-speed':[1, 2, 4, 5, 10, 16, 16, 20, 20, 25, 32, 50, 100, 200],
+  'boost-movement-speed':[1, 1, 2, 2.5, 5, 8, 8, 10, 10, 12.5, 16, 25, 50, 100],
   'recover-wound':[1, 2, 2, 4, 4, 5, 5, 8, 10, 16, 20, 25, 32, 40],
   'exp-bonus':[10, 10, 20, 20, 25, 33.33, 50, 100, 125, 125, 200, 200, 500, 500],
   'pet-damage-bonus':[10, 10, 20, 20, 20, 25, 33.33, 50, 66.67, 66.67, 100, 100, 125, 200],
@@ -32,7 +33,7 @@ test('福音傳遞與庇佑步伐的修練條件使用遊戲內說法，每級�
   assert.ok(byId['boost-movement-speed'].levels.every(([condition]) => condition === '在使者的隕石流星雨攻擊中保護自身'));
 });
 
-test('每級所需次數與奇幻世界一致，非整數無條件進位，0.3125% 為 320 次', () => {
+test('每級所需次數與核對資料一致，非整數無條件進位，0.3125% 為 320 次', () => {
   for (const sub of SUB_SKILLS) {
     assert.deepEqual(sub.levels.map(([, gain]) => successesNeeded(gain)), SITE_COUNTS[sub.id].map(count => Math.ceil(count - 0.01)), sub.name);
   }

@@ -1,4 +1,5 @@
 // Alban Knights sub-skill training, from Mabinogi 奇幻世界 (mabinogi.fws.tw skills_sub_info ids 1-5 and 16-20), checked 2026-09-25.
+// BoostMovementSpeed gains follow the updated game data verified on 2026-10-03.
 // The 福音傳遞 and 庇佑步伐 conditions use the in-game wording confirmed by the user on 2026-09-25.
 export const MAX_LEVEL = 15;
 
@@ -43,7 +44,7 @@ export const MAIN_SKILLS = [
       ['技能發動期間受到敵人攻擊', 0.1],
     ]},
     {id:'boost-movement-speed', name:'庇佑步伐', timer:'shield-of-trust',
-      levels:sameCondition('在使者的隕石流星雨攻擊中保護自身', [100, 50, 25, 20, 10, 6.25, 6.25, 5, 5, 4, 3.125, 2, 1, 0.5])},
+      levels:sameCondition('在使者的隕石流星雨攻擊中保護自身', [100, 100, 50, 40, 20, 12.5, 12.5, 10, 10, 8, 6.25, 4, 2, 1])},
     {id:'recover-wound', name:'復原祈禱', timer:'shield-of-trust', levels:[
       ['對負傷高於 30% 的目標使用技能', 100],
       ['對負傷高於 30% 的目標使用技能', 50],
