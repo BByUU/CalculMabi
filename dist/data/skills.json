@@ -159,8 +159,8 @@
             {
               "id": "blacksmith-D-22",
               "description": "頭盔製作非常成功",
-              "baseValue": 2,
-              "maxCount": 40,
+              "baseValue": 16,
+              "maxCount": 5,
               "recommended": false,
               "outcome": "great-success",
               "recipe": null,
@@ -803,11 +803,11 @@
               "materials": [
                 {
                   "name": "普通皮革",
-                  "perAction": 4
+                  "perAction": 1
                 },
                 {
                   "name": "粗線團",
-                  "perAction": 2
+                  "perAction": 1
                 }
               ],
               "recipeVariants": []
@@ -2503,15 +2503,15 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "普通皮革",
-                  "perAction": 1
-                },
-                {
                   "name": "高級皮革",
                   "perAction": 1
                 },
                 {
                   "name": "普通絲綢",
+                  "perAction": 1
+                },
+                {
+                  "name": "普通皮繩",
                   "perAction": 1
                 }
               ],
@@ -2599,16 +2599,16 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "高級皮革",
-                  "perAction": 3
-                },
-                {
-                  "name": "優質皮革",
+                  "name": "優質布料",
                   "perAction": 3
                 },
                 {
                   "name": "高級絲綢",
                   "perAction": 2
+                },
+                {
+                  "name": "高級皮革",
+                  "perAction": 3
                 }
               ],
               "recipeVariants": []
@@ -2671,16 +2671,16 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "高級皮革",
-                  "perAction": 3
-                },
-                {
-                  "name": "優質皮革",
+                  "name": "優質布料",
                   "perAction": 3
                 },
                 {
                   "name": "高級絲綢",
                   "perAction": 2
+                },
+                {
+                  "name": "高級皮革",
+                  "perAction": 3
                 }
               ],
               "recipeVariants": []
@@ -2755,16 +2755,16 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "高級皮革",
-                  "perAction": 3
-                },
-                {
-                  "name": "優質皮革",
+                  "name": "優質布料",
                   "perAction": 3
                 },
                 {
                   "name": "高級絲綢",
                   "perAction": 2
+                },
+                {
+                  "name": "高級皮革",
+                  "perAction": 3
                 }
               ],
               "recipeVariants": []
@@ -3091,16 +3091,16 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "優質皮革",
-                  "perAction": 2
+                  "name": "優質絲綢",
+                  "perAction": 1
                 },
                 {
                   "name": "優質布料",
                   "perAction": 2
                 },
                 {
-                  "name": "優質絲綢",
-                  "perAction": 1
+                  "name": "優質皮繩",
+                  "perAction": 2
                 }
               ],
               "recipeVariants": []
@@ -3488,18 +3488,6 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
-                {
                   "name": "空瓶",
                   "perAction": 1
                 },
@@ -3574,8 +3562,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -3594,18 +3599,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -3665,7 +3658,7 @@
               "id": "fynn-craft-A-43",
               "description": "製作大成功",
               "baseValue": 40,
-              "maxCount": 12,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "great-success",
               "recipe": null,
@@ -3681,8 +3674,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -3701,18 +3711,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -3750,7 +3748,7 @@
             {
               "id": "fynn-craft-9-49",
               "description": "製作失敗",
-              "baseValue": 12,
+              "baseValue": 12.8,
               "maxCount": 1,
               "recommended": false,
               "outcome": "failure",
@@ -3796,11 +3794,11 @@
                 },
                 {
                   "name": "魔法粉",
-                  "perAction": 1
+                  "perAction": 10
                 },
                 {
                   "name": "基礎藥草",
-                  "perAction": 1
+                  "perAction": 10
                 },
                 {
                   "name": "波斯菊萃取液",
@@ -3818,7 +3816,7 @@
             {
               "id": "fynn-craft-8-54",
               "description": "製作成功",
-              "baseValue": 12,
+              "baseValue": 12.8,
               "maxCount": 5,
               "recommended": true,
               "outcome": "success",
@@ -3895,13 +3893,30 @@
             {
               "id": "fynn-craft-8-58",
               "description": "製作Fynn同步材料",
-              "baseValue": 12,
+              "baseValue": 12.8,
               "maxCount": 3,
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -3957,7 +3972,7 @@
             {
               "id": "fynn-craft-7-63",
               "description": "製作失敗",
-              "baseValue": 6,
+              "baseValue": 6.4,
               "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
@@ -3999,8 +4014,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -4098,8 +4130,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -4118,18 +4167,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -4205,8 +4242,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -4225,18 +4279,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -4312,8 +4354,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -4332,18 +4391,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -4419,8 +4466,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -4439,18 +4503,6 @@
               "recipe": "和諧的波斯菊香水",
               "materialStatus": "provided",
               "materials": [
-                {
-                  "name": "黃金蘑菇",
-                  "perAction": 1
-                },
-                {
-                  "name": "花粉",
-                  "perAction": 1
-                },
-                {
-                  "name": "麵團",
-                  "perAction": 1
-                },
                 {
                   "name": "空瓶",
                   "perAction": 1
@@ -4526,8 +4578,25 @@
               "recommended": true,
               "outcome": "success",
               "recipe": "和諧的波斯菊香水",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "空瓶",
+                  "perAction": 1
+                },
+                {
+                  "name": "魔法粉",
+                  "perAction": 10
+                },
+                {
+                  "name": "基礎藥草",
+                  "perAction": 10
+                },
+                {
+                  "name": "波斯菊萃取液",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             }
           ]
@@ -5849,8 +5918,13 @@
               "recipeVariants": [
                 {
                   "recipe": "希里原",
-                  "materials": [],
-                  "materialStatus": "partial"
+                  "materials": [
+                    {
+                      "name": "希里原結晶",
+                      "perAction": 5
+                    }
+                  ],
+                  "materialStatus": "provided"
                 }
               ]
             },
@@ -5960,8 +6034,13 @@
               "recipeVariants": [
                 {
                   "recipe": "希里原",
-                  "materials": [],
-                  "materialStatus": "partial"
+                  "materials": [
+                    {
+                      "name": "希里原結晶",
+                      "perAction": 5
+                    }
+                  ],
+                  "materialStatus": "provided"
                 }
               ]
             },
@@ -6039,6 +6118,18 @@
                   "materialStatus": "provided"
                 }
               ]
+            },
+            {
+              "id": "magic-craft-8-accessory",
+              "description": "魔法裝飾品製作成功",
+              "baseValue": 6,
+              "maxCount": 8,
+              "recommended": false,
+              "outcome": "success",
+              "recipe": null,
+              "materialStatus": "not-provided",
+              "materials": [],
+              "recipeVariants": []
             }
           ]
         },
@@ -6622,7 +6713,7 @@
             {
               "id": "magic-craft-3-91",
               "description": "魔法材料製作成功",
-              "baseValue": 0.25,
+              "baseValue": 0.24,
               "maxCount": 88,
               "recommended": true,
               "outcome": "success",
@@ -7411,11 +7502,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -7572,11 +7663,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -7733,11 +7824,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -7894,11 +7985,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -8055,11 +8146,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -8230,11 +8321,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -8428,11 +8519,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -8613,7 +8704,7 @@
             {
               "id": "hillwen-engineering-2-131",
               "description": "工學武器製作成功",
-              "baseValue": 1,
+              "baseValue": 1.2,
               "maxCount": 50,
               "recommended": true,
               "outcome": "success",
@@ -8626,11 +8717,11 @@
                 },
                 {
                   "name": "六角螺絲",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "六角螺帽",
-                  "perAction": 1
+                  "perAction": 5
                 },
                 {
                   "name": "綠寶石保險絲",
@@ -8681,8 +8772,8 @@
             {
               "id": "handicraft-F-8",
               "description": "製作D以上的物品",
-              "baseValue": 2,
-              "maxCount": 10,
+              "baseValue": 32,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -8693,8 +8784,8 @@
             {
               "id": "handicraft-F-9",
               "description": "製作F,E的物品",
-              "baseValue": 1.5,
-              "maxCount": 60,
+              "baseValue": 12,
+              "maxCount": 8,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -8710,8 +8801,8 @@
             {
               "id": "handicraft-F-10",
               "description": "製作D以上的物品失敗",
-              "baseValue": 1,
-              "maxCount": 10,
+              "baseValue": 8,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8722,8 +8813,8 @@
             {
               "id": "handicraft-F-11",
               "description": "製作F,E的物品失敗",
-              "baseValue": 0.5,
-              "maxCount": 40,
+              "baseValue": 4,
+              "maxCount": 5,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8740,8 +8831,8 @@
             {
               "id": "handicraft-E-14",
               "description": "製作C以上的物品",
-              "baseValue": 1.5,
-              "maxCount": 10,
+              "baseValue": 24,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -8752,8 +8843,8 @@
             {
               "id": "handicraft-E-15",
               "description": "製作F,E,D的物品",
-              "baseValue": 1.2,
-              "maxCount": 70,
+              "baseValue": 9.6,
+              "maxCount": 9,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -8769,8 +8860,8 @@
             {
               "id": "handicraft-E-16",
               "description": "製作C以上的物品失敗",
-              "baseValue": 1,
-              "maxCount": 10,
+              "baseValue": 8,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8781,8 +8872,8 @@
             {
               "id": "handicraft-E-17",
               "description": "製作F,E,D的物品失敗",
-              "baseValue": 0.5,
-              "maxCount": 50,
+              "baseValue": 4,
+              "maxCount": 7,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8799,8 +8890,8 @@
             {
               "id": "handicraft-D-20",
               "description": "製作B以上的物品",
-              "baseValue": 2,
-              "maxCount": 20,
+              "baseValue": 32,
+              "maxCount": 3,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -8811,8 +8902,8 @@
             {
               "id": "handicraft-D-21",
               "description": "製作E,D,C的物品",
-              "baseValue": 1,
-              "maxCount": 40,
+              "baseValue": 8,
+              "maxCount": 5,
               "recommended": true,
               "outcome": "success",
               "recipe": "手製繃帶",
@@ -8828,8 +8919,8 @@
             {
               "id": "handicraft-D-22",
               "description": "成功製作F的物品",
-              "baseValue": 0.5,
-              "maxCount": 30,
+              "baseValue": 4,
+              "maxCount": 4,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -8845,8 +8936,8 @@
             {
               "id": "handicraft-D-23",
               "description": "製作B以上的物品失敗",
-              "baseValue": 1,
-              "maxCount": 10,
+              "baseValue": 8,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8857,8 +8948,8 @@
             {
               "id": "handicraft-D-24",
               "description": "製作E,D,C的物品失敗",
-              "baseValue": 0.8,
-              "maxCount": 30,
+              "baseValue": 6.4,
+              "maxCount": 4,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8869,8 +8960,8 @@
             {
               "id": "handicraft-D-25",
               "description": "製作F的物品失敗",
-              "baseValue": 0.3,
-              "maxCount": 20,
+              "baseValue": 2.4,
+              "maxCount": 3,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8887,8 +8978,8 @@
             {
               "id": "handicraft-C-28",
               "description": "製作A以上的物品",
-              "baseValue": 1.5,
-              "maxCount": 20,
+              "baseValue": 24,
+              "maxCount": 3,
               "recommended": true,
               "outcome": "success",
               "recipe": "蜘蛛網陷阱",
@@ -8904,8 +8995,8 @@
             {
               "id": "handicraft-C-29",
               "description": "製作D,C,B的物品",
-              "baseValue": 1,
-              "maxCount": 60,
+              "baseValue": 8,
+              "maxCount": 8,
               "recommended": true,
               "outcome": "success",
               "recipe": "弩炮專用高級手製弩箭",
@@ -8914,6 +9005,10 @@
                 {
                   "name": "木柴",
                   "perAction": 6
+                },
+                {
+                  "name": "高級弩箭頭捆",
+                  "perAction": 1
                 }
               ],
               "recipeVariants": []
@@ -8921,8 +9016,8 @@
             {
               "id": "handicraft-C-30",
               "description": "成功製作E以下的物品",
-              "baseValue": 0.5,
-              "maxCount": 30,
+              "baseValue": 4,
+              "maxCount": 4,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -8938,8 +9033,8 @@
             {
               "id": "handicraft-C-31",
               "description": "製作A以上的物品失敗",
-              "baseValue": 1,
-              "maxCount": 10,
+              "baseValue": 8,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8950,8 +9045,8 @@
             {
               "id": "handicraft-C-32",
               "description": "製作D,C,B的物品失敗",
-              "baseValue": 0.5,
-              "maxCount": 20,
+              "baseValue": 4,
+              "maxCount": 3,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8962,8 +9057,8 @@
             {
               "id": "handicraft-C-33",
               "description": "製作E以下的物品失敗",
-              "baseValue": 0.3,
-              "maxCount": 10,
+              "baseValue": 2.4,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -8980,8 +9075,8 @@
             {
               "id": "handicraft-B-36",
               "description": "製作 9以上的道具成功",
-              "baseValue": 1.2,
-              "maxCount": 30,
+              "baseValue": 19.2,
+              "maxCount": 4,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -8992,8 +9087,8 @@
             {
               "id": "handicraft-B-37",
               "description": "製作 C, B, A的道具成功",
-              "baseValue": 0.8,
-              "maxCount": 70,
+              "baseValue": 6.4,
+              "maxCount": 9,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級手製繃帶",
@@ -9009,8 +9104,8 @@
             {
               "id": "handicraft-B-38",
               "description": "製作 D以下的道具成功",
-              "baseValue": 0.4,
-              "maxCount": 30,
+              "baseValue": 3.2,
+              "maxCount": 4,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9021,8 +9116,8 @@
             {
               "id": "handicraft-B-39",
               "description": "製作 9以上的道具失敗",
-              "baseValue": 0.8,
-              "maxCount": 20,
+              "baseValue": 6.4,
+              "maxCount": 3,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9033,8 +9128,8 @@
             {
               "id": "handicraft-B-40",
               "description": "製作 C, B, A的道具失敗",
-              "baseValue": 0.4,
-              "maxCount": 30,
+              "baseValue": 3.2,
+              "maxCount": 4,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9045,8 +9140,8 @@
             {
               "id": "handicraft-B-41",
               "description": "製作 D以下的道具失敗",
-              "baseValue": 0.2,
-              "maxCount": 10,
+              "baseValue": 1.6,
+              "maxCount": 2,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9063,8 +9158,8 @@
             {
               "id": "handicraft-A-44",
               "description": "製作 8以上的道具成功",
-              "baseValue": 1,
-              "maxCount": 40,
+              "baseValue": 16,
+              "maxCount": 5,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9075,8 +9170,8 @@
             {
               "id": "handicraft-A-45",
               "description": "製作 B, A, 9的道具成功",
-              "baseValue": 0.6,
-              "maxCount": 80,
+              "baseValue": 4.8,
+              "maxCount": 10,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級手製繃帶",
@@ -9092,8 +9187,8 @@
             {
               "id": "handicraft-A-46",
               "description": "製作 C以下的道具成功",
-              "baseValue": 0.3,
-              "maxCount": 40,
+              "baseValue": 2.4,
+              "maxCount": 5,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9104,8 +9199,8 @@
             {
               "id": "handicraft-A-47",
               "description": "製作 8以上的道具失敗",
-              "baseValue": 0.6,
-              "maxCount": 30,
+              "baseValue": 4.8,
+              "maxCount": 4,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9116,8 +9211,8 @@
             {
               "id": "handicraft-A-48",
               "description": "製作 B, A, 9的道具失敗",
-              "baseValue": 0.3,
-              "maxCount": 40,
+              "baseValue": 2.4,
+              "maxCount": 5,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9128,8 +9223,8 @@
             {
               "id": "handicraft-A-49",
               "description": "製作 C以下的道具失敗",
-              "baseValue": 0.1,
-              "maxCount": 20,
+              "baseValue": 0.8,
+              "maxCount": 3,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9242,7 +9337,11 @@
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "蜜蠟",
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
                   "perAction": 1
                 }
               ],
@@ -9261,6 +9360,10 @@
                 {
                   "name": "木柴",
                   "perAction": 4
+                },
+                {
+                  "name": "優質弩箭頭捆",
+                  "perAction": 1
                 }
               ],
               "recipeVariants": []
@@ -9327,15 +9430,19 @@
             {
               "id": "handicraft-7-68",
               "description": "製作 5以上的道具成功",
-              "baseValue": 0.6,
-              "maxCount": 80,
+              "baseValue": 9.6,
+              "maxCount": 10,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級蠟燭",
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "蜜蠟",
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
                   "perAction": 1
                 }
               ],
@@ -9344,8 +9451,8 @@
             {
               "id": "handicraft-7-69",
               "description": "製作 8, 7, 6的道具成功",
-              "baseValue": 0.3,
-              "maxCount": 200,
+              "baseValue": 2.4,
+              "maxCount": 25,
               "recommended": true,
               "outcome": "success",
               "recipe": "優質手製弩箭",
@@ -9354,6 +9461,10 @@
                 {
                   "name": "木柴",
                   "perAction": 4
+                },
+                {
+                  "name": "優質弩箭頭捆",
+                  "perAction": 1
                 }
               ],
               "recipeVariants": []
@@ -9361,8 +9472,8 @@
             {
               "id": "handicraft-7-70",
               "description": "製作 9以下的道具成功",
-              "baseValue": 0.08,
-              "maxCount": 80,
+              "baseValue": 0.64,
+              "maxCount": 10,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9378,8 +9489,8 @@
             {
               "id": "handicraft-7-71",
               "description": "製作 5以上的道具失敗",
-              "baseValue": 0.3,
-              "maxCount": 60,
+              "baseValue": 2.4,
+              "maxCount": 8,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9390,8 +9501,8 @@
             {
               "id": "handicraft-7-72",
               "description": "製作 8, 7, 6的道具失敗",
-              "baseValue": 0.08,
-              "maxCount": 80,
+              "baseValue": 0.64,
+              "maxCount": 10,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9402,8 +9513,8 @@
             {
               "id": "handicraft-7-73",
               "description": "製作 9以下的道具失敗",
-              "baseValue": 0.05,
-              "maxCount": 50,
+              "baseValue": 0.4,
+              "maxCount": 7,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9420,8 +9531,8 @@
             {
               "id": "handicraft-6-76",
               "description": "製作 4以上的道具成功",
-              "baseValue": 0.5,
-              "maxCount": 100,
+              "baseValue": 8,
+              "maxCount": 13,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9432,15 +9543,19 @@
             {
               "id": "handicraft-6-77",
               "description": "製作 7, 6, 5的道具成功",
-              "baseValue": 0.2,
-              "maxCount": 280,
+              "baseValue": 1.6,
+              "maxCount": 35,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級蠟燭",
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "蜜蠟",
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
                   "perAction": 1
                 }
               ],
@@ -9449,8 +9564,8 @@
             {
               "id": "handicraft-6-78",
               "description": "製作 8以下的道具成功",
-              "baseValue": 0.06,
-              "maxCount": 100,
+              "baseValue": 0.48,
+              "maxCount": 13,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9466,8 +9581,8 @@
             {
               "id": "handicraft-6-79",
               "description": "製作 4以上的道具失敗",
-              "baseValue": 0.2,
-              "maxCount": 80,
+              "baseValue": 1.6,
+              "maxCount": 10,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9478,8 +9593,8 @@
             {
               "id": "handicraft-6-80",
               "description": "製作 7, 6, 5的道具失敗",
-              "baseValue": 0.06,
-              "maxCount": 100,
+              "baseValue": 0.48,
+              "maxCount": 13,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9490,8 +9605,8 @@
             {
               "id": "handicraft-6-81",
               "description": "製作 8以下的道具失敗",
-              "baseValue": 0.04,
-              "maxCount": 60,
+              "baseValue": 0.32,
+              "maxCount": 8,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9508,13 +9623,17 @@
             {
               "id": "handicraft-5-84",
               "description": "製作 3以上的道具成功",
-              "baseValue": 0.4,
-              "maxCount": 120,
+              "baseValue": 6.4,
+              "maxCount": 15,
               "recommended": true,
               "outcome": "success",
               "recipe": "優質蠟燭",
               "materialStatus": "provided",
               "materials": [
+                {
+                  "name": "高級香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
                 {
                   "name": "精製的催化劑",
                   "perAction": 1
@@ -9525,15 +9644,19 @@
             {
               "id": "handicraft-5-85",
               "description": "製作 6, 5, 4的道具成功",
-              "baseValue": 0.1,
-              "maxCount": 380,
+              "baseValue": 0.8,
+              "maxCount": 48,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級蠟燭",
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "蜜蠟",
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
                   "perAction": 1
                 }
               ],
@@ -9542,8 +9665,8 @@
             {
               "id": "handicraft-5-86",
               "description": "製作 7以下的道具成功",
-              "baseValue": 0.05,
-              "maxCount": 120,
+              "baseValue": 0.4,
+              "maxCount": 15,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9559,8 +9682,8 @@
             {
               "id": "handicraft-5-87",
               "description": "製作 3以上的道具失敗",
-              "baseValue": 0.1,
-              "maxCount": 100,
+              "baseValue": 0.8,
+              "maxCount": 13,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9571,8 +9694,8 @@
             {
               "id": "handicraft-5-88",
               "description": "製作 6, 5, 4的道具失敗",
-              "baseValue": 0.05,
-              "maxCount": 120,
+              "baseValue": 0.4,
+              "maxCount": 15,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9583,8 +9706,8 @@
             {
               "id": "handicraft-5-89",
               "description": "製作 7以下的道具失敗",
-              "baseValue": 0.03,
-              "maxCount": 80,
+              "baseValue": 0.24,
+              "maxCount": 10,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9601,13 +9724,17 @@
             {
               "id": "handicraft-4-92",
               "description": "製作 2以上的道具成功",
-              "baseValue": 0.3,
-              "maxCount": 140,
+              "baseValue": 4.8,
+              "maxCount": 18,
               "recommended": true,
               "outcome": "success",
               "recipe": "優質蠟燭",
               "materialStatus": "provided",
               "materials": [
+                {
+                  "name": "高級香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
                 {
                   "name": "精製的催化劑",
                   "perAction": 1
@@ -9618,20 +9745,29 @@
             {
               "id": "handicraft-4-93",
               "description": "製作 5, 4, 3的道具成功",
-              "baseValue": 0.08,
-              "maxCount": 500,
+              "baseValue": 0.64,
+              "maxCount": 63,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級蠟燭",
-              "materialStatus": "not-provided",
-              "materials": [],
+              "materialStatus": "provided",
+              "materials": [
+                {
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
+                  "perAction": 1
+                }
+              ],
               "recipeVariants": []
             },
             {
               "id": "handicraft-4-94",
               "description": "製作 6以下的道具成功",
-              "baseValue": 0.04,
-              "maxCount": 140,
+              "baseValue": 0.32,
+              "maxCount": 18,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9647,8 +9783,8 @@
             {
               "id": "handicraft-4-95",
               "description": "製作 2以上的道具失敗",
-              "baseValue": 0.08,
-              "maxCount": 120,
+              "baseValue": 0.64,
+              "maxCount": 15,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9659,8 +9795,8 @@
             {
               "id": "handicraft-4-96",
               "description": "製作 5, 4, 3的道具失敗",
-              "baseValue": 0.04,
-              "maxCount": 140,
+              "baseValue": 0.32,
+              "maxCount": 18,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9671,8 +9807,8 @@
             {
               "id": "handicraft-4-97",
               "description": "製作 6以下的道具失敗",
-              "baseValue": 0.02,
-              "maxCount": 100,
+              "baseValue": 0.16,
+              "maxCount": 13,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9689,13 +9825,17 @@
             {
               "id": "handicraft-3-100",
               "description": "製作 1的道具成功",
-              "baseValue": 0.2,
-              "maxCount": 200,
+              "baseValue": 3.2,
+              "maxCount": 25,
               "recommended": true,
               "outcome": "success",
               "recipe": "優質蠟燭",
               "materialStatus": "provided",
               "materials": [
+                {
+                  "name": "高級香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
                 {
                   "name": "精製的催化劑",
                   "perAction": 1
@@ -9706,15 +9846,19 @@
             {
               "id": "handicraft-3-101",
               "description": "製作 4, 3, 2的道具成功",
-              "baseValue": 0.06,
-              "maxCount": 700,
+              "baseValue": 0.48,
+              "maxCount": 88,
               "recommended": true,
               "outcome": "success",
               "recipe": "高級蠟燭",
               "materialStatus": "provided",
               "materials": [
                 {
-                  "name": "蜜蠟",
+                  "name": "迷你香氛蠟燭（任一香味）",
+                  "perAction": 1
+                },
+                {
+                  "name": "蜂蠟",
                   "perAction": 1
                 }
               ],
@@ -9723,8 +9867,8 @@
             {
               "id": "handicraft-3-102",
               "description": "製作 5以下的道具成功",
-              "baseValue": 0.03,
-              "maxCount": 160,
+              "baseValue": 0.24,
+              "maxCount": 20,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9740,8 +9884,8 @@
             {
               "id": "handicraft-3-103",
               "description": "製作 1的道具失敗",
-              "baseValue": 0.06,
-              "maxCount": 140,
+              "baseValue": 0.48,
+              "maxCount": 18,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9752,8 +9896,8 @@
             {
               "id": "handicraft-3-104",
               "description": "製作 4, 3, 2的道具失敗",
-              "baseValue": 0.03,
-              "maxCount": 160,
+              "baseValue": 0.24,
+              "maxCount": 20,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9764,8 +9908,8 @@
             {
               "id": "handicraft-3-105",
               "description": "製作 5以下的道具失敗",
-              "baseValue": 0.01,
-              "maxCount": 120,
+              "baseValue": 0.08,
+              "maxCount": 15,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9782,8 +9926,8 @@
             {
               "id": "handicraft-2-108",
               "description": "製作 3, 2, 1的道具成功",
-              "baseValue": 0.2,
-              "maxCount": 400,
+              "baseValue": 3.2,
+              "maxCount": 50,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9794,8 +9938,8 @@
             {
               "id": "handicraft-2-109",
               "description": "製作 4以下的道具成功",
-              "baseValue": 0.1,
-              "maxCount": 600,
+              "baseValue": 0.8,
+              "maxCount": 75,
               "recommended": true,
               "outcome": "success",
               "recipe": "紙鶴",
@@ -9811,8 +9955,8 @@
             {
               "id": "handicraft-2-110",
               "description": "製作 3, 2, 1的道具失敗",
-              "baseValue": 0.1,
-              "maxCount": 200,
+              "baseValue": 0.8,
+              "maxCount": 25,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9823,8 +9967,8 @@
             {
               "id": "handicraft-2-111",
               "description": "製作 4以下的道具失敗",
-              "baseValue": 0.05,
-              "maxCount": 100,
+              "baseValue": 0.4,
+              "maxCount": 13,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9841,8 +9985,8 @@
             {
               "id": "handicraft-1-114",
               "description": "製作 2, 1的道具成功",
-              "baseValue": 0.1,
-              "maxCount": 600,
+              "baseValue": 1.6,
+              "maxCount": 75,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9853,8 +9997,8 @@
             {
               "id": "handicraft-1-115",
               "description": "製作 3以下的道具成功",
-              "baseValue": 0.08,
-              "maxCount": 800,
+              "baseValue": 0.64,
+              "maxCount": 100,
               "recommended": false,
               "outcome": "success",
               "recipe": null,
@@ -9865,8 +10009,8 @@
             {
               "id": "handicraft-1-116",
               "description": "製作 2, 1的道具失敗",
-              "baseValue": 0.08,
-              "maxCount": 300,
+              "baseValue": 0.64,
+              "maxCount": 38,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,
@@ -9890,8 +10034,8 @@
             {
               "id": "handicraft-1-117",
               "description": "製作 3以下的道具失敗",
-              "baseValue": 0.04,
-              "maxCount": 200,
+              "baseValue": 0.32,
+              "maxCount": 25,
               "recommended": false,
               "outcome": "failure",
               "recipe": null,

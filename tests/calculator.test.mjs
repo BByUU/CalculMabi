@@ -8,9 +8,9 @@ const task=id=>data.skills.flatMap(s=>s.ranks).flatMap(r=>r.tasks).find(t=>t.id=
 const config={startRank:'F',targetRank:'E',progress:0,countMultiplier:8,valueMultiplier:1};
 test('次數倍率封頂8，修練值倍率獨立',()=>assert.deepEqual(calculateMultipliers({countFactors:[2,2,2,2],reforge:1.2}),{rawCount:16,count:8,value:1.2,combined:9.6}));
 test('打鐵F成功一次最多計數3，得120而非320',()=>assert.equal(taskPlan(task('blacksmith-F-9'),100,8,1).points,120));
-test('手工藝紙鶴1倍值封頂90，1.2倍值7次得100.8',()=>{
-  const t=task('handicraft-F-9');assert.equal(taskPlan(t,100,8,1).points,90);assert.equal(taskPlan(t,100,8,1).actions,8);
-  assert.equal(taskPlan(t,100,8,1.2).actions,7);assert.ok(Math.abs(taskPlan(t,100,8,1.2).points-100.8)<1e-9);
+test('手工藝紙鶴1倍值封頂96，1.2倍值一次得115.2',()=>{
+  const t=task('handicraft-F-9');assert.equal(taskPlan(t,100,8,1).points,96);assert.equal(taskPlan(t,100,8,1).actions,1);
+  assert.equal(taskPlan(t,100,8,1.2).actions,1);assert.ok(Math.abs(taskPlan(t,100,8,1.2).points-115.2)<1e-9);
 });
 test('材料依達成次數計，不乘修練倍率或除2',()=>{const r=simulateSkill(skill('blacksmith'),config);assert.equal(r.totalActions,1);assert.deepEqual(r.materials,[{name:'鐵塊',quantity:1}]);});
 
@@ -100,4 +100,21 @@ test('材料全名同步於每項與總計，同名材料合併且不修改原�
   assert.deepEqual(r.materials,[{name:'魔力藥草',quantity:5}]);
   assert.deepEqual(r.stages[0].tasks.map(t=>t.materials[0].name),['魔力藥草','魔力藥草']);
   assert.equal(s.ranks[0].tasks[0].materials[0].name,'藍草');
+});
+
+
+test('新版生活修練保留小數、上限及魔法製造 R8 飾品項目',()=>{
+  const rank=(id,r)=>skill(id).ranks.find(x=>x.rank===r).tasks;
+  assert.deepEqual(rank('blacksmith','D').map(t=>[t.baseValue,t.maxCount]),[[16,5],[8,10],[2.4,4],[0.8,5],[2.4,7]]);
+  assert.deepEqual(rank('fynn-craft','8').map(t=>t.baseValue),[12.8,9.6,20,12.8]);
+  assert.equal(rank('fynn-craft','A')[2].maxCount,2);
+  assert.equal(rank('magic-craft','8').at(-1).baseValue,6);
+  assert.equal(rank('magic-craft','3')[2].baseValue,.24);
+  assert.equal(rank('hillwen-engineering','2').at(-1).baseValue,1.2);
+});
+test('配方補齊弩箭頭、香水及雷德歐零件，不混入其他配方',()=>{
+  const all=data.skills.flatMap(s=>s.ranks.flatMap(r=>r.tasks.flatMap(t=>[t,...t.recipeVariants])));
+  for(const t of all.filter(t=>t.recipe==='和諧的波斯菊香水')) assert.deepEqual(t.materials.map(m=>[m.name,m.perAction]),[['空瓶',1],['魔法粉',10],['基礎藥草',10],['波斯菊萃取液',1]]);
+  for(const t of all.filter(t=>t.recipe==='優質手製弩箭')) assert.ok(t.materials.some(m=>m.name==='優質弩箭頭捆'&&m.perAction===1));
+  for(const t of all.filter(t=>t.recipe==='製作雷德歐II')) assert.deepEqual(t.materials.filter(m=>['六角螺絲','六角螺帽'].includes(m.name)).map(m=>m.perAction),[5,5]);
 });
