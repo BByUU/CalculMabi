@@ -15675,11 +15675,11 @@
             },
             {
               "slot": 6,
-              "name": "任意弓類武器",
+              "name": "任意鐮刀類武器",
               "quantity": 1,
               "consumption": "success",
               "aliases": [
-                "弓"
+                "鐮刀"
               ]
             }
           ]

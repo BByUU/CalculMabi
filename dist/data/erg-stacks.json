@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-22",
-  "region": "Mabinogi World Wiki / NA",
+  "checkedAt": "2026-10-03",
+  "region": "台灣遊戲資料核對／未對應項目保留 Mabinogi World Wiki",
   "note": "General inventory stack sizes; excludes material bags and shop bundles. Nonstackable item classes are identified separately from explicit Stack fields.",
   "items": {
     "鐵塊": {
@@ -226,16 +226,16 @@
       "basis": "nonstackable-equipment"
     },
     "解毒藥水": {
-      "stackSize": 5,
+      "stackSize": 100,
       "wikiTitle": "Antidote Potion",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAntidote%20Potion&oldid=995481",
-      "basis": "explicit-stack"
+      "basis": "game-data-verified"
     },
     "中型生命與耐力藥水(效果50)": {
-      "stackSize": 20,
+      "stackSize": 100,
       "wikiTitle": "HP & Stamina 50 Potion",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataHP%20%26%20Stamina%2050%20Potion&oldid=691492",
-      "basis": "explicit-stack"
+      "basis": "game-data-verified"
     },
     "被淨化的使徒精髓": {
       "stackSize": 100,
@@ -262,10 +262,10 @@
       "basis": "explicit-stack"
     },
     "祝福藥水": {
-      "stackSize": 20,
+      "stackSize": 100,
       "wikiTitle": "Holy Water of Lymilark",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Holy%20Water%20of%20Lymilark&oldid=1035163",
-      "basis": "explicit-stack"
+      "basis": "game-data-verified"
     },
     "銀色小珠子": {
       "stackSize": 100,
@@ -424,10 +424,10 @@
       "basis": "nonstackable-cooked-dish"
     },
     "中型魔法藥水(效果50)": {
-      "stackSize": 20,
+      "stackSize": 100,
       "wikiTitle": "MP 50 Potion",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataMP%2050%20Potion&oldid=691500",
-      "basis": "explicit-stack"
+      "basis": "game-data-verified"
     },
     "鐵棒": {
       "stackSize": 1,
@@ -616,10 +616,10 @@
       "basis": "nonstackable-equipment"
     },
     "骰子": {
-      "stackSize": 1,
+      "stackSize": 100,
       "wikiTitle": "Six-sided Die",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataSix-sided%20Die&oldid=714676",
-      "basis": "nonstackable-equipment"
+      "basis": "game-data-verified"
     },
     "單手劍": {
       "stackSize": 1,
@@ -838,10 +838,10 @@
       "basis": "nonstackable-equipment"
     },
     "空瓶子": {
-      "stackSize": 1,
+      "stackSize": 100,
       "wikiTitle": "Empty Bottle",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataEmpty%20Bottle&oldid=995404",
-      "basis": "nonstackable-equipment"
+      "basis": "game-data-verified"
     },
     "木製鳥籠": {
       "stackSize": 1,
@@ -1130,6 +1130,12 @@
       "wikiTitle": "Advancement Catalyst B",
       "sourceUrl": "https://wiki.mabinogiworld.com/index.php?title=Template%3ADataAdvancement%20Catalyst%20B&oldid=913701",
       "basis": "explicit-stack"
+    },
+    "鐮刀": {
+      "stackSize": 1,
+      "wikiTitle": "Scythe",
+      "sourceUrl": "https://wiki.mabinogiworld.com/view/Erg/Scythes",
+      "basis": "nonstackable-equipment"
     }
   }
 }

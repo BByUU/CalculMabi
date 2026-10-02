@@ -15,3 +15,5 @@
 當前材料與成功率位於 dist/data/erg.json。材料核對頁列表位於 dist/erg-audit.js，對應 [Mabinogi World 的聚能頁](https://wiki.mabinogiworld.com/view/Erg)。中文名稱另參考[奇幻世界聚能材料](https://mabinogi.fws.tw/article.php?name=erg_expanding)。
 
 堆疊容量位於 dist/data/erg-stacks.json，保留 Wiki 版本與判定方式。可執行 node scripts/update_erg_stacks.mjs --refresh 重新取得公開頁資料，檢查結果後再更新。背包堆疊組數無條件進位，不等同商店販售批量。
+
+2026-10-03 查核：297 組開放材料数量與公開 Wiki 相符；鐮刀 S1 武器祭品依 [Scythes 材料表](https://wiki.mabinogiworld.com/view/Erg/Scythes)修正為鐮刀。台版遊戲資料確認 B 級 41～45 等需求經驗為 190,000，並修正解毒藥水、生命與耐力50藥水、祝福藥水、魔法50藥水、骰子、空瓶子的堆疊上限為 100。藥水每次開放嘗試都會消耗，現行計算符合道具說明。

@@ -83,7 +83,7 @@ export const ERG_FEED = {
     },
     {
       "range": "41～45等",
-      "experience": 189000,
+      "experience": 190000,
       "quantities": [
         0,
         4,

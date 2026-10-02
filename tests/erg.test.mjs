@@ -335,3 +335,13 @@ test('所有武器跨級別分格合計與完整清單相符，轉換材料僅�
     assert.equal(splitCost,materialCosts(result.materials,prices).total);
   }
 });
+
+test('台版材料堆疊上限為100',()=>{
+  for(const name of ['解毒藥水','中型生命與耐力藥水(效果50)','祝福藥水','中型魔法藥水(效果50)','骰子','空瓶子']) assert.equal(stacks.items[name].stackSize,100);
+});
+
+test('鐮刀 S1 祭品為鐮刀，B41至45需求經驗190000',()=>{
+  const scythe=data.weapons.find(w=>w.id==='scythe');assert.equal(scythe.stages.find(s=>s.id==='S-1').materials[5].name,'任意鐮刀類武器');
+  const result=simulateErg(data,{weaponId:'staff',startTier:'B',startStage:9,endTier:'B',endStage:9});
+  assert.equal(result.feedRows[0].experience,190000);
+});
