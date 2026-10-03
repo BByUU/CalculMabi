@@ -25,7 +25,7 @@ export const BONUS_RULES = {
 };
 
 export const SKILL_BONUS_PROFILES = {
-  blacksmith: { talent: '打鐵', reforgeMax: 10, echoMax: 10, echoColor: '黃色', workshop: true, catTalent: 'Blacksmithing', catType: '生活才能' },
+  blacksmith: { talent: '鐵匠', reforgeMax: 10, echoMax: 10, echoColor: '黃色', workshop: true, catTalent: 'Blacksmithing', catType: '生活才能' },
   'fynn-bead-burnishing': { talent: '寵物訓練', reforgeMax: 0, echoMax: 0, workshop: false, catTalent: 'Pet Training', catType: '生活才能' },
   tailoring: { talent: '裁縫', reforgeMax: 10, echoMax: 10, echoColor: '黃色', workshop: true, catTalent: 'Tailoring', catType: '生活才能' },
   'fynn-craft': { talent: '寵物訓練', reforgeMax: 10, echoMax: 10, echoColor: '銀色', workshop: false, catTalent: 'Pet Training', catType: '生活才能' },

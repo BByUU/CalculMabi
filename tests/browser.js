@@ -291,6 +291,19 @@ document.getElementById('run').addEventListener('click',async()=>{
     quest.click();assert(reading.getElementById('reading-13-2').hidden,'再次點選關閉詳情');
 
     const sk=await open('index.html',d=>d.querySelectorAll('[data-task-row]').length>0);
+    assert(sk.querySelector('[data-bonus="talent"]').parentElement.textContent.includes('鐵匠才能'),'打鐵顯示鐵匠才能');
+    assert(sk.querySelector('[data-bonus="astrology"]').parentElement.textContent.includes('鐵匠才能：牡羊座'),'打鐵星座對應');
+    const titleCheck=sk.querySelector('[data-bonus="title"]'), help=sk.getElementById('title-help-button');
+    help.focus();same(sk.getElementById('title-help-content').hidden,false,'鍵盤聚焦問號顯示稱號');
+    assert(sk.getElementById('title-help-content').textContent.includes('布蘿妮的特別支援'),'說明包含稱號名稱');
+    help.click();same(titleCheck.checked,false,'問號不勾選稱號加成');
+    help.dispatchEvent(new sk.defaultView.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+    same(sk.getElementById('title-help-content').hidden,true,'Escape 關閉稱號說明');
+    titleCheck.focus();titleCheck.click();same(sk.activeElement,titleCheck,'稱號加成保留焦點');
+    sk.querySelector('[data-skill="enchant"]').click();
+    assert(sk.querySelector('[data-bonus="talent"]').parentElement.textContent.includes('魔法才能'),'切換魔法才能');
+    assert(sk.querySelector('[data-bonus="astrology"]').parentElement.textContent.includes('魔法才能：獅子座'),'魔法星座對應');
+    same(sk.querySelector('[data-bonus="title"]').checked,false,'切換技能重設限定加成');
     sk.querySelector('[data-skill="stationery-craft"]').click();
     const skillSnapshot=()=>[...sk.querySelectorAll('#plan-panel [data-rank]')].map(section=>JSON.stringify({
       title:section.querySelector('.rank-title p')?.textContent, total:section.querySelector('tfoot th')?.innerHTML,

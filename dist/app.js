@@ -17,7 +17,11 @@ function controls(){
   $('current-progress').value=state.progress;
   $('train-to-30').checked=state.trainTo30;
   const profile=SKILL_BONUS_PROFILES[state.skillId];
-  const checkboxes=COUNT_BONUSES.map(o=>`<div class="bonus-option"><label><input type="checkbox" data-bonus="${o.id}" ${state.checked[o.id]?'checked':''}>${esc(o.name)}</label><span>×${o.multiplier}</span></div>`).join('');
+  const titleHelp='<span class="bonus-help"><button type="button" id="title-help-button" aria-label="查看適用的修練稱號" aria-expanded="false" aria-controls="title-help-content">?</button><span id="title-help-content" class="bonus-help-content" role="tooltip" hidden>全技能 2 倍修練稱號，例如：歸來的米列希安、勤勉的米列希安、布蘿妮的特別支援、特別支援。<br>須已套用且效果仍在有效期間；同類稱號效果只計一次。</span></span>';
+  const checkboxes=COUNT_BONUSES.map(o=>{
+    const name=o.id==='talent'?`目前為${profile.talent}才能`:o.id==='astrology'?`${profile.talent}才能：${profile.catType==='戰鬥才能'?'獅子座':'牡羊座'}氣球／星座水`:o.name;
+    return `<div class="bonus-option"><div class="bonus-option-name"><label><input type="checkbox" data-bonus="${o.id}" ${state.checked[o.id]?'checked':''}>${esc(name)}</label>${o.id==='title'?titleHelp:''}</div><span>×${o.multiplier}</span></div>`;
+  }).join('');
   const gear=equipmentOptions(state.skillId).map(o=>`<option value="${o.id}" ${state.equipment===o.id||o.aliases?.includes(state.equipment)?'selected':''}>${esc(o.name)}</option>`).join('');
   $('bonus-controls').innerHTML=`<div>
     <h3 class="bonus-group-title">修練次數<span>最高 8 倍</span></h3>
@@ -118,6 +122,17 @@ function materials(){
 }
 function events(){
   bindSkillNavigation('training',skillId=>{state={...state,...bonusesAfterSkillChange(state),skillId,progress:0,enabled:{},completed:{},recipes:{}};navigation();controls();update();});
+  const showTitleHelp=open=>{
+    $('title-help-content').hidden=!open;
+    $('title-help-button').setAttribute('aria-expanded',String(open));
+  };
+  $('bonus-controls').addEventListener('pointerover',event=>{if(event.target.closest('.bonus-help'))showTitleHelp(true);});
+  $('bonus-controls').addEventListener('pointerout',event=>{if(event.target.closest('.bonus-help')&&!event.relatedTarget?.closest?.('.bonus-help'))showTitleHelp(false);});
+  $('bonus-controls').addEventListener('focusin',event=>{if(event.target.id==='title-help-button')showTitleHelp(true);});
+  $('bonus-controls').addEventListener('focusout',event=>{if(event.target.id==='title-help-button')showTitleHelp(false);});
+  $('bonus-controls').addEventListener('click',event=>{if(event.target.id==='title-help-button')showTitleHelp(true);});
+  document.addEventListener('click',event=>{if(!event.target.closest('.bonus-help'))showTitleHelp(false);});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')showTitleHelp(false);});
   $('reset').addEventListener('click',()=>{state=defaults(state.skillId);controls();update();});
   $('start-rank').addEventListener('change',event=>{state.startRank=event.target.value;state.progress=0;state.completed={};if(RANKS.indexOf(state.targetRank)<RANKS.indexOf(state.startRank))state.targetRank=state.startRank;controls();update();});
   $('train-to-30').addEventListener('change',event=>{state.trainTo30=event.target.checked;update();});
