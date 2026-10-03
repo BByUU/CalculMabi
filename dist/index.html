@@ -37,6 +37,8 @@
       <div class="training-overview">
       <section class="journey-card" aria-labelledby="journey-title">
         <div class="section-heading"><h2 id="journey-title">修練目標</h2><label class="training-goal-option" title="各階計算至 30 修練值；次數向上取整，已有修練值會先扣除。"><input id="train-to-30" type="checkbox">練到 30%</label><button id="reset" type="button" class="text-button">重設設定</button></div>
+        <label class="training-route-control">修練路線 <select id="training-route"><option value="economy">省材料：避開高級／優質素材</option><option value="original">原推薦路線：包含高階製作</option></select></label>
+        <p class="field-help" id="training-route-note"></p>
         <div class="journey-fields"><label>目前 Rank<input id="start-rank" aria-label="目前 Rank" value="F"></label><span class="journey-arrow" aria-hidden="true">→</span><label>目標 Rank<input id="target-rank" aria-label="目標 Rank" value="1"></label><label class="progress-field">目前 Rank 的修練值<div class="input-unit"><input id="current-progress" type="number" min="0" max="100" step="0.1" value="0"><span>/ 100</span></div></label></div>
         <p class="field-help">目標 Rank 為到達該階級；不包含目標階級本身的修練。</p>
       </section>

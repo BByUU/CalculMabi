@@ -2,7 +2,7 @@ import {trainingMaterials} from './training-material-names.js';
 export const RANKS = ['F','E','D','C','B','A','9','8','7','6','5','4','3','2','1'];
 export function recipeOptions(task) {
   const options=[];
-  if(task.recipe) options.push({recipe:task.recipe,materials:task.materials,unresolvedMaterials:task.unresolvedMaterials,materialStatus:task.materialStatus});
+  if(task.recipe) options.push({recipe:task.recipe,materials:task.materials,unresolvedMaterials:task.unresolvedMaterials,materialStatus:task.materialStatus,recipeNote:task.recipeNote});
   for(const option of task.recipeVariants??[]) if(!options.some(o=>o.recipe===option.recipe)) options.push(option);
   return options;
 }
@@ -31,6 +31,9 @@ export function taskPlan(task, remainingPoints, countMultiplier, valueMultiplier
 export function simulateSkill(skill,config) {
   const startIndex=RANKS.indexOf(config.startRank),targetIndex=RANKS.indexOf(config.targetRank);
   if(startIndex<0||targetIndex<0||startIndex>targetIndex) throw new Error('目標 Rank 必須高於或等於目前 Rank。');
+  if(config.route!=null&&!['economy','original'].includes(config.route))throw new Error('請選擇有效的修練路線。');
+  const economy=config.route==='economy';
+  const recommended=t=>economy?(t.economyRecommended??t.recommended):t.recommended;
   const progress=numberInRange(config.progress??0,0,100,'目前修練值');
   const trainingGoal=config.trainTo30===true?30:100;
   const countMultiplier=numberInRange(config.countMultiplier,1,8,'次數倍率'),valueMultiplier=numberInRange(config.valueMultiplier,1,10000,'修練值倍率');
@@ -40,16 +43,17 @@ export function simulateSkill(skill,config) {
     if(!rank){stages.push({rank:RANKS[index],nextRank:RANKS[index+1],missing:true,reachable:false,points:0,deficit:trainingGoal,tasks:[],actions:0});continue;}
     let points=index===startIndex?progress:0;const startingPoints=points,tasksById=new Map();
     // Default tasks first; additional selected tasks fill remaining gaps.
-    const ordered=[...rank.tasks.filter(t=>t.recommended),...rank.tasks.filter(t=>!t.recommended)];
+    const ordered=[...rank.tasks.filter(recommended),...rank.tasks.filter(t=>!recommended(t))];
+    if(economy)ordered.sort((a,b)=>Number(recommended(b))-Number(recommended(a))||(a.economyPriority??0)-(b.economyPriority??0));
     for(const task of ordered){
-      const included=config.enabled?.[task.id]??task.recommended;
+      const included=config.enabled?.[task.id]??recommended(task);
       const completed=index===startIndex&&progress>0?(config.completed?.[task.id]??0):0;
       const calculation=taskPlan(task,included?Math.max(0,trainingGoal-points):0,countMultiplier,valueMultiplier,completed);
       const variants=recipeOptions(task);
-      const variant=variants.find(v=>v.recipe===config.recipes?.[task.id]);
+      const variant=variants.find(v=>v.recipe===(config.recipes?.[task.id]??(economy?task.economyRecipe:null)));
       const materials=trainingMaterials(variant?variant.materials:task.materials);
       const materialStatus=variant?(variant.materialStatus??(variant.unresolvedMaterials?.length?'partial':materials.length?'provided':'not-provided')):task.materialStatus;
-      const planned={...task,...calculation,included,completed,recipe:variant?.recipe??task.recipe,recipeVariants:variants,materials,materialStatus};
+      const planned={...task,...calculation,included,completed,recipe:variant?.recipe??task.recipe,recipeNote:variant?variant.recipeNote:task.recipeNote,recipeVariants:variants,materials,materialStatus};
       points+=calculation.points;totalActions+=calculation.actions;
       if(calculation.actions>0){
         if(materialStatus!=='provided')unknownTasks++;
@@ -59,7 +63,9 @@ export function simulateSkill(skill,config) {
       tasksById.set(task.id,planned);
     }
     const tasks=rank.tasks.map(t=>tasksById.get(t.id)),deficit=Math.max(0,trainingGoal-points);
-    stages.push({...rank,nextRank:RANKS[index+1],startingPoints,points,deficit,reachable:deficit<=EPS,tasks,actions:tasks.reduce((n,t)=>n+t.actions,0)});
+    const capacity=tasks.filter(t=>t.included).reduce((sum,t)=>sum+t.remainingCount*t.baseValue,0);
+    const requiredValueMultiplier=capacity>EPS?Math.max(1,Math.ceil((trainingGoal-startingPoints)/capacity*100-EPS)/100):null;
+    stages.push({...rank,requiredValueMultiplier,nextRank:RANKS[index+1],startingPoints,points,deficit,reachable:deficit<=EPS,tasks,actions:tasks.reduce((n,t)=>n+t.actions,0)});
   }
   const blockedStages=stages.filter(s=>!s.reachable).length;
   return {stages,totalActions,materials:Array.from(materialTotals,([name,quantity])=>({name,quantity})).sort((a,b)=>b.quantity-a.quantity||a.name.localeCompare(b.name,'zh-Hant')),unknownTasks,resultDependentTasks,blockedStages,reachable:blockedStages===0,countMultiplier,valueMultiplier,trainingGoal};

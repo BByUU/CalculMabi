@@ -21,9 +21,9 @@ test('公開技能資料只包含計算欄位及可讀配方名稱', () => {
     for (const rank of skill.ranks) {
       only(rank, ['rank', 'label', 'tasks']);
       for (const task of rank.tasks) {
-        only(task, ['id', 'description', 'baseValue', 'maxCount', 'recommended', 'outcome', 'recipe', 'materialStatus', 'materials', 'recipeVariants']);
+        only(task, ['id', 'description', 'baseValue', 'maxCount', 'recommended', 'outcome', 'recipe', 'materialStatus', 'materials', 'recipeVariants', 'recipeNote', 'economyRecommended', 'economyRecipe', 'economyPriority']);
         for (const recipe of [task, ...task.recipeVariants]) {
-          if (recipe !== task) only(recipe, ['recipe', 'materialStatus', 'materials']);
+          if (recipe !== task) only(recipe, ['recipe', 'materialStatus', 'materials', 'recipeNote']);
           assert.ok(!recipe.recipe?.startsWith('='));
           assert.ok(['provided', 'partial', 'not-provided'].includes(recipe.materialStatus));
           materials(recipe.materials);

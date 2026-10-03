@@ -118,3 +118,45 @@ test('配方補齊弩箭頭、香水及雷德歐零件，不混入其他配方',
   for(const t of all.filter(t=>t.recipe==='優質手製弩箭')) assert.ok(t.materials.some(m=>m.name==='優質弩箭頭捆'&&m.perAction===1));
   for(const t of all.filter(t=>t.recipe==='製作雷德歐II')) assert.deepEqual(t.materials.filter(m=>['六角螺絲','六角螺帽'].includes(m.name)).map(m=>m.perAction),[5,5]);
 });
+
+
+test('省材料路線避開高級優質皮布，仍允許手動選擇',()=>{
+  for(const s of data.skills){
+    const result=simulateSkill(s,{...config,targetRank:'1',route:'economy'});
+    assert.ok(result.materials.every(m=>!/(高級|優質)(布料|皮革|皮繩|絲綢)/.test(m.name)),s.id);
+    assert.ok(result.stages.every(stage=>stage.tasks.filter(t=>t.included).every(t=>!['諾曼勇士','優雅先鋒'].includes(t.recipe))),s.id);
+  }
+  const s=skill('stationery-craft'), t=s.ranks[0].tasks.find(t=>t.economyRecommended);
+  const result=simulateSkill(s,{...config,route:'economy',recipes:{[t.id]:'柔軟的羊皮紙(優)'}});
+  assert.deepEqual(result.materials,[{name:'優質皮革',quantity:2}]);
+  assert.deepEqual(simulateSkill(s,{...config,route:'original'}),simulateSkill(s,config));
+  assert.throws(()=>simulateSkill(s,{...config,route:'invalid'}));
+});
+test('不足提示依剩餘修練上限計算所需經驗倍率，次數倍率不能補足上限',()=>{
+  const sample={ranks:[{rank:'F',tasks:[{id:'x',recommended:true,economyRecommended:true,baseValue:4,maxCount:20,outcome:'success',materials:[],materialStatus:'not-provided'}]}]};
+  for(const countMultiplier of [1,8]){
+    const result=simulateSkill(sample,{...config,countMultiplier,route:'economy'});
+    assert.equal(result.stages[0].requiredValueMultiplier,1.25);
+    assert.equal(result.stages[0].deficit,20);
+  }
+  const setup={...config,route:'economy',progress:20,completed:{x:10}};
+  assert.equal(simulateSkill(sample,setup).stages[0].requiredValueMultiplier,2);
+  assert.equal(simulateSkill(sample,{...setup,trainTo30:true}).stages[0].requiredValueMultiplier,1);
+  assert.equal(simulateSkill(sample,{...setup,enabled:{x:false}}).stages[0].requiredValueMultiplier,null);
+});
+test('文具 Rank2 成功失敗對應及墨水配方正確',()=>{
+  const rows=skill('stationery-craft').ranks.find(r=>r.rank==='2').tasks;
+  assert.equal(rows[0].outcome,'failure');assert.equal(rows[0].baseValue,.4);assert.equal(rows[0].maxCount,20);
+  assert.equal(rows[1].outcome,'success');assert.equal(rows[1].baseValue,.8);assert.equal(rows[1].maxCount,100);
+  for(const rank of skill('stationery-craft').ranks)for(const row of rank.tasks)if(row.recipe?.includes('墨水')){
+    for(const option of recipeOptions(row)){assert.equal(option.materials.length,1);assert.match(option.materials[0].name,/染料$/);assert.equal(option.materials[0].perAction,1);}
+  }
+});
+test('結尾列具備實際材料並說明未完成品，芬恩入門不推薦無法失敗的零食',()=>{
+  for(const id of ['blacksmith','tailoring'])for(const rank of skill(id).ranks)for(const row of rank.tasks)if(row.recipe?.includes('：結尾')){
+    assert.ok(row.materials.length>0);assert.match(row.recipeNote,/未完成品/);
+  }
+  for(const rank of skill('fynn-craft').ranks.filter(r=>['F','E','D'].includes(r.rank)))for(const row of rank.tasks)if(row.outcome==='failure'){
+    assert.equal(row.economyRecommended,false);assert.ok(recipeOptions(row).every(o=>o.recipe!=='卡泰爾零食'));
+  }
+});

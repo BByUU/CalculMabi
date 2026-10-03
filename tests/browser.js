@@ -317,6 +317,12 @@ document.getElementById('run').addEventListener('click',async()=>{
       change(start,'E');change(sk.getElementById('start-rank'),rank);
       same(skillSnapshot(),patched,message);
     }
+    const route=sk.getElementById('training-route');
+    same(route.value,'economy','預設省材料路線');
+    route.focus();change(route,'original');same(sk.activeElement,route,'路線切換保留焦點');
+    sameAsRebuild('原推薦路線與完整計算一致');
+    change(route,'economy');sameAsRebuild('省材料路線與完整計算一致');
+    same(sk.getElementById('start-rank').value,'F','切換路線保留起始等級');
     const skillControls=[...sk.querySelectorAll('#plan-panel input, #plan-panel select')];
     for (const box of [...sk.querySelectorAll('[data-task]')].filter((_,i)=>i%7===0)) {
       box.focus();box.click();same(sk.activeElement,box,'修練項目焦點不變');

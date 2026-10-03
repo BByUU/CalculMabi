@@ -7,7 +7,7 @@ const $=id=>document.getElementById(id);
 let data,state,result,renderedStructure='';
 const stageNodes=new Map(),taskNodes=new Map();
 function defaults(skillId='blacksmith'){
-  return {skillId,startRank:'F',targetRank:'1',progress:0,trainTo30:false,...defaultBonusSettings(),enabled:{},completed:{},recipes:{}};
+  return {skillId,route:'economy',startRank:'F',targetRank:'1',progress:0,trainTo30:false,...defaultBonusSettings(),enabled:{},completed:{},recipes:{}};
 }
 function bonuses(){return calculateSkillBonuses(state.skillId,state);}
 function navigation(){renderSkillNavigation(state.skillId,'training');}
@@ -16,6 +16,8 @@ function controls(){
   setStepper($('target-rank'),RANKS.slice(RANKS.indexOf(state.startRank)),state.targetRank);
   $('current-progress').value=state.progress;
   $('train-to-30').checked=state.trainTo30;
+  $('training-route').value=state.route;
+  $('training-route-note').textContent=state.route==='economy'?'以易取得、低階材料優先；樣本需商店取得。仍可自行勾選其他項目與配方，未依拍賣市價判定絕對最低價。':'保留原推薦項目，可使用高階或非商店樣本；配方與材料已重新核對。';
   const profile=SKILL_BONUS_PROFILES[state.skillId];
   const titleHelp='<span class="bonus-help"><button type="button" id="title-help-button" aria-label="查看適用的修練稱號" aria-expanded="false" aria-controls="title-help-content">?</button><span id="title-help-content" class="bonus-help-content" role="tooltip" hidden>全技能 2 倍修練稱號，例如：歸來的米列希安、勤勉的米列希安、布蘿妮的特別支援、特別支援。<br>須已套用且效果仍在有效期間；同類稱號效果只計一次。</span></span>';
   const checkboxes=COUNT_BONUSES.map(o=>{
@@ -47,7 +49,7 @@ function update(){
     $('bonus-breakdown').textContent=`次數 ${fmt(b.count)}× · 經驗值 ${fmt(b.value)}×${b.rawCount>8?'（次數已封頂）':''}`;
     $('summary').innerHTML=`<article class="stat-card"><span>項目達成次數</span><strong>${fmt(result.totalActions)}<small>次</small></strong><p>各項分別估算，未合併同次觸發</p></article><article class="stat-card"><span>已知所需材料</span><strong>${result.materials.length}<small>種</small></strong><p>${result.unknownTasks?`${result.unknownTasks} 項配方資料不完整`:'依所選配方的直接用量估算'}</p></article><article class="stat-card accent"><span>修練加成</span><strong>${fmt(b.combined)}<small>×</small></strong><p>次數 ${fmt(b.count)}× · 經驗值 ${fmt(b.value)}×</p></article>`;
     // Rebuild rows only when the rank range or completed-count column changes; other edits patch in place.
-    const structure=JSON.stringify([state.skillId,state.startRank,state.targetRank,Number(state.progress)>0]);
+    const structure=JSON.stringify([state.skillId,state.route,state.startRank,state.targetRank,Number(state.progress)>0]);
     if(!previous||structure!==renderedStructure){plan();renderedStructure=structure;}else patchPlan(previous);
     materials();
   }catch(error){
@@ -66,7 +68,7 @@ function stageMaterials(stage) {
   }
   return Array.from(totals,([name,quantity])=>({name,quantity}));
 }
-const stageTitle=s=>s.missing?'此階資料尚未收錄':fmt(s.actions)+' 次達成';
+const stageTitle=s=>s.missing?'此階資料尚未收錄':fmt(s.actions)+' 次達成'+(s.deficit>0?` · 尚缺 ${fmt(s.deficit)} 修練值${s.requiredValueMultiplier?`，所選項目需修練值倍率 ${fmt(s.requiredValueMultiplier)}×`:'，請勾選修練項目'}`:'');
 const stageTotal=s=>`本階合計${s.startingPoints?`<small>修練值：已有 ${fmt(s.startingPoints)} · 新增 ${fmt(s.points-s.startingPoints)}</small>`:''}`;
 const scoreLabel=s=>`修練值 ${fmt(s.points)}，目標 ${result.trainingGoal}${s.points<result.trainingGoal?'，未達目標':''}`;
 const progressWidth=s=>Math.min(100,Math.max(0,s.points)/result.trainingGoal*100);
@@ -90,7 +92,7 @@ function plan(){
       </table></div><div class="progress-track" role="progressbar" aria-label="Rank ${s.rank} 修練值" aria-valuemin="0" aria-valuemax="${result.trainingGoal}" aria-valuenow="${Math.min(result.trainingGoal,s.points)}"><div class="progress-fill" style="width:${progressWidth(s)}%"></div></div>`}</div></section>`;
   }).join('');
   for(const node of $('plan-panel').querySelectorAll('[data-rank]'))stageNodes.set(node.dataset.rank,{title:node.querySelector('.rank-title p'),total:node.querySelector('tfoot th'),score:node.querySelector('.rank-score'),usage:node.querySelector('tfoot .training-usage'),track:node.querySelector('.progress-track'),fill:node.querySelector('.progress-fill')});
-  for(const node of $('plan-panel').querySelectorAll('[data-task-row]'))taskNodes.set(node.dataset.taskRow,{row:node,check:node.querySelector('[data-task]'),recipe:node.querySelector('[data-recipe]'),completed:node.querySelector('[data-completed]'),actions:node.querySelector('.action-number'),points:node.querySelector('[data-points]'),usage:node.querySelector('td.training-usage')});
+  for(const node of $('plan-panel').querySelectorAll('[data-task-row]'))taskNodes.set(node.dataset.taskRow,{row:node,check:node.querySelector('[data-task]'),recipe:node.querySelector('[data-recipe]'),completed:node.querySelector('[data-completed]'),actions:node.querySelector('.action-number'),points:node.querySelector('[data-points]'),usage:node.querySelector('td.training-usage'),recipeNote:node.querySelector('[data-recipe-note]')});
 }
 function patchPlan(previous){
   result.stages.forEach((s,i)=>{
@@ -102,6 +104,7 @@ function patchPlan(previous){
       n.row.classList.toggle('dim',!t.included);n.check.checked=t.included;
       if(n.recipe&&n.recipe.value!==t.recipe)n.recipe.value=t.recipe;
       if(n.completed&&n.completed.value!==String(t.completed))n.completed.value=t.completed;
+      n.recipeNote.textContent=t.recipeNote??'';
       n.actions.innerHTML=actionsHtml(t);n.points.textContent=fmt(t.points);n.usage.innerHTML=usageHtml(t);
     });
     if(!changed||s.missing)return;
@@ -114,7 +117,7 @@ function patchPlan(previous){
 }
 function row(t,index){
   const recipe=t.recipeVariants?.length>1?`<select class="recipe-select" aria-label="${esc(t.description)}配方" data-recipe="${t.id}">${t.recipeVariants.map(v=>`<option value="${esc(v.recipe)}" ${v.recipe===t.recipe?'selected':''}>${esc(v.recipe)}</option>`).join('')}</select>`:`<small>${esc(t.recipe||'配方尚未收錄')}</small>`;
-  return `<tr class="${t.included?'':'dim'}" data-task-row="${t.id}"><td><label class="task-check"><input type="checkbox" data-task="${t.id}" ${t.included?'checked':''} aria-label="納入${esc(t.description)}"><span class="task-description">${esc(t.description)}</span></label></td><td><div class="task-recipe">${recipe}</div></td><td>${fmt(t.baseValue)}</td><td>${fmt(t.maxCount)}</td>${index===0&&Number(state.progress)>0?`<td><input class="completed-input" data-completed="${t.id}" type="number" min="0" max="${t.maxCount}" step="1" value="${t.completed}" aria-label="${esc(t.description)}已計數次數"></td>`:''}<td class="action-number">${actionsHtml(t)}</td><td data-points>${fmt(t.points)}</td><td class="training-usage">${usageHtml(t)}</td></tr>`;
+  return `<tr class="${t.included?'':'dim'}" data-task-row="${t.id}"><td><label class="task-check"><input type="checkbox" data-task="${t.id}" ${t.included?'checked':''} aria-label="納入${esc(t.description)}"><span class="task-description">${esc(t.description)}</span></label></td><td><div class="task-recipe">${recipe}<small data-recipe-note>${esc(t.recipeNote??'')}</small></div></td><td>${fmt(t.baseValue)}</td><td>${fmt(t.maxCount)}</td>${index===0&&Number(state.progress)>0?`<td><input class="completed-input" data-completed="${t.id}" type="number" min="0" max="${t.maxCount}" step="1" value="${t.completed}" aria-label="${esc(t.description)}已計數次數"></td>`:''}<td class="action-number">${actionsHtml(t)}</td><td data-points>${fmt(t.points)}</td><td class="training-usage">${usageHtml(t)}</td></tr>`;
 }
 function materials(){
   const missing=result.unknownTasks?`<p class="training-material-note">${result.unknownTasks} 項修練的材料未完整收錄，以下加總已知用量。</p>`:'';
@@ -133,6 +136,7 @@ function events(){
   $('bonus-controls').addEventListener('click',event=>{if(event.target.id==='title-help-button')showTitleHelp(true);});
   document.addEventListener('click',event=>{if(!event.target.closest('.bonus-help'))showTitleHelp(false);});
   document.addEventListener('keydown',event=>{if(event.key==='Escape')showTitleHelp(false);});
+  $('training-route').addEventListener('change',event=>{state.route=event.target.value;state.enabled={};state.recipes={};controls();update();});
   $('reset').addEventListener('click',()=>{state=defaults(state.skillId);controls();update();});
   $('start-rank').addEventListener('change',event=>{state.startRank=event.target.value;state.progress=0;state.completed={};if(RANKS.indexOf(state.targetRank)<RANKS.indexOf(state.startRank))state.targetRank=state.startRank;controls();update();});
   $('train-to-30').addEventListener('change',event=>{state.trainTo30=event.target.checked;update();});
@@ -164,7 +168,7 @@ async function init(){try{
   const response=await fetch('./data/skills.json');if(!response.ok)throw new Error('技能資料載入失敗，請重新整理頁面。');data=await response.json();
   if(!Array.isArray(data.skills)||!data.skills.length)throw new Error('技能資料格式不完整。');
   state=defaults(currentSkillRoute('training').skillId);
-  $('method-notes').innerHTML=`<p>每項新增修練值 = 基礎值 × 修練值倍率 × min（剩餘可計數上限，達成次數 × 次數倍率）。次數倍率最高 8 倍；每階預設以 100 修練值為目標；勾選「練到 30%」改以 30 為目標，排除目標 Rank 本身。每次操作不可拆分，實際新增修練值可能超過目標；30% 模式只估算各階部分修練的用量。</p><p>優先依建議項目與順序計算，再計入額外勾選的項目。路線未比較材料價格，各項達成次數分別估算，尚未合併單次行動同時觸發的項目。</p><p>材料採直接配方，缺漏不視為零耗材。部分魔法製造配方資料不完整；中間產物與跨階再利用尚未抵扣。</p><p>既有修練值不隨新倍率重算。起始 Rank 已有進度時，請另填各項已計數以扣除上限。本頁不估算 AP、成功率、升段或大師修練。</p><p>同一技能的修練水擇一。細工與回音採擇一估算，其他裝備組合請填入實際總倍率。切換技能會重設技能限定效果；道具與活動倍率請依遊戲內顯示確認。</p><p>天使貓／深淵貓須對應才能，召喚並生效時提供修練經驗值 2 倍。農場工房限對應才能且已啟動的研究效果。</p>`;
+  $('method-notes').innerHTML=`<p>每項新增修練值 = 基礎值 × 修練值倍率 × min（剩餘可計數上限，達成次數 × 次數倍率）。次數倍率最高 8 倍；每階預設以 100 修練值為目標；勾選「練到 30%」改以 30 為目標，排除目標 Rank 本身。每次操作不可拆分，實際新增修練值可能超過目標；30% 模式只估算各階部分修練的用量。</p><p>優先依建議項目與順序計算，再計入額外勾選的項目。省材料路線優先使用易取得材料，未比較即時市價；各項達成次數分別估算，尚未合併單次行動同時觸發的項目。</p><p>材料採每次投入的直接配方，失敗退還量未扣，缺漏不視為零耗材。結尾列只計結尾材料，需另備未完成品；前段製作、樣本價格與使用次數不列入材料合計。部分魔法製造配方資料不完整；中間產物與跨階再利用尚未抵扣。</p><p>既有修練值不隨新倍率重算。起始 Rank 已有進度時，請另填各項已計數以扣除上限。本頁不估算 AP、成功率、升段或大師修練。</p><p>同一技能的修練水擇一。細工與回音採擇一估算，其他裝備組合請填入實際總倍率。切換技能會重設技能限定效果；道具與活動倍率請依遊戲內顯示確認。</p><p>天使貓／深淵貓須對應才能，召喚並生效時提供修練經驗值 2 倍。農場工房限對應才能且已啟動的研究效果。</p>`;
   navigation();controls();events();update();registerTools();
 }catch(error){$('error-message').hidden=false;$('error-message').textContent=error.message;$('plan-panel').innerHTML='<div class="empty-state">無法讀取技能資料。請透過網站網址開啟，並重新整理。</div>';}}
 init();
