@@ -49,8 +49,8 @@ function mount() {
   for (const input of $('kn-mains').querySelectorAll('[data-interval]')) intervalNodes.set(input.dataset.interval, input);
 }
 
-// Timed rows lead with the duration; counted-only rows show the success count alone.
-const stepCell = step => step.seconds === null ? `${fmt(step.successes)} 次<small>只計次數</small>` : `${esc(formatDuration(step.seconds))}<small>${fmt(step.successes)} 次</small>`;
+// Timed rows lead with the duration; counted-only rows show the success count alone; estimated rows show text only.
+const stepCell = (step, total = false) => step.estimate ? `${esc(step.estimate)}<small>預估${total ? `，${esc(step.note)}` : ''}</small>` : step.seconds === null ? `${fmt(step.successes)} 次<small>只計次數</small>` : `${esc(formatDuration(step.seconds))}<small>${fmt(step.successes)} 次</small>`;
 
 // Update text and control state in place; inputs stay mounted so focus and typing are kept.
 function patchRow(row) {
@@ -62,7 +62,7 @@ function patchRow(row) {
   cells.condition.textContent = row.maxed ? '已達最高等級' : `修練：${row.condition}`;
   cells.gain.textContent = row.maxed ? '—' : `${gainFormat.format(row.gain)}%`;
   cells.next.innerHTML = row.maxed ? '已滿級' : stepCell(row.next);
-  cells.max.innerHTML = row.maxed ? '—' : stepCell(row.toMax);
+  cells.max.innerHTML = row.maxed ? '—' : stepCell(row.toMax, true);
 }
 
 function update(changed = null) {

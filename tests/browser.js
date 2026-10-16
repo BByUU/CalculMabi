@@ -177,7 +177,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     const kn=await open('knights.html',d=>d.querySelectorAll('[data-sub]').length===SUB_SKILLS.length);
     let knightPlan=defaultKnightsPlan();
     knightPlan.intervals['shield-of-trust']=25;knightPlan.subSkills['pet-auto-revive']={level:3,progress:0};
-    const knightStep=step=>step.seconds===null?`${formatNumber(step.successes)} 次只計次數`:`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
+    const knightStep=(step,total=false)=>step.estimate?`${step.estimate}預估${total?`，${step.note}`:''}`:step.seconds===null?`${formatNumber(step.successes)} 次只計次數`:`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
     function verifyKnights() {
       for (const main of calculateKnights(knightPlan).mains) {
         for (const [id,seconds] of Object.entries(main.intervals)) same(kn.querySelector(`[data-interval="${id}"]`).value,String(seconds),`${id} 間隔`);
@@ -186,7 +186,7 @@ document.getElementById('run').addEventListener('click',async()=>{
           same(node.querySelector('[data-level]').value,String(row.level),`${row.id} 等級`);
           same(node.querySelector('[data-cell="gain"]').textContent,row.maxed?'—':`${row.gain.toLocaleString('zh-TW',{maximumFractionDigits:4})}%`,`${row.id} 每次`);
           same(node.querySelector('[data-cell="next"]').textContent,row.maxed?'已滿級':knightStep(row.next),`${row.id} 目前等級`);
-          same(node.querySelector('[data-cell="max"]').textContent,row.maxed?'—':knightStep(row.toMax),`${row.id} 升滿`);
+          same(node.querySelector('[data-cell="max"]').textContent,row.maxed?'—':knightStep(row.toMax,true),`${row.id} 升滿`);
         }
       }
     }
@@ -220,7 +220,9 @@ document.getElementById('run').addEventListener('click',async()=>{
     change(magicLevel,'16','input');same(magicLevel.getAttribute('aria-invalid'),'true','副技能非法等級提示');
     change(magicLevel,'16');same(magicLevel.value,'11','副技能非法等級恢復');
     change(magicLevel,'10','input');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};verifyKnights();
-    same(kn.querySelector('[data-sub="increase-magic-defense"] [data-cell="next"]').textContent,'33 分 20 秒100 次','聖盾每 20 秒：魔法反制 Lv.10 升一級');
+    same(kn.querySelector('[data-sub="increase-magic-defense"] [data-cell="max"]').textContent,'約 30 分鐘內預估，Lv.1 練到滿約 30 分鐘','魔法反制只列預估時間');
+    change(kn.querySelector('[data-level="pet-damage-bonus"]'),'10');knightPlan.subSkills['pet-damage-bonus']={level:10,progress:0};
+    same(kn.querySelector('[data-sub="pet-damage-bonus"] [data-cell="next"]').textContent,'約 30 分鐘以上預估','聖光顯靈 Lv.10 每級預估');verifyKnights();
     change(kn.querySelector('[data-level="recover-hp"]'),'12');knightPlan.subSkills['recover-hp']={level:12,progress:0};
     same(kn.querySelector('[data-sub="recover-hp"] [data-cell="gain"]').textContent,'0.3125%','每次修練值顯示到小數四位');
     same(kn.querySelector('[data-sub="recover-hp"] [data-cell="next"]').textContent,'1 小時 46 分 40 秒320 次','0.3125% 需 320 次');verifyKnights();

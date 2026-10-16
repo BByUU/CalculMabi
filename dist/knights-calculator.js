@@ -9,6 +9,8 @@ const sameCondition = (condition, gains) => gains.map(gain => [condition, gain])
 // timers are the editable success intervals; a sub-skill without a timer is counted, not timed.
 // party marks training that targets allies, so one cast on three people counts three times;
 // 魔法反制 (being hit) and 庇佑步伐 (protecting oneself) count once per cast.
+// estimate replaces counts with the play-time estimate confirmed by the user on 2026-10-16.
+const minutesText = minutes => minutes >= 60 ? `${Math.floor(minutes / 60)} 小時${minutes % 60 ? ` ${minutes % 60} 分` : ''}` : `${minutes} 分鐘`;
 export const MAIN_SKILLS = [
   {id:'shield-of-trust', name:'聖盾庇護', cooldown:20, timers:[
     {id:'shield-of-trust', label:'每次成功間隔', seconds:20},
@@ -32,7 +34,8 @@ export const MAIN_SKILLS = [
       ['對生命值 30% 以下的自身或目標使用技能', 0.2],
       ['對生命值 30% 以下的自身或目標使用技能', 0.1],
     ]},
-    {id:'increase-magic-defense', name:'魔法反制', timer:'shield-of-trust', levels:[
+    {id:'increase-magic-defense', name:'魔法反制', timer:'shield-of-trust',
+      estimate:() => ({next:'很快', toMax:'約 30 分鐘內', note:'Lv.1 練到滿約 30 分鐘'}), levels:[
       ['技能發動期間受到敵人攻擊', 20],
       ['技能發動期間受到敵人攻擊', 12.5],
       ['技能發動期間受到敵人攻擊', 10],
@@ -67,7 +70,7 @@ export const MAIN_SKILLS = [
       ['對負傷高於 70% 的目標使用技能', 2.5],
     ]},
   ]},
-  // 啟迪之光、聖光顯靈、守護者的誓約 train from link-time events (experience, kills, auto-defence), so only counts are shown.
+  // 啟迪之光、守護者的誓約 train from link-time events (experience, auto-defence), so only counts are shown; 聖光顯靈 uses an estimate.
   {id:'divine-link', name:'聖靈同步', cooldown:60, timers:[
     {id:'pet-life-wound-recover', label:'復甦的靈魂每次', seconds:60},
     {id:'pet-auto-revive', label:'復活的權杖每次', seconds:10},
@@ -88,7 +91,11 @@ export const MAIN_SKILLS = [
       ['靈魂連結狀態下獲得經驗值 18,000 以上', 0.2],
       ['靈魂連結狀態下獲得經驗值 20,000 以上', 0.2],
     ]},
-    {id:'pet-damage-bonus', name:'聖光顯靈', levels:[
+    {id:'pet-damage-bonus', name:'聖光顯靈',
+      estimate:level => level < 10
+        ? {next:'很快', toMax:'約 3 小時以上', note:'Lv.1–10 共約 30 分鐘'}
+        : {next:'約 30 分鐘以上', toMax:`約 ${minutesText((MAX_LEVEL - level) * 30)}以上`, note:'Lv.10 起每級約 30 分鐘以上'},
+      levels:[
       ['靈魂連結狀態下寵物消滅敵人', 10],
       ['靈魂連結狀態下寵物消滅 2 名以上敵人', 10],
       ['靈魂連結狀態下寵物消滅 3 名以上敵人', 5],
@@ -199,6 +206,10 @@ export function calculateKnights(plan) {
       const nextSuccesses = Math.ceil(successesNeeded(gain, progress) / multiplier);
       let maxSuccesses = nextSuccesses;
       for (let at = level + 1; at < MAX_LEVEL; at++) maxSuccesses += Math.ceil(successesNeeded(sub.levels[at - 1][1]) / multiplier);
+      if (sub.estimate) {
+        const {next, toMax, note} = sub.estimate(level);
+        return {...sub, level, progress, maxed:false, gain, condition, interval, multiplier, next:{estimate:next, note}, toMax:{estimate:toMax, note}};
+      }
       return {...sub, level, progress, maxed:false, gain, condition, interval, multiplier, next:timed(nextSuccesses), toMax:timed(maxSuccesses)};
     });
     return {...main, intervals, rows};

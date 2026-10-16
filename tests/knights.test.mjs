@@ -43,21 +43,21 @@ test('每級所需次數與核對資料一致，非整數無條件進位，0.312
   assert.equal(successesNeeded(1, 99.5), 1);
 });
 
-test('聖盾每 20 秒一次：魔法反制 Lv.10 升一級 100 次 33 分 20 秒，Lv.14 需 5 小時 33 分 20 秒', () => {
+test('聖盾每 20 秒一次：恢復祈禱 Lv.10 升一級 100 次 33 分 20 秒，Lv.14 需 5 小時 33 分 20 秒', () => {
   const plan = defaultKnightsPlan();
-  plan.subSkills['increase-magic-defense'] = {level:10, progress:0};
+  plan.subSkills['recover-hp'] = {level:10, progress:0};
+  let hp = calculateKnights(plan).mains[0].rows.find(row => row.id === 'recover-hp');
+  assert.deepEqual(hp.next, {successes:100, seconds:2000});
+  assert.equal(formatDuration(hp.next.seconds), '33 分 20 秒');
+  assert.deepEqual(hp.toMax, {successes:100 + 200 + 320 + 500 + 1000, seconds:2120 * 20});
   plan.subSkills['recover-hp'] = {level:14, progress:0};
   const shield = calculateKnights(plan).mains.find(main => main.id === 'shield-of-trust');
-  const magic = shield.rows.find(row => row.id === 'increase-magic-defense');
-  assert.deepEqual(magic.next, {successes:100, seconds:2000});
-  assert.equal(formatDuration(magic.next.seconds), '33 分 20 秒');
-  assert.deepEqual(magic.toMax, {successes:100 + 200 + 320 + 500 + 1000, seconds:2120 * 20});
-  const hp = shield.rows.find(row => row.id === 'recover-hp');
+  hp = shield.rows.find(row => row.id === 'recover-hp');
   assert.equal(formatDuration(hp.next.seconds), '5 小時 33 分 20 秒');
   assert.deepEqual(hp.next, hp.toMax);
 });
 
-test('聖靈同步：復甦的靈魂每 60 秒、復活的權杖每 10 秒，啟迪之光、聖光顯靈、守護者的誓約只計次數', () => {
+test('聖靈同步：復甦的靈魂每 60 秒、復活的權杖每 10 秒，啟迪之光、守護者的誓約只計次數', () => {
   assert.deepEqual(defaultKnightsPlan().intervals, {'shield-of-trust':20, 'boost-movement-speed':30, 'pet-life-wound-recover':60, 'pet-auto-revive':10});
   const link = calculateKnights(defaultKnightsPlan()).mains.find(main => main.id === 'divine-link');
   const byId = Object.fromEntries(link.rows.map(row => [row.id, row]));
@@ -65,7 +65,7 @@ test('聖靈同步：復甦的靈魂每 60 秒、復活的權杖每 10 秒，啟
   assert.equal(formatDuration(byId['pet-life-wound-recover'].next.seconds), '5 分 0 秒');
   assert.deepEqual(byId['pet-auto-revive'].next, {successes:5, seconds:50});
   assert.equal(formatDuration(byId['pet-auto-revive'].toMax.seconds), '4 小時 38 分 50 秒');
-  for (const id of ['exp-bonus', 'pet-damage-bonus', 'pet-no-hit-motion']) {
+  for (const id of ['exp-bonus', 'pet-no-hit-motion']) {
     assert.equal(byId[id].next.seconds, null, id);
     assert.equal(byId[id].toMax.seconds, null, id);
   }
@@ -120,7 +120,7 @@ test('一次三人只影響針對隊友的聖盾副技能，每級施放次數�
   const result = calculateKnights(plan);
   assert.deepEqual(result.mains[1], original.mains[1]);
   const party = new Set(['range-bonus', 'recover-hp', 'recover-wound']);
-  for (const row of result.mains[0].rows) {
+  for (const row of result.mains[0].rows.filter(row => !row.estimate)) {
     const factor = party.has(row.id) ? 3 : 1;
     assert.equal(row.multiplier, factor, row.id);
     const casts = SITE_COUNTS[row.id].map(count => Math.ceil(Math.ceil(count - 0.01) / factor));
@@ -132,6 +132,21 @@ test('一次三人只影響針對隊友的聖盾副技能，每級施放次數�
   assert.equal(calculateKnights(plan).mains[0].rows.find(row => row.id === 'recover-hp').next.successes, 2);
   plan.shieldThreePeople = 'true';
   assert.throws(() => calculateKnights(plan));
+});
+
+test('魔法反制與聖光顯靈只列預估時間，聖光顯靈 Lv.10 起每級約 30 分鐘以上', () => {
+  const plan = defaultKnightsPlan();
+  const estimates = level => {
+    plan.subSkills['increase-magic-defense'] = {level, progress:0};
+    plan.subSkills['pet-damage-bonus'] = {level, progress:0};
+    const rows = calculateKnights(plan).mains.flatMap(main => main.rows);
+    return ['increase-magic-defense', 'pet-damage-bonus'].map(id => rows.find(row => row.id === id)).map(row => [row.next.estimate, row.toMax.estimate]);
+  };
+  assert.deepEqual(estimates(1), [['很快', '約 30 分鐘內'], ['很快', '約 3 小時以上']]);
+  assert.deepEqual(estimates(10)[1], ['約 30 分鐘以上', '約 2 小時 30 分以上']);
+  assert.deepEqual(estimates(14)[1], ['約 30 分鐘以上', '約 30 分鐘以上']);
+  plan.subSkills['pet-damage-bonus'] = {level:MAX_LEVEL, progress:0};
+  assert.equal(calculateKnights(plan).mains[1].rows.find(row => row.id === 'pet-damage-bonus').maxed, true);
 });
 
 test('庇佑步伐每 30 秒一次，間隔獨立於其他聖盾副技能', () => {
