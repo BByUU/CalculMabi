@@ -58,7 +58,7 @@ test('聖盾每 20 秒一次：魔法反制 Lv.10 升一級 100 次 33 分 20 �
 });
 
 test('聖靈同步：復甦的靈魂每 60 秒、復活的權杖每 10 秒，啟迪之光、聖光顯靈、守護者的誓約只計次數', () => {
-  assert.deepEqual(defaultKnightsPlan().intervals, {'shield-of-trust':20, 'pet-life-wound-recover':60, 'pet-auto-revive':10});
+  assert.deepEqual(defaultKnightsPlan().intervals, {'shield-of-trust':20, 'boost-movement-speed':30, 'pet-life-wound-recover':60, 'pet-auto-revive':10});
   const link = calculateKnights(defaultKnightsPlan()).mains.find(main => main.id === 'divine-link');
   const byId = Object.fromEntries(link.rows.map(row => [row.id, row]));
   assert.deepEqual(byId['pet-life-wound-recover'].next, {successes:5, seconds:300});
@@ -111,7 +111,7 @@ test('時間格式顯示時、分、秒', () => {
   assert.deepEqual([0, 59, 60, 3599, 3600, 90061].map(formatDuration), ['0 秒', '59 秒', '1 分 0 秒', '59 分 59 秒', '1 小時 0 分 0 秒', '25 小時 1 分 1 秒']);
 });
 
-test('一次三人只影響聖盾，每級施放次數各自進位，舊設定維持單次', () => {
+test('一次三人只影響針對隊友的聖盾副技能，每級施放次數各自進位，舊設定維持單次', () => {
   const plan = defaultKnightsPlan();
   const original = calculateKnights(plan);
   delete plan.shieldThreePeople;
@@ -119,16 +119,28 @@ test('一次三人只影響聖盾，每級施放次數各自進位，舊設定�
   plan.shieldThreePeople = true;
   const result = calculateKnights(plan);
   assert.deepEqual(result.mains[1], original.mains[1]);
+  const party = new Set(['range-bonus', 'recover-hp', 'recover-wound']);
   for (const row of result.mains[0].rows) {
-    const casts = SITE_COUNTS[row.id].map(count => Math.ceil(count / 3));
-    assert.equal(row.next.successes, casts[0]);
-    assert.equal(row.toMax.successes, casts.reduce((a,b) => a+b, 0));
-    assert.equal(row.toMax.seconds, row.toMax.successes * 20);
+    const factor = party.has(row.id) ? 3 : 1;
+    assert.equal(row.multiplier, factor, row.id);
+    const casts = SITE_COUNTS[row.id].map(count => Math.ceil(Math.ceil(count - 0.01) / factor));
+    assert.equal(row.next.successes, casts[0], row.id);
+    assert.equal(row.toMax.successes, casts.reduce((a,b) => a+b, 0), row.id);
+    assert.equal(row.toMax.seconds, row.toMax.successes * (row.id === 'boost-movement-speed' ? 30 : 20), row.id);
   }
   plan.subSkills['recover-hp'] = {level:14, progress:99.5};
   assert.equal(calculateKnights(plan).mains[0].rows.find(row => row.id === 'recover-hp').next.successes, 2);
   plan.shieldThreePeople = 'true';
   assert.throws(() => calculateKnights(plan));
+});
+
+test('庇佑步伐每 30 秒一次，間隔獨立於其他聖盾副技能', () => {
+  const plan = defaultKnightsPlan();
+  assert.equal(plan.intervals['boost-movement-speed'], 30);
+  plan.intervals['shield-of-trust'] = 15;
+  const rows = calculateKnights(plan).mains[0].rows;
+  assert.equal(rows.find(row => row.id === 'boost-movement-speed').next.seconds, 30);
+  assert.equal(rows.find(row => row.id === 'range-bonus').next.seconds, 15);
 });
 
 test('各頁都有騎士團入口，副技能程式固定 DOM 引用都存在', () => {

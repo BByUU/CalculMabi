@@ -200,7 +200,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     same(JSON.parse(localStorage.getItem('mabi-knights-v1')).shieldThreePeople,true,'記住三人設定');
     kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();
     same(threePeople.checked,false,'重設取消三人設定');
-    same(kn.querySelectorAll('[data-interval]').length,3,'聖盾一個、聖靈同步兩個時間輸入框');
+    same(kn.querySelectorAll('[data-interval]').length,4,'聖盾兩個、聖靈同步兩個時間輸入框');same(kn.querySelector('[data-interval="boost-movement-speed"]').value,'30','庇佑步伐每 30 秒');
     same(kn.querySelector('[data-interval="pet-life-wound-recover"]').value,'60','舊版聖靈同步間隔不套用');
     same(kn.querySelector('[data-sub="exp-bonus"] [data-cell="next"]').textContent,'10 次只計次數','啟迪之光只計次數');
     kn.getElementById('kn-reset').click();knightPlan=defaultKnightsPlan();verifyKnights();

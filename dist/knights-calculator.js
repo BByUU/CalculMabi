@@ -7,11 +7,16 @@ const sameCondition = (condition, gains) => gains.map(gain => [condition, gain])
 
 // levels[n] is the training at Lv.n+1: [condition, % gained per success]. Lv.15 has no training.
 // timers are the editable success intervals; a sub-skill without a timer is counted, not timed.
+// party marks training that targets allies, so one cast on three people counts three times;
+// 魔法反制 (being hit) and 庇佑步伐 (protecting oneself) count once per cast.
 export const MAIN_SKILLS = [
-  {id:'shield-of-trust', name:'聖盾庇護', cooldown:20, timers:[{id:'shield-of-trust', label:'每次成功間隔', seconds:20}], subSkills:[
-    {id:'range-bonus', name:'福音傳遞', timer:'shield-of-trust',
+  {id:'shield-of-trust', name:'聖盾庇護', cooldown:20, timers:[
+    {id:'shield-of-trust', label:'每次成功間隔', seconds:20},
+    {id:'boost-movement-speed', label:'庇佑步伐每次', seconds:30},
+  ], subSkills:[
+    {id:'range-bonus', name:'福音傳遞', timer:'shield-of-trust', party:true,
       levels:sameCondition('對同伴或寵物使用聖盾庇護', [100, 50, 25, 20, 10, 6.25, 6.25, 5, 5, 4, 3.125, 2, 1, 0.5])},
-    {id:'recover-hp', name:'恢復祈禱', timer:'shield-of-trust', levels:[
+    {id:'recover-hp', name:'恢復祈禱', timer:'shield-of-trust', party:true, levels:[
       ['對生命值 80% 以下的自身或目標使用技能', 20],
       ['對生命值 80% 以下的自身或目標使用技能', 12.5],
       ['對生命值 80% 以下的自身或目標使用技能', 10],
@@ -43,9 +48,9 @@ export const MAIN_SKILLS = [
       ['技能發動期間受到敵人攻擊', 0.2],
       ['技能發動期間受到敵人攻擊', 0.1],
     ]},
-    {id:'boost-movement-speed', name:'庇佑步伐', timer:'shield-of-trust',
+    {id:'boost-movement-speed', name:'庇佑步伐', timer:'boost-movement-speed',
       levels:sameCondition('在使者的隕石流星雨攻擊中保護自身', [100, 100, 50, 40, 20, 12.5, 12.5, 10, 10, 8, 6.25, 4, 2, 1])},
-    {id:'recover-wound', name:'復原祈禱', timer:'shield-of-trust', levels:[
+    {id:'recover-wound', name:'復原祈禱', timer:'shield-of-trust', party:true, levels:[
       ['對負傷高於 30% 的目標使用技能', 100],
       ['對負傷高於 30% 的目標使用技能', 50],
       ['對負傷高於 30% 的目標使用技能', 50],
@@ -180,9 +185,9 @@ export function calculateKnights(plan) {
   const threePeople = plan?.shieldThreePeople ?? false;
   if (typeof threePeople !== 'boolean') throw new Error('一次三人設定須為布林值。');
   const mains = MAIN_SKILLS.map(main => {
-    const multiplier = main.id === 'shield-of-trust' && threePeople ? 3 : 1;
     const intervals = Object.fromEntries(main.timers.map(timer => [timer.id, number(plan?.intervals?.[timer.id], 0.1, 86400, `${main.name}${timer.label}間隔（秒）`)]));
     const rows = main.subSkills.map(sub => {
+      const multiplier = sub.party && threePeople ? 3 : 1;
       const interval = sub.timer ? intervals[sub.timer] : null;
       const timed = successes => ({successes, seconds:interval === null ? null : successes * interval});
       const choice = plan?.subSkills?.[sub.id];
@@ -194,7 +199,7 @@ export function calculateKnights(plan) {
       const nextSuccesses = Math.ceil(successesNeeded(gain, progress) / multiplier);
       let maxSuccesses = nextSuccesses;
       for (let at = level + 1; at < MAX_LEVEL; at++) maxSuccesses += Math.ceil(successesNeeded(sub.levels[at - 1][1]) / multiplier);
-      return {...sub, level, progress, maxed:false, gain, condition, interval, next:timed(nextSuccesses), toMax:timed(maxSuccesses)};
+      return {...sub, level, progress, maxed:false, gain, condition, interval, multiplier, next:timed(nextSuccesses), toMax:timed(maxSuccesses)};
     });
     return {...main, intervals, rows};
   });
