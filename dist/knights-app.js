@@ -1,13 +1,13 @@
 import {setStepper} from './level-stepper.js';
 import {escapeHtml as esc, formatNumber as fmt} from './format.js';
-import {MAIN_SKILLS, SUB_SKILLS, TIMERS, MAX_LEVEL, defaultKnightsPlan, calculateKnights, formatDuration} from './knights-calculator.js';
+import {MAIN_SKILLS, SUB_SKILLS, TIMERS, FARM_FIELDS, MAX_LEVEL, defaultKnightsPlan, calculateKnights, formatDuration} from './knights-calculator.js';
 
 const $ = id => document.getElementById(id);
 const STORAGE = 'mabi-knights-v1';
 const levels = Array.from({length:MAX_LEVEL}, (_, i) => i + 1);
 // Gains such as 0.3125% need more than the shared two decimals to match the per-level counts.
 const gainFormat = new Intl.NumberFormat('zh-TW', {maximumFractionDigits:4});
-const rowNodes = new Map(), intervalNodes = new Map();
+const rowNodes = new Map(), intervalNodes = new Map(), farmNodes = new Map();
 let plan = defaultKnightsPlan();
 
 function trainingHelp(sub) {
@@ -23,6 +23,7 @@ try {
   if (saved && typeof saved === 'object') {
     const candidate = defaultKnightsPlan();
     candidate.shieldThreePeople = saved.shieldThreePeople ?? false;
+    for (const field of FARM_FIELDS) if (Object.hasOwn(saved.petFarm ?? {}, field.id)) candidate.petFarm[field.id] = saved.petFarm[field.id];
     // Earlier saves also had a single 聖靈同步 interval; it no longer applies and is dropped.
     for (const timer of TIMERS) if (Object.hasOwn(saved.intervals ?? {}, timer.id)) candidate.intervals[timer.id] = saved.intervals[timer.id];
     for (const sub of SUB_SKILLS) {
@@ -36,7 +37,7 @@ try {
 
 function mount() {
   $('kn-mains').innerHTML = MAIN_SKILLS.map(main => `<section class="kn-panel" aria-labelledby="kn-${main.id}-heading">
-    <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.id === 'shield-of-trust' ? '<label class="kn-interval"><input type="checkbox" data-three-people>一次三人（福音傳遞、恢復祈禱、復原祈禱每次算 3 次）</label>' : ''}${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
+    <div class="kn-section-heading"><h2 id="kn-${main.id}-heading">${main.name}</h2><span>冷卻 ${main.cooldown} 秒</span><div class="kn-intervals">${main.id === 'shield-of-trust' ? '<label class="kn-interval"><input type="checkbox" data-three-people>一次三人（福音傳遞、恢復祈禱、復原祈禱每次算 3 次）</label>' : ''}${main.id === 'divine-link' ? FARM_FIELDS.map(field => `<label class="kn-interval">${field.id === 'perMinute' ? '聖光顯靈' : ''}${field.label}<input type="number" min="${field.min}" max="${field.max}" step="0.1" inputmode="decimal" data-farm="${field.id}" aria-label="聖光顯靈${field.label}（${field.unit}）">${field.unit}</label>`).join('') : ''}${main.timers.map(timer => `<label class="kn-interval">${timer.label}<input type="number" min="0.1" max="86400" step="0.1" inputmode="decimal" data-interval="${timer.id}" aria-label="${main.name}${timer.label}間隔（秒）">秒</label>`).join('')}</div></div>
     <div class="table-scroll"><table class="kn-table">
       <thead><tr><th scope="col">副技能</th><th scope="col">等級</th><th scope="col">目前修練值</th><th scope="col">每次</th><th scope="col">目前等級</th><th scope="col">升到 Lv.${MAX_LEVEL}</th></tr></thead>
       <tbody>${main.subSkills.map(sub => `<tr data-sub="${sub.id}"><th scope="row"><span class="kn-name"><img class="kn-icon" src="./assets/knights/${sub.id}.webp" width="26" height="26" alt="" loading="lazy" decoding="async">${sub.name}</span>${trainingHelp(sub)}<small data-cell="condition"></small></th><td data-label="等級"><input data-level="${sub.id}" inputmode="numeric" aria-label="${sub.name}目前等級" value="1"></td><td data-label="目前修練值"><span class="kn-progress"><input type="number" min="0" max="99.99" step="0.01" inputmode="decimal" placeholder="0" data-progress="${sub.id}" aria-label="${sub.name}目前修練值（%）">%</span></td><td data-label="每次" data-cell="gain"></td><td class="kn-time" data-label="目前等級" data-cell="next"></td><td data-label="升到 Lv.${MAX_LEVEL}" data-cell="max"></td></tr>`).join('')}</tbody>
@@ -47,10 +48,12 @@ function mount() {
     rowNodes.set(node.dataset.sub, {node, level:node.querySelector('[data-level]'), progress:node.querySelector('[data-progress]'), cells:cells(node)});
   }
   for (const input of $('kn-mains').querySelectorAll('[data-interval]')) intervalNodes.set(input.dataset.interval, input);
+  for (const input of $('kn-mains').querySelectorAll('[data-farm]')) farmNodes.set(input.dataset.farm, input);
 }
 
-// Timed rows lead with the duration; counted-only rows show the success count alone; estimated rows show text only.
-const stepCell = (step, total = false) => step.estimate ? `${esc(step.estimate)}<small>預估${total ? `，${esc(step.note)}` : ''}</small>` : step.seconds === null ? `${fmt(step.successes)} 次<small>只計次數</small>` : `${esc(formatDuration(step.seconds))}<small>${fmt(step.successes)} 次</small>`;
+// Timed rows lead with the duration; counted-only rows show the success count alone; estimated rows show text only;
+// farmed rows add the kills and boss-room runs.
+const stepCell = (step, total = false) => step.estimate ? `${esc(step.estimate)}<small>預估${total ? `，${esc(step.note)}` : ''}</small>` : step.kills ? `${esc(formatDuration(step.seconds))}<small>${fmt(step.kills)} 隻・${fmt(step.runs)} 趟</small>` : step.seconds === null ? `${fmt(step.successes)} 次<small>只計次數</small>` : `${esc(formatDuration(step.seconds))}<small>${fmt(step.successes)} 次</small>`;
 
 // Update text and control state in place; inputs stay mounted so focus and typing are kept.
 function patchRow(row) {
@@ -68,6 +71,7 @@ function patchRow(row) {
 function update(changed = null) {
   const result = calculateKnights(plan);
   document.querySelector('[data-three-people]').checked = plan.shieldThreePeople;
+  for (const [id, input] of farmNodes) if (document.activeElement !== input) input.value = plan.petFarm[id];
   for (const main of result.mains) {
     for (const [id, seconds] of Object.entries(main.intervals)) {
       const input = intervalNodes.get(id);
@@ -79,9 +83,9 @@ function update(changed = null) {
 }
 
 function showErrors() {
-  const invalid = [...$('kn-mains').querySelectorAll('[data-progress][aria-invalid="true"], [data-interval][aria-invalid="true"]')];
+  const invalid = [...$('kn-mains').querySelectorAll('[data-progress][aria-invalid="true"], [data-interval][aria-invalid="true"], [data-farm][aria-invalid="true"]')];
   $('kn-error').hidden = invalid.length === 0;
-  $('kn-error').textContent = invalid.length ? `請修正：${invalid.map(input => input.getAttribute('aria-label')).join('、')}。間隔須為 0.1 至 86,400 秒，修練值須為 0 至 99.99%；其他欄位仍按上次有效值計算。` : '';
+  $('kn-error').textContent = invalid.length ? `請修正：${invalid.map(input => input.getAttribute('aria-label')).join('、')}。間隔須為 0.1 至 86,400 秒，修練值須為 0 至 99.99%，聖光顯靈每分鐘召喚須為 0.1 至 1,000 隻、每趟刷怪 1 至 1,440 分、收怪施放 0 至 1,440 分；其他欄位仍按上次有效值計算。` : '';
 }
 
 $('kn-mains').addEventListener('change', event => {
@@ -101,12 +105,15 @@ $('kn-mains').addEventListener('change', event => {
 });
 
 $('kn-mains').addEventListener('input', event => {
-  const input = event.target.closest('[data-progress], [data-interval]');
+  const input = event.target.closest('[data-progress], [data-interval], [data-farm]');
   if (!input) return;
-  const valid = !input.validity.badInput && input.checkValidity() && !(input.dataset.interval && input.value === '');
+  const valid = !input.validity.badInput && input.checkValidity() && !((input.dataset.interval || input.dataset.farm) && input.value === '');
   input.setAttribute('aria-invalid', String(!valid));
   if (valid) {
-    if (input.dataset.interval) {
+    if (input.dataset.farm) {
+      plan.petFarm[input.dataset.farm] = Number(input.value);
+      update(new Set(['pet-damage-bonus']));
+    } else if (input.dataset.interval) {
       plan.intervals[input.dataset.interval] = Number(input.value);
       update(new Set(SUB_SKILLS.filter(sub => sub.timer === input.dataset.interval).map(sub => sub.id)));
     } else {

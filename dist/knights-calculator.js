@@ -10,7 +10,6 @@ const sameCondition = (condition, gains) => gains.map(gain => [condition, gain])
 // party marks training that targets allies, so one cast on three people counts three times;
 // 魔法反制 (being hit) and 庇佑步伐 (protecting oneself) count once per cast.
 // estimate replaces counts with the play-time estimate confirmed by the user on 2026-10-16.
-const minutesText = minutes => minutes >= 60 ? `${Math.floor(minutes / 60)} 小時${minutes % 60 ? ` ${minutes % 60} 分` : ''}` : `${minutes} 分鐘`;
 export const MAIN_SKILLS = [
   {id:'shield-of-trust', name:'聖盾庇護', cooldown:20, timers:[
     {id:'shield-of-trust', label:'每次成功間隔', seconds:20},
@@ -70,7 +69,9 @@ export const MAIN_SKILLS = [
       ['對負傷高於 70% 的目標使用技能', 2.5],
     ]},
   ]},
-  // 啟迪之光、守護者的誓約 train from link-time events (experience, auto-defence), so only counts are shown; 聖光顯靈 uses an estimate.
+  // 啟迪之光、守護者的誓約 train from link-time events (experience, auto-defence), so only counts are shown.
+  // 聖光顯靈 at Lv.n trains once per n kills (user-measured: Lv.12, 12 kills = 1%, 29% per 15 minutes),
+  // farmed in 硫磺蜘蛛 boss-room runs; the boss does not summon while mobs are gathered and the skill is cast.
   {id:'divine-link', name:'聖靈同步', cooldown:60, timers:[
     {id:'pet-life-wound-recover', label:'復甦的靈魂每次', seconds:60},
     {id:'pet-auto-revive', label:'復活的權杖每次', seconds:10},
@@ -91,11 +92,7 @@ export const MAIN_SKILLS = [
       ['靈魂連結狀態下獲得經驗值 18,000 以上', 0.2],
       ['靈魂連結狀態下獲得經驗值 20,000 以上', 0.2],
     ]},
-    {id:'pet-damage-bonus', name:'聖光顯靈',
-      estimate:level => level < 10
-        ? {next:'很快', toMax:'約 3 小時以上', note:'Lv.1–10 共約 30 分鐘'}
-        : {next:'約 30 分鐘以上', toMax:`約 ${minutesText((MAX_LEVEL - level) * 30)}以上`, note:'Lv.10 起每級約 30 分鐘以上'},
-      levels:[
+    {id:'pet-damage-bonus', name:'聖光顯靈', farm:true, levels:[
       ['靈魂連結狀態下寵物消滅敵人', 10],
       ['靈魂連結狀態下寵物消滅 2 名以上敵人', 10],
       ['靈魂連結狀態下寵物消滅 3 名以上敵人', 5],
@@ -180,9 +177,24 @@ export function successesNeeded(gain, progress = 0) {
 
 export const TIMERS = MAIN_SKILLS.flatMap(main => main.timers);
 
+// Editable 聖光顯靈 farming pace: summoned kills per minute, farming minutes per run, minutes to gather and cast.
+export const FARM_FIELDS = [
+  {id:'perMinute', label:'每分鐘召喚', unit:'隻', value:23.2, min:0.1, max:1000},
+  {id:'runMinutes', label:'每趟刷怪', unit:'分', value:50, min:1, max:1440},
+  {id:'gatherMinutes', label:'收怪施放', unit:'分', value:3, min:0, max:1440},
+];
+
+// Kills for a level's successes; each run farms at most runMinutes, then spends gatherMinutes before the kills count.
+function farmStep(farm, level, successes) {
+  const kills = successes * level;
+  const runs = Math.ceil(kills / (farm.perMinute * farm.runMinutes) - 1e-9);
+  return {successes, kills, runs, seconds:(kills / farm.perMinute + runs * farm.gatherMinutes) * 60};
+}
+
 export function defaultKnightsPlan() {
   return {
     shieldThreePeople:false,
+    petFarm:Object.fromEntries(FARM_FIELDS.map(field => [field.id, field.value])),
     intervals:Object.fromEntries(TIMERS.map(timer => [timer.id, timer.seconds])),
     subSkills:Object.fromEntries(SUB_SKILLS.map(sub => [sub.id, {level:1, progress:0}])),
   };
@@ -191,6 +203,7 @@ export function defaultKnightsPlan() {
 export function calculateKnights(plan) {
   const threePeople = plan?.shieldThreePeople ?? false;
   if (typeof threePeople !== 'boolean') throw new Error('一次三人設定須為布林值。');
+  const farm = Object.fromEntries(FARM_FIELDS.map(field => [field.id, number(plan?.petFarm?.[field.id], field.min, field.max, `聖光顯靈${field.label}（${field.unit}）`)]));
   const mains = MAIN_SKILLS.map(main => {
     const intervals = Object.fromEntries(main.timers.map(timer => [timer.id, number(plan?.intervals?.[timer.id], 0.1, 86400, `${main.name}${timer.label}間隔（秒）`)]));
     const rows = main.subSkills.map(sub => {
@@ -206,6 +219,14 @@ export function calculateKnights(plan) {
       const nextSuccesses = Math.ceil(successesNeeded(gain, progress) / multiplier);
       let maxSuccesses = nextSuccesses;
       for (let at = level + 1; at < MAX_LEVEL; at++) maxSuccesses += Math.ceil(successesNeeded(sub.levels[at - 1][1]) / multiplier);
+      if (sub.farm) {
+        const next = farmStep(farm, level, successesNeeded(gain, progress)), toMax = {...next};
+        for (let at = level + 1; at < MAX_LEVEL; at++) {
+          const step = farmStep(farm, at, successesNeeded(sub.levels[at - 1][1]));
+          for (const key of Object.keys(toMax)) toMax[key] += step[key];
+        }
+        return {...sub, level, progress, maxed:false, gain, condition, interval, multiplier, next, toMax};
+      }
       if (sub.estimate) {
         const {next, toMax, note} = sub.estimate(level);
         return {...sub, level, progress, maxed:false, gain, condition, interval, multiplier, next:{estimate:next, note}, toMax:{estimate:toMax, note}};

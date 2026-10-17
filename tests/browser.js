@@ -177,7 +177,7 @@ document.getElementById('run').addEventListener('click',async()=>{
     const kn=await open('knights.html',d=>d.querySelectorAll('[data-sub]').length===SUB_SKILLS.length);
     let knightPlan=defaultKnightsPlan();
     knightPlan.intervals['shield-of-trust']=25;knightPlan.subSkills['pet-auto-revive']={level:3,progress:0};
-    const knightStep=(step,total=false)=>step.estimate?`${step.estimate}預估${total?`，${step.note}`:''}`:step.seconds===null?`${formatNumber(step.successes)} 次只計次數`:`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
+    const knightStep=(step,total=false)=>step.estimate?`${step.estimate}預估${total?`，${step.note}`:''}`:step.kills?`${formatDuration(step.seconds)}${formatNumber(step.kills)} 隻・${formatNumber(step.runs)} 趟`:step.seconds===null?`${formatNumber(step.successes)} 次只計次數`:`${formatDuration(step.seconds)}${formatNumber(step.successes)} 次`;
     function verifyKnights() {
       for (const main of calculateKnights(knightPlan).mains) {
         for (const [id,seconds] of Object.entries(main.intervals)) same(kn.querySelector(`[data-interval="${id}"]`).value,String(seconds),`${id} 間隔`);
@@ -221,8 +221,13 @@ document.getElementById('run').addEventListener('click',async()=>{
     change(magicLevel,'16');same(magicLevel.value,'11','副技能非法等級恢復');
     change(magicLevel,'10','input');knightPlan.subSkills['increase-magic-defense']={level:10,progress:0};verifyKnights();
     same(kn.querySelector('[data-sub="increase-magic-defense"] [data-cell="max"]').textContent,'約 30 分鐘內預估，Lv.1 練到滿約 30 分鐘','魔法反制只列預估時間');
-    change(kn.querySelector('[data-level="pet-damage-bonus"]'),'10');knightPlan.subSkills['pet-damage-bonus']={level:10,progress:0};
-    same(kn.querySelector('[data-sub="pet-damage-bonus"] [data-cell="next"]').textContent,'約 30 分鐘以上預估','聖光顯靈 Lv.10 每級預估');verifyKnights();
+    change(kn.querySelector('[data-level="pet-damage-bonus"]'),'12');knightPlan.subSkills['pet-damage-bonus']={level:12,progress:0};
+    same(kn.querySelector('[data-sub="pet-damage-bonus"] [data-cell="next"]').textContent,'57 分 43 秒1,200 隻・2 趟','聖光顯靈 Lv.12 刷 1,200 隻分 2 趟');verifyKnights();
+    const farmRate=kn.querySelector('[data-farm="perMinute"]');
+    farmRate.focus();change(farmRate,'24','input');knightPlan.petFarm.perMinute=24;
+    same(kn.activeElement,farmRate,'召喚速度焦點不變');verifyKnights();
+    change(farmRate,'0','input');assert(!kn.getElementById('kn-error').hidden,'召喚速度 0 顯示錯誤');verifyKnights();
+    change(farmRate,'24','input');assert(kn.getElementById('kn-error').hidden,'召喚速度修正後隱藏錯誤');
     change(kn.querySelector('[data-level="recover-hp"]'),'12');knightPlan.subSkills['recover-hp']={level:12,progress:0};
     same(kn.querySelector('[data-sub="recover-hp"] [data-cell="gain"]').textContent,'0.3125%','每次修練值顯示到小數四位');
     same(kn.querySelector('[data-sub="recover-hp"] [data-cell="next"]').textContent,'1 小時 46 分 40 秒320 次','0.3125% 需 320 次');verifyKnights();

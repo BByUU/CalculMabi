@@ -99,6 +99,10 @@ test('無效等級、修練值與間隔不能產生假結果', () => {
     plan => { plan.intervals['shield-of-trust'] = ''; },
     plan => { plan.intervals['pet-auto-revive'] = 86401; },
     plan => { delete plan.intervals['pet-life-wound-recover']; },
+    plan => { plan.petFarm.perMinute = 0; },
+    plan => { plan.petFarm.runMinutes = ''; },
+    plan => { plan.petFarm.gatherMinutes = -1; },
+    plan => { delete plan.petFarm; },
   ];
   for (const mutate of invalid) {
     const plan = defaultKnightsPlan();
@@ -134,19 +138,30 @@ test('一次三人只影響針對隊友的聖盾副技能，每級施放次數�
   assert.throws(() => calculateKnights(plan));
 });
 
-test('魔法反制與聖光顯靈只列預估時間，聖光顯靈 Lv.10 起每級約 30 分鐘以上', () => {
+test('魔法反制只列預估時間', () => {
   const plan = defaultKnightsPlan();
-  const estimates = level => {
-    plan.subSkills['increase-magic-defense'] = {level, progress:0};
-    plan.subSkills['pet-damage-bonus'] = {level, progress:0};
-    const rows = calculateKnights(plan).mains.flatMap(main => main.rows);
-    return ['increase-magic-defense', 'pet-damage-bonus'].map(id => rows.find(row => row.id === id)).map(row => [row.next.estimate, row.toMax.estimate]);
-  };
-  assert.deepEqual(estimates(1), [['很快', '約 30 分鐘內'], ['很快', '約 3 小時以上']]);
-  assert.deepEqual(estimates(10)[1], ['約 30 分鐘以上', '約 2 小時 30 分以上']);
-  assert.deepEqual(estimates(14)[1], ['約 30 分鐘以上', '約 30 分鐘以上']);
+  plan.subSkills['increase-magic-defense'] = {level:6, progress:30};
+  const magic = calculateKnights(plan).mains[0].rows.find(row => row.id === 'increase-magic-defense');
+  assert.deepEqual([magic.next.estimate, magic.toMax.estimate], ['很快', '約 30 分鐘內']);
+});
+
+test('聖光顯靈 Lv.n 每殺 n 隻修練一次，每分鐘 23.2 隻、每趟刷 50 分鐘再花 3 分鐘收怪', () => {
+  const plan = defaultKnightsPlan();
+  assert.deepEqual(plan.petFarm, {perMinute:23.2, runMinutes:50, gatherMinutes:3});
+  const pet = () => calculateKnights(plan).mains[1].rows.find(row => row.id === 'pet-damage-bonus');
+  plan.subSkills['pet-damage-bonus'] = {level:12, progress:0};
+  // 1% per 12 kills: 1,200 kills is 51.7 minutes of farming, so two runs and two gathers.
+  assert.deepEqual([pet().next.kills, pet().next.runs], [1200, 2]);
+  assert.ok(Math.abs(pet().next.seconds - (1200 / 23.2 + 6) * 60) < 1e-6);
+  plan.subSkills['pet-damage-bonus'] = {level:12, progress:71};
+  assert.deepEqual([pet().next.kills, pet().next.runs], [29 * 12, 1]);
+  plan.subSkills['pet-damage-bonus'] = {level:13, progress:0};
+  assert.deepEqual([pet().toMax.kills, pet().toMax.runs], [125 * 13 + 200 * 14, 2 + 3]);
+  plan.petFarm = {perMinute:30, runMinutes:60, gatherMinutes:0};
+  plan.subSkills['pet-damage-bonus'] = {level:10, progress:0};
+  assert.deepEqual(pet().next, {successes:67, kills:670, runs:1, seconds:670 * 2});
   plan.subSkills['pet-damage-bonus'] = {level:MAX_LEVEL, progress:0};
-  assert.equal(calculateKnights(plan).mains[1].rows.find(row => row.id === 'pet-damage-bonus').maxed, true);
+  assert.equal(pet().maxed, true);
 });
 
 test('庇佑步伐每 30 秒一次，間隔獨立於其他聖盾副技能', () => {
